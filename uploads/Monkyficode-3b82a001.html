@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monkyfi | Telecom AI Transformation Specialist</title>
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            cyan: '#00D1FF',
+                            navy: '#0A1426',
+                            darkest: '#070B14',
+                            cream: '#F2C98B',
+                            white: '#FFFFFF'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .neon-border {
+            box-shadow: 0 0 15px rgba(0, 209, 255, 0.1);
+            border: 1px solid rgba(0, 209, 255, 0.2);
+        }
+        .neon-border-hover:hover {
+            box-shadow: 0 0 25px rgba(0, 209, 255, 0.25);
+            border: 1px solid rgba(0, 209, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        .glow-text {
+            text-shadow: 0 0 12px rgba(0, 209, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-brand-darkest text-slate-300 font-sans antialiased selection:bg-brand-cyan selection:text-brand-darkest">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-brand-darkest/90 backdrop-blur-md border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo Group -->
+            <div class="flex items-center space-x-3">
+                <div class="h-11 w-11 rounded-lg bg-brand-navy border border-brand-cyan/30 flex items-center justify-center overflow-hidden">
+                    <img src="logo.png" alt="Monkyfi Icon" onerror="this.style.display='none'; document.getElementById('fallback-icon').style.display='block';" class="object-contain w-full h-full">
+                    <span id="fallback-icon" class="text-xl hidden">🐵</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-bold text-brand-white tracking-wider leading-none">Monkyfi</span>
+                    <span class="text-[9px] text-brand-cyan tracking-widest uppercase mt-1 font-semibold">Get AI Power</span>
+                </div>
+            </div>
+
+            <!-- Global Segment Switcher -->
+            <div class="flex bg-brand-navy p-1 rounded-lg border border-slate-800">
+                <button onclick="switchSegment('services')" id="btn-segment-services" class="px-4 py-1.5 rounded-md text-xs font-semibold transition-all bg-brand-cyan text-brand-darkest">
+                    Services & Technology
+                </button>
+                <button onclick="switchSegment('legal')" id="btn-segment-legal" class="px-4 py-1.5 rounded-md text-xs font-semibold transition-all text-slate-400 hover:text-white">
+                    Engagement & Terms
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- ================= SERVICES SEGMENT ================= -->
+        <div id="segment-services" class="space-y-20">
+            
+            <!-- Hero Landing Section -->
+            <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pt-6 pb-12">
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 py-1 px-3 rounded-full text-xs font-medium bg-brand-cyan/10 text-brand-cyan border border-brand-cyan/20">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brand-cyan animate-pulse"></span>
+                        Telecom AI Transformation Specialist
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-white tracking-tight leading-none">
+                        Optimizing Telecom Operations Through <span class="text-brand-cyan glow-text">AI Power</span>
+                    </h1>
+                    <p class="text-base sm:text-lg text-slate-400 leading-relaxed max-w-2xl">
+                        A specialized consulting and systems integration practice. We help carriers, operators, and infrastructure providers upgrade networks with high-precision operational intelligence.
+                    </p>
+                    
+                    <!-- Core Value Pillars from Legend -->
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-4">
+                        <div class="bg-brand-navy/60 p-3 rounded-lg border border-slate-800 text-center">
+                            <div class="text-brand-cyan text-base mb-1">🧠</div>
+                            <div class="text-[10px] font-bold text-white uppercase tracking-wider">AI-First</div>
+                            <div class="text-[9px] text-slate-500 mt-0.5">Built for future</div>
+                        </div>
+                        <div class="bg-brand-navy/60 p-3 rounded-lg border border-slate-800 text-center">
+                            <div class="text-brand-cyan text-base mb-1">⚡</div>
+                            <div class="text-[10px] font-bold text-white uppercase tracking-wider">Powerful</div>
+                            <div class="text-[9px] text-slate-500 mt-0.5">Real impact</div>
+                        </div>
+                        <div class="bg-brand-navy/60 p-3 rounded-lg border border-slate-800 text-center">
+                            <div class="text-brand-cyan text-base mb-1">🎯</div>
+                            <div class="text-[10px] font-bold text-white uppercase tracking-wider">Focused</div>
+                            <div class="text-[9px] text-slate-500 mt-0.5">Solutions matter</div>
+                        </div>
+                        <div class="bg-brand-navy/60 p-3 rounded-lg border border-slate-800 text-center">
+                            <div class="text-brand-cyan text-base mb-1">📈</div>
+                            <div class="text-[10px] font-bold text-white uppercase tracking-wider">Scalable</div>
+                            <div class="text-[9px] text-slate-500 mt-0.5">Growth limits</div>
+                        </div>
+                        <div class="bg-brand-navy/60 p-3 rounded-lg border border-slate-800 text-center col-span-2 sm:col-span-1">
+                            <div class="text-brand-cyan text-base mb-1">🛡️</div>
+                            <div class="text-[10px] font-bold text-white uppercase tracking-wider">Trusted</div>
+                            <div class="text-[9px] text-slate-500 mt-0.5">Secure. Proven.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual Brand Identity Side -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-sm aspect-square bg-brand-navy rounded-2xl border border-slate-800/80 p-6 flex flex-col justify-between overflow-hidden">
+                        <div class="absolute top-0 right-0 p-3 bg-brand-cyan/10 text-brand-cyan text-[9px] font-bold uppercase tracking-wider border-b border-l border-slate-800/80 rounded-bl-lg">
+                            Active Node
+                        </div>
+                        <div class="flex-grow flex items-center justify-center">
+                            <img src="logo.png" alt="Monkyfi Primary Logo" class="max-h-64 object-contain">
+                        </div>
+                        <div class="border-t border-slate-800/80 pt-4 flex justify-between items-center text-[11px] text-slate-500">
+                            <span>HEX: #00D1FF</span>
+                            <span class="text-brand-cream font-mono">SYS STATUS: ONLINE</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Scope of Services Grid -->
+            <section class="space-y-10">
+                <div class="border-l-4 border-brand-cyan pl-4">
+                    <h2 class="text-2xl font-bold text-brand-white uppercase tracking-wider">Scope of Services</h2>
+                    <p class="text-sm text-slate-400 mt-1">Structured integration segments for modern telecommunications networks.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Service 1: AI & Telecom Consulting -->
+                    <div class="p-6 bg-brand-navy rounded-xl border border-slate-800/80 hover:border-brand-cyan/40 transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-semibold text-brand-cyan tracking-widest uppercase">01 / Consulting</span>
+                            <h3 class="text-lg font-bold text-brand-white mt-2 mb-4">AI & Telecom Strategy</h3>
+                            <ul class="space-y-2.5 text-xs text-slate-400">
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> Telecom operational optimization</li>
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> Digital transformation strategy</li>
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> AI adoption roadmaps</li>
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> AI readiness assessments</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Service 2: Network & Infrastructure -->
+                    <div class="p-6 bg-brand-navy rounded-xl border border-slate-800/80 hover:border-brand-cyan/40 transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-semibold text-brand-cyan tracking-widest uppercase">02 / Engineering</span>
+                            <h3 class="text-lg font-bold text-brand-white mt-2 mb-4">Network & Infrastructure</h3>
+                            <ul class="space-y-2.5 text-xs text-slate-400">
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> Service delivery improvement</li>
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> Network performance analysis</li>
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> Submarine cable operations consulting</li>
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> Data infrastructure optimization</li>
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> NOC/SOC operational enhancement</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Service 3: AI Automation Solutions -->
+                    <div class="p-6 bg-brand-navy rounded-xl border border-slate-800/80 hover:border-brand-cyan/40 transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-semibold text-brand-cyan tracking-widest uppercase">03 / Automation</span>
+                            <h3 class="text-lg font-bold text-brand-white mt-2 mb-4">AI Automation Solutions</h3>
+                            <ul class="space-y-2.5 text-xs text-slate-400">
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> AI-powered outage prediction</li>
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> Ticket automation systems</li>
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> Intelligent monitoring dashboards</li>
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> Predictive maintenance solutions</li>
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> AI copilots for telecom operations</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Service 4: Data & Analytics -->
+                    <div class="p-6 bg-brand-navy rounded-xl border border-slate-800/80 hover:border-brand-cyan/40 transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-semibold text-brand-cyan tracking-widest uppercase">04 / Intelligence</span>
+                            <h3 class="text-lg font-bold text-brand-white mt-2 mb-4">Data & Analytics</h3>
+                            <ul class="space-y-2.5 text-xs text-slate-400">
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> Data readiness assessments for AI</li>
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> Telecom data governance</li>
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> KPI and SLA analytics</li>
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> Network observability solutions</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Service 5: Training & Advisory -->
+                    <div class="p-6 bg-brand-navy rounded-xl border border-slate-800/80 hover:border-brand-cyan/40 transition-all duration-300 flex flex-col justify-between md:col-span-2 lg:col-span-1">
+                        <div>
+                            <span class="text-xs font-semibold text-brand-cyan tracking-widest uppercase">05 / Education</span>
+                            <h3 class="text-lg font-bold text-brand-white mt-2 mb-4">Training & Advisory</h3>
+                            <ul class="space-y-2.5 text-xs text-slate-400">
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> AI workshops for telecom teams</li>
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> Executive AI strategy sessions</li>
+                                <li class="flex items-center gap-2"><span class="text-brand-cyan">•</span> Technical advisory for transformation</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ================= LEGAL & ENGAGEMENT SEGMENT ================= -->
+        <div id="segment-legal" class="space-y-16 hidden">
+            
+            <!-- Context Intro Header -->
+            <div class="border-l-4 border-brand-cyan pl-4">
+                <span class="text-xs font-semibold text-brand-cyan tracking-widest uppercase">Operations & Governance</span>
+                <h2 class="text-3xl font-bold text-brand-white mt-1">Operational & Legal Framework</h2>
+                <p class="text-sm text-slate-400 mt-2 max-w-2xl">
+                    Clear structures ensure high-quality service delivery. This framework sets expectations regarding our consulting scope, pricing transparency, and data privacy protocols.
+                </p>
+            </div>
+
+            <!-- Main Legal Tabs Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Left Sub-nav (Legal Categories) -->
+                <div class="lg:col-span-3 space-y-2">
+                    <button onclick="switchLegalTab('tos')" id="tab-tos" class="w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all bg-brand-navy border-l-2 border-brand-cyan text-white">
+                        Terms of Service
+                    </button>
+                    <button onclick="switchLegalTab('fees')" id="tab-fees" class="w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all hover:bg-brand-navy/50 text-slate-400">
+                        Fees & Engagements
+                    </button>
+                    <button onclick="switchLegalTab('retention')" id="tab-retention" class="w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all hover:bg-brand-navy/50 text-slate-400">
+                        Data Retention & Support
+                    </button>
+                    <button onclick="switchLegalTab('nda')" id="tab-nda" class="w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all hover:bg-brand-navy/50 text-slate-400">
+                        Confidentiality & NDA
+                    </button>
+                </div>
+
+                <!-- Right content view panel -->
+                <div class="lg:col-span-9 bg-brand-navy p-6 sm:p-8 rounded-xl border border-slate-800">
+                    
+                    <!-- TAB 1: Terms of Service -->
+                    <div id="content-tos" class="space-y-6">
+                        <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                            <h3 class="text-lg font-bold text-brand-white">Terms of Service Agreement</h3>
+                            <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-mono">Rev: 2026.1</span>
+                        </div>
+                        <div class="space-y-4 text-xs sm:text-sm text-slate-400 leading-relaxed">
+                            <div>
+                                <h4 class="font-bold text-white mb-1">1. Scope of Work</h4>
+                                <p>Monkyfi provides professional consulting, optimization advice, and software integration services specifically for telecommunications platforms. All engagements will proceed under mutually executed Statements of Work (SOW).</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">2. Project Duration</h4>
+                                <p>Standard active project engagements run from one (1) week up to several months depending on deployment scale and optimization parameters specified in the custom timeline.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">3. Deliverables</h4>
+                                <p>All formal deliverables are provided in the form of detailed structured project documentation, design schematics, deployment scripts, or configured dashboards as outlined in individual SOW agreements.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">4. Client Responsibilities</h4>
+                                <p>Clients must assign a dedicated point of contact, coordinate access to necessary data structures, networks, or cloud platforms, and provide accurate system performance metrics.</p>
+                            </div>
+                            <div class="p-3.5 bg-yellow-500/10 border-l-2 border-brand-cream rounded text-xs text-brand-cream">
+                                <strong class="font-bold block mb-0.5">5. Operational Limitations & Liabilities</strong>
+                                Monkyfi acts as an advisory and technical consulting provider. Monkyfi is strictly not responsible for security breaches, service degradation, or infrastructure instability resulting from bad operational practices or external legacy configuration defects.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: Fees & Engagements -->
+                    <div id="content-fees" class="space-y-6 hidden">
+                        <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                            <h3 class="text-lg font-bold text-brand-white">Standard Fee Structures</h3>
+                            <span class="text-[10px] bg-brand-cyan/20 text-brand-cyan px-2 py-0.5 rounded font-mono">Rates Transparent</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="p-4 bg-brand-darkest rounded-lg border border-slate-800">
+                                <span class="text-[10px] font-bold text-brand-cyan tracking-wider uppercase">Advisory Rate</span>
+                                <h4 class="text-xl font-bold text-white my-1">$75 – $250<span class="text-xs text-slate-500">/hr</span></h4>
+                                <p class="text-[11px] text-slate-400">Depends on complexity, network topography, and integration urgency.</p>
+                            </div>
+                            <div class="p-4 bg-brand-darkest rounded-lg border border-slate-800">
+                                <span class="text-[10px] font-bold text-brand-cyan tracking-wider uppercase">Project Estimates</span>
+                                <h4 class="text-xl font-bold text-white my-1">$3,000 – $25,000+</h4>
+                                <p class="text-[11px] text-slate-400">Standard projects include AI Readiness ($3k+) or Automation Architecture ($5k+).</p>
+                            </div>
+                            <div class="p-4 bg-brand-darkest rounded-lg border border-slate-800">
+                                <span class="text-[10px] font-bold text-brand-cyan tracking-wider uppercase">Monthly Retainer</span>
+                                <h4 class="text-xl font-bold text-white my-1">$1,500 – $10,000+</h4>
+                                <p class="text-[11px] text-slate-400">Dedicated ongoing advisory and infrastructure support allocations.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Mini interactive pricing matrix -->
+                        <div class="bg-brand-darkest p-4 rounded-lg border border-slate-800 space-y-3">
+                            <span class="text-[11px] text-brand-cyan font-semibold uppercase tracking-wider">Quick Estimator</span>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[10px] text-slate-500 uppercase font-semibold mb-1">Engagement Type</label>
+                                    <select id="est-type" onchange="calculateEstimate()" class="w-full bg-brand-navy border border-slate-800 text-xs p-2 rounded text-slate-300 focus:outline-none focus:ring-1 focus:ring-brand-cyan">
+                                        <option value="hourly">Advisory Hours Only</option>
+                                        <option value="readiness">AI Readiness Assessment</option>
+                                        <option value="automation">Automation Strategy Design</option>
+                                        <option value="retainer">Standard Monthly Retainer</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] text-slate-500 uppercase font-semibold mb-1">Calculated Range</label>
+                                    <div id="est-result" class="text-base font-bold text-brand-white pt-1">$75 – $250 / Hour</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-xs text-slate-500 space-y-1">
+                            <p><strong>Payment Terms:</strong> All project agreements require a 50% upfront payment, with the remaining 50% due upon delivery of final documentation. Invoices are governed by Net-15 or Net-30 payment intervals.</p>
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: Data Retention & Support -->
+                    <div id="content-retention" class="space-y-6 hidden">
+                        <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                            <h3 class="text-lg font-bold text-brand-white">Data Retention & Support</h3>
+                            <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-mono">Security First</span>
+                        </div>
+                        <div class="space-y-4 text-xs sm:text-sm text-slate-400">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="p-4 bg-brand-darkest rounded-lg border border-slate-800">
+                                    <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-2">Support Duration</h4>
+                                    <p class="text-xs leading-relaxed">Following final documentation delivery, Monkyfi offers standard support for 30 to 90 days to assist network teams with transition troubleshooting.</p>
+                                </div>
+                                <div class="p-4 bg-brand-darkest rounded-lg border border-slate-800">
+                                    <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-2">Record Retention</h4>
+                                    <p class="text-xs leading-relaxed">Primary project operational logs and integration records are strictly retained for a period of twelve (12) months after closing.</p>
+                                </div>
+                            </div>
+                            <div class="bg-brand-darkest/50 p-4 rounded-lg border border-slate-800">
+                                <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-1">Secure Deletion Mandate</h4>
+                                <p class="text-xs leading-relaxed">Upon completion of retention timeline or immediate mutual request, all confidential infrastructure charts, credentials, and telemetry profiles are securely wiped using enterprise sanitation procedures.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 4: Confidentiality & NDA -->
+                    <div id="content-nda" class="space-y-6 hidden">
+                        <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                            <h3 class="text-lg font-bold text-brand-white">Confidentiality & Mutual NDA</h3>
+                            <span class="text-[10px] bg-brand-cyan/20 text-brand-cyan px-2 py-0.5 rounded font-mono">Protected Nodes</span>
+                        </div>
+                        <div class="space-y-4 text-xs sm:text-sm text-slate-400">
+                            <p class="leading-relaxed">
+                                Due to the sensitive nature of operations, we establish a legally binding obligation to privacy before deep technical discovery. Our standard NDA safeguards:
+                            </p>
+                            <div class="grid grid-cols-2 gap-3 text-xs">
+                                <div class="bg-brand-darkest p-2.5 rounded border border-slate-800 text-slate-300">
+                                    📂 Network Diagrams & IP Topographies
+                                </div>
+                                <div class="bg-brand-darkest p-2.5 rounded border border-slate-800 text-slate-300">
+                                    🔒 Security Log Files & Incident History
+                                </div>
+                                <div class="bg-brand-darkest p-2.5 rounded border border-slate-800 text-slate-300">
+                                    ⚡ AI Core Logic & Proprietary Datasets
+                                </div>
+                                <div class="bg-brand-darkest p-2.5 rounded border border-slate-800 text-slate-300">
+                                    📉 Billing, Routing Tables, & Traffic Info
+                                </div>
+                            </div>
+                            <div class="bg-brand-darkest p-4 rounded-lg border border-slate-800">
+                                <p class="font-semibold text-white mb-2 text-xs uppercase tracking-wider">Legal Commitment</p>
+                                <blockquote class="italic text-slate-400 border-l-2 border-brand-cyan pl-3">
+                                    "All shared technical, operational, and business information shall remain strictly confidential and may not be disclosed to third parties without written consent."
+                                </blockquote>
+                            </div>
+                            <p class="text-xs text-slate-500">
+                                Custom NDAs or tailored security-clearance agreements are routinely structured prior to system inspection.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Partner Contact CTA Section -->
+        <section id="engagement-portal" class="py-12 bg-brand-navy rounded-2xl border border-slate-800 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-brand-cyan/5 to-transparent pointer-events-none"></div>
+            <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-6">
+                <h2 class="text-2xl sm:text-3xl font-bold text-brand-white">Initiate Technical Consultation</h2>
+                <p class="text-sm text-slate-400 max-w-xl mx-auto leading-relaxed">
+                    Collaborate with a specialist team to evaluate your infrastructure, review AI opportunities, and implement robust automation.
+                </p>
+                <form id="waitlist-form" class="max-w-md mx-auto sm:flex gap-3 pt-2" onsubmit="handleWaitlistSubmit(event)">
+                    <input 
+                        type="email" 
+                        required 
+                        placeholder="Enterprise Email Address" 
+                        class="w-full px-4 py-2.5 rounded-lg bg-brand-darkest border border-slate-700 text-brand-white placeholder-slate-500 text-xs focus:outline-none focus:ring-1 focus:ring-brand-cyan focus:border-transparent"
+                    >
+                    <button 
+                        type="submit" 
+                        class="w-full sm:w-auto mt-2 sm:mt-0 bg-brand-cyan hover:bg-cyan-400 text-brand-darkest font-semibold px-6 py-2.5 rounded-lg text-xs transition-colors whitespace-nowrap"
+                    >
+                        Request Assessment
+                    </button>
+                </form>
+                <div id="success-msg" class="text-brand-cyan text-xs font-semibold hidden animate-fade-in">
+                    ✓ Request processed. Our integration team will correspond directly.
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-darkest py-10 border-t border-slate-900 text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center space-x-2">
+                <span class="text-slate-400 font-bold uppercase tracking-widest text-[10px]">MONKYFI TELECOM AI</span>
+            </div>
+            <p class="text-slate-600 text-center md:text-right">
+                &copy; 2026 Monkyfi. Dedicated to telecom network optimization.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Vanilla Javascript Logic -->
+    <script>
+        // Tab switching between primary sections
+        function switchSegment(segment) {
+            const divServices = document.getElementById('segment-services');
+            const divLegal = document.getElementById('segment-legal');
+            const btnServices = document.getElementById('btn-segment-services');
+            const btnLegal = document.getElementById('btn-segment-legal');
+
+            if (segment === 'services') {
+                divServices.classList.remove('hidden');
+                divLegal.classList.add('hidden');
+                btnServices.className = "px-4 py-1.5 rounded-md text-xs font-semibold transition-all bg-brand-cyan text-brand-darkest";
+                btnLegal.className = "px-4 py-1.5 rounded-md text-xs font-semibold transition-all text-slate-400 hover:text-white";
+            } else {
+                divServices.classList.add('hidden');
+                divLegal.classList.remove('hidden');
+                btnLegal.className = "px-4 py-1.5 rounded-md text-xs font-semibold transition-all bg-brand-cyan text-brand-darkest";
+                btnServices.className = "px-4 py-1.5 rounded-md text-xs font-semibold transition-all text-slate-400 hover:text-white";
+            }
+        }
+
+        // Sub-tabs inside Operational / Legal Segment
+        function switchLegalTab(tabId) {
+            // Hide all panels
+            document.getElementById('content-tos').classList.add('hidden');
+            document.getElementById('content-fees').classList.add('hidden');
+            document.getElementById('content-retention').classList.add('hidden');
+            document.getElementById('content-nda').classList.add('hidden');
+
+            // De-activate all sidebar buttons
+            const buttons = ['tab-tos', 'tab-fees', 'tab-retention', 'tab-nda'];
+            buttons.forEach(id => {
+                const btn = document.getElementById(id);
+                btn.className = "w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all hover:bg-brand-navy/50 text-slate-400";
+            });
+
+            // Activate chosen target
+            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            activeBtn.className = "w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all bg-brand-navy border-l-2 border-brand-cyan text-white";
+        }
+
+        // Pricing Calculator Logic
+        function calculateEstimate() {
+            const selection = document.getElementById('est-type').value;
+            const resultBox = document.getElementById('est-result');
+
+            switch (selection) {
+                case 'hourly':
+                    resultBox.innerText = "$75 – $250 / Hour";
+                    break;
+                case 'readiness':
+                    resultBox.innerText = "$3,000 – $10,000 / Flat fee";
+                    break;
+                case 'automation':
+                    resultBox.innerText = "$5,000 – $25,000 / Milestone";
+                    break;
+                case 'retainer':
+                    resultBox.innerText = "$1,500 – $10,000 / Month";
+                    break;
+                default:
+                    resultBox.innerText = "Custom estimation required";
+            }
+        }
+
+        // Contact Form Processing
+        function handleWaitlistSubmit(event) {
+            event.preventDefault();
+            document.getElementById('waitlist-form').classList.add('hidden');
+            document.getElementById('success-msg').classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>
