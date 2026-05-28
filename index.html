@@ -967,15 +967,23 @@ Tone: confident, warm, technical when it serves, never salesy. Reply in 2-4 shor
     document.getElementById('chatSuggestions').style.display='none';
     appendTyping();
     try{
-      const reply = await window.claude.complete({
-        messages: [
-          { role:'user', content: `${SYSTEM}\n\n--- conversation so far ---\n${history.map(m=>`${m.role.toUpperCase()}: ${m.content}`).join('\n')}\n\nReply now as the Monkyfi AI (do not echo "ASSISTANT:" — just the message body).` }
-        ]
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system: SYSTEM,
+          messages: history
+        })
       });
+      if(!res.ok) throw new Error('API ' + res.status);
+      const data = await res.json();
+      const reply = (data && data.text) ? data.text : '';
+      if(!reply) throw new Error('empty reply');
       removeTyping();
       history.push({role:'assistant', content:reply});
       append('bot', reply);
     }catch(err){
+      console.error('chat error:', err);
       removeTyping();
       append('bot', "Hmm — I couldn't reach the model just now. You can email Dante directly at **dante@monkyfi.com** or **hello@monkyfi.com** and he'll reply within 24 hours.");
     }
