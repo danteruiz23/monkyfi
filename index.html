@@ -610,9 +610,9 @@
       <h3>Monkyfi Connect</h3>
       <p class="tagline">Fractional Service Delivery Manager + Solutions Architect for US ↔ LATAM enterprise circuits. IRU review, cross-border SLAs, NOC integration, last-mile coordination.</p>
       <div class="p-stats">
-        <div class="p-stat"><b>$15K</b><small>Monthly retainer</small></div>
         <div class="p-stat"><b>30–60d</b><small>To first revenue</small></div>
-        <div class="p-stat"><b>95%</b><small>Gross margin</small></div>
+        <div class="p-stat"><b>↓40%</b><small>Avg provisioning time</small></div>
+        <div class="p-stat"><b>24/7</b><small>Cross-border coverage</small></div>
       </div>
     </div>
 
@@ -632,8 +632,8 @@
       <h3>Monkyfi Atlas</h3>
       <p class="tagline">Agentic-AI NOC copilot for LATAM Tier-2/3 carriers. Auto-triage alarms, Spanish/Portuguese incident summaries, cross-domain correlation. Ship in 90 days.</p>
       <div class="p-stats">
-        <div class="p-stat"><b>$40K</b><small>POC engagement</small></div>
-        <div class="p-stat"><b>$144K</b><small>Annual retainer</small></div>
+        <div class="p-stat"><b>90d</b><small>To production</small></div>
+        <div class="p-stat"><b>↓60%</b><small>Alarm noise reduced</small></div>
         <div class="p-stat"><b>~80%</b><small>Market still open</small></div>
       </div>
     </div>
@@ -653,12 +653,20 @@
       <h3>Monkyfi Sentinel</h3>
       <p class="tagline">Subscription-based subsea-cable resilience intelligence. Real-time alerts, AI impact briefings, rerouting playbooks. DownDetector for the Americas backbone.</p>
       <div class="p-stats">
-        <div class="p-stat"><b>$499+</b><small>Monthly tier</small></div>
-        <div class="p-stat"><b>90%</b><small>Gross margin</small></div>
+        <div class="p-stat"><b>&lt;5 min</b><small>Alert to briefing</small></div>
         <div class="p-stat"><b>44</b><small>Cable events / 24mo</small></div>
+        <div class="p-stat"><b>100%</b><small>Americas coverage</small></div>
       </div>
     </div>
 
+  </div>
+
+  <!-- ROI framing block -->
+  <div class="roi-block reveal" style="margin-top:48px;padding:36px 32px;border-radius:16px;background:linear-gradient(135deg,rgba(14,27,51,.8),rgba(10,20,38,.6));border:1px solid rgba(0,209,255,.2);text-align:center">
+    <p style="font-size:17px;color:#e2e8f0;line-height:1.6;max-width:680px;margin:0 auto 20px;font-weight:500">
+      Clients typically recover engagement costs within <span style="color:var(--cyan);font-weight:700">90 days</span> through reduced MTTR, automated ticket handling, and eliminated manual NOC overhead.
+    </p>
+    <a href="mailto:hello@monkyfi.com" class="btn btn-primary">Get a scoped proposal <span class="arr">&rarr;</span></a>
   </div>
 </section>
 
@@ -797,7 +805,7 @@
       <div class="msg-bubble">
         Hey 👋 I'm the Monkyfi AI — trained on our products, the US–LATAM telecom market, and how we engage.
         <br><br>
-        Ask me about <strong>Connect</strong>, <strong>Atlas</strong>, <strong>Sentinel</strong>, pricing, or whether we're a fit for your situation.
+        Ask me about <strong>Connect</strong>, <strong>Atlas</strong>, <strong>Sentinel</strong>, how we engage, or whether we're a fit for your situation.
       </div>
     </div>
   </div>
@@ -805,11 +813,11 @@
   <div class="chat-suggestions" id="chatSuggestions">
     <button class="chip" onclick="sendSuggestion('What does Monkyfi Atlas actually do?')">What does Atlas do?</button>
     <button class="chip" onclick="sendSuggestion('We have 8 sites in Mexico — can you help with procurement?')">8 sites in Mexico</button>
-    <button class="chip" onclick="sendSuggestion('How much does a retainer cost?')">Retainer pricing</button>
+    <button class="chip" onclick="sendSuggestion('What does a typical engagement look like?')">Engagement model</button>
   </div>
 
   <div class="chat-input-wrap">
-    <input id="chatInput" class="chat-input" placeholder="Ask about products, pricing, or LATAM routes…" autocomplete="off" />
+    <input id="chatInput" class="chat-input" placeholder="Ask about products, engagements, or LATAM routes…" autocomplete="off" />
     <button class="chat-send" id="chatSend" onclick="sendMessage()" aria-label="Send">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
     </button>
@@ -920,25 +928,21 @@
   window.openChat = openChat;
   window.closeChat = closeChat;
 
-  const SYSTEM = `You are the Monkyfi AI — the assistant on monkyfi.ai, the website of a boutique US-LATAM telecom + AI consultancy founded by Dante, a 20+ year subsea/NOC veteran based in Miami. Tagline: "Get AI Power."
-
-Three product lines:
-1. MONKYFI CONNECT — Fractional Service Delivery Manager / Solutions Architect for US-LATAM enterprise circuits. ~$15K/month retainers, 95% gross margin, 30-60 days to first revenue. Bilingual (ES/EN/some PT). For US enterprises expanding to LATAM, LATAM enterprises consuming US capacity, or hyperscalers building LATAM POPs.
-2. MONKYFI ATLAS — Productized AI-NOC modernization for LATAM Tier-2/3 CSPs (Cirion, IFX, ufinet, ETB, Algar, Megacable, Entel etc.). $40K POC -> $144K/year managed retainer. Auto-triage alarms, Spanish/Portuguese incident summaries, cross-domain correlation. Uses Claude + MCP, OpenAI Agents SDK.
-3. MONKYFI SENTINEL — $499-$2,499/month SaaS for real-time subsea cable event alerting, AI impact briefings, resilience scorecards. For US-LATAM fintechs, ISPs, hyperscaler partners.
-
-Dante's edge: hands-on operations of the major US-LATAM subsea ring (25,000 km, 16 landing stations, 20 Tbps) + Telxius/Telefónica background. Native Spanish, Miami-based (NAP of the Americas, $137B US-LATAM trade). Stack: Flask, Claude, Supabase, Vercel.
-
-Tone: confident, warm, technical when it serves, never salesy. Reply in 2-4 short paragraphs unless asked for detail. Use line breaks. If a question is off-topic, gently bring it back. If someone asks to book, tell them to email dante@monkyfi.com or hello@monkyfi.com, or use the "Book a call" button.`;
-
   const history = [];
+
+  function escapeHtml(str){
+    const d = document.createElement('div');
+    d.appendChild(document.createTextNode(str));
+    return d.innerHTML;
+  }
 
   function append(role, text){
     const div = document.createElement('div');
     div.className = 'msg ' + (role==='user' ? 'user' : 'bot');
     const bub = document.createElement('div');
     bub.className = 'msg-bubble';
-    bub.innerHTML = text.replace(/\n/g,'<br>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    const safe = escapeHtml(text);
+    bub.innerHTML = safe.replace(/\n/g,'<br>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
     div.appendChild(bub);
     body.appendChild(div);
     body.scrollTop = body.scrollHeight;
@@ -970,10 +974,7 @@ Tone: confident, warm, technical when it serves, never salesy. Reply in 2-4 shor
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          system: SYSTEM,
-          messages: history
-        })
+        body: JSON.stringify({ messages: history })
       });
       if(!res.ok) throw new Error('API ' + res.status);
       const data = await res.json();
