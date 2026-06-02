@@ -120,16 +120,36 @@ export default async function handler(req, res) {
     });
 
     if (!anthropicRes.ok) {
-      const errText = await anthropicRes.text();
+      let errText;
+      try {
+        errText = await anthropicRes.text();
+      } catch (_) {
+        errText = `(could not read error body)`;
+      }
       console.error('Anthropic API error:', anthropicRes.status, errText);
       return res.status(502).json({ error: 'AI service is temporarily unavailable' });
     }
 
-    const data = await anthropicRes.json();
-    const text = (data.content && data.content[0] && data.content[0].text) || '';
-    return res.status(200).json({ text });
+    let data;
+    try {
+      data = await anthropicRes.json();
+    } catch (parseErr) {
+      console.error('Failed to parse Anthropic response as JSON:', parseErr);
+      return res.status(502).json({ error: 'AI service returned invalid JSON' });
+    }
+
+    const content = data.content;
+    if (!Array.isArray(content) || content.length === 0 || typeof content[0].text !== 'string') {
+      console.error('Unexpected Anthropic response structure:', JSON.stringify(data).slice(0, 500));
+      return res.status(502).json({ error: 'AI service returned an unexpected response format' });
+    }
+
+    return res.status(200).json({ text: content[0].text });
   } catch (err) {
     console.error('Handler error:', err);
-    return res.status(500).json({ error: 'Something went wrong. Please try again.' });
+    const isNetwork = err && (err.code === 'ECONNREFUSED' || err.code === 'ENOTFOUND' || err.type === 'system');
+    const status = isNetwork ? 503 : 500;
+    const message = isNetwork ? 'AI service unreachable' : 'Something went wrong. Please try again.';
+    return res.status(status).json({ error: message });
   }
 }

@@ -968,25 +968,67 @@
     input.value=''; sendBtn.disabled=true;
     append('user', text);
     history.push({role:'user', content:text});
-    document.getElementById('chatSuggestions').style.display='none';
+    const suggestions = document.getElementById('chatSuggestions');
+    if(suggestions) suggestions.style.display='none';
     appendTyping();
     try{
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: history })
-      });
-      if(!res.ok) throw new Error('API ' + res.status);
-      const data = await res.json();
-      const reply = (data && data.text) ? data.text : '';
-      if(!reply) throw new Error('empty reply');
+      let res;
+      try {
+        res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: history })
+        });
+      } catch(networkErr) {
+        console.error('chat network error:', networkErr);
+        removeTyping();
+        append('bot', "It looks like you're offline or the server is unreachable. Please check your connection and try again, or email Dante directly at **dante@monkyfi.com**.");
+        sendBtn.disabled=false;
+        input.focus();
+        return;
+      }
+      if(!res.ok) {
+        let detail = '';
+        try { const errData = await res.json(); detail = errData.error || ''; } catch(_) {}
+        console.error('chat API error:', res.status, detail);
+        removeTyping();
+        const msg = res.status === 429
+          ? "The AI is handling a lot of requests right now. Please wait a moment and try again."
+          : res.status >= 500
+            ? "The server ran into a problem. Please try again in a moment, or email **dante@monkyfi.com**."
+            : "Something went wrong. Please try again or email **dante@monkyfi.com**.";
+        append('bot', msg);
+        sendBtn.disabled=false;
+        input.focus();
+        return;
+      }
+      let data;
+      try {
+        data = await res.json();
+      } catch(parseErr) {
+        console.error('chat response parse error:', parseErr);
+        removeTyping();
+        append('bot', "Received an unexpected response from the server. Please try again or email **dante@monkyfi.com**.");
+        sendBtn.disabled=false;
+        input.focus();
+        return;
+      }
+      const reply = (data && typeof data.text === 'string') ? data.text : '';
+      if(!reply) {
+        console.warn('chat: empty reply from API', data);
+        removeTyping();
+        append('bot', "The AI returned an empty response. Please try rephrasing your question, or email **dante@monkyfi.com**.");
+        sendBtn.disabled=false;
+        input.focus();
+        return;
+      }
       removeTyping();
       history.push({role:'assistant', content:reply});
       append('bot', reply);
     }catch(err){
-      console.error('chat error:', err);
+      console.error('chat unexpected error:', err);
       removeTyping();
-      append('bot', "Hmm — I couldn't reach the model just now. You can email Dante directly at **dante@monkyfi.com** or **hello@monkyfi.com** and he'll reply within 24 hours.");
+      append('bot', "Hmm — something unexpected happened. You can email Dante directly at **dante@monkyfi.com** or **hello@monkyfi.com** and he'll reply within 24 hours.");
     }
     sendBtn.disabled=false;
     input.focus();
@@ -1075,7 +1117,7 @@
     document.getElementById('langCurrent').textContent = code;
     document.getElementById('langMenu').classList.remove('open');
     applyI18n(code);
-    try{ localStorage.setItem('monkyfi.lang', code); }catch(e){}
+    try{ localStorage.setItem('monkyfi.lang', code); }catch(e){ console.warn('Could not save language preference:', e); }
   }
   window.toggleLang = toggleLang;
   window.setLang = setLang;
@@ -1090,7 +1132,7 @@
   try{
     const saved = localStorage.getItem('monkyfi.lang');
     if(saved && I18N[saved]) setLang(saved);
-  }catch(e){}
+  }catch(e){ console.warn('Could not restore language preference:', e); }
 
   /* ----- Real Americas map (D3 + TopoJSON) ----- */
   (async function drawAmericas(){
