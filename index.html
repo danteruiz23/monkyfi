@@ -5,14 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Monkyfi — Get AI Power</title>
 <meta name="description" content="Monkyfi combines real telecom expertise with AI to help critical infrastructure companies automate operations, turn data into intelligence, and prepare for the next generation of network operations." />
-<link rel="icon" href="assets/logo-icon-mark-web.png" />
+<link rel="icon" href="assets/logo-icon-mark-web-opt.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
 <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" /></noscript>
-<script defer src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" onerror="window.__d3Failed=true"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js" onerror="window.__topoFailed=true"></script>
 <style>
 :root{
   --cyan:#4FA9E8;
@@ -295,7 +293,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 <nav class="top">
   <div class="wrap">
     <div class="brand">
-      <div class="brand-mark"><img src="assets/logo-icon-mark-web.png" alt="" /></div>
+      <div class="brand-mark"><img src="assets/logo-icon-mark-web-opt.png" alt="" width="42" height="42" /></div>
       <div class="brand-text"><b>Monkyfi</b><small>Get AI Power</small></div>
     </div>
     <div class="nav-links" id="navLinks">
@@ -333,7 +331,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   <div class="hero-visual">
     <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
     <div class="orb"></div>
-    <div class="hero-logo"><img src="assets/logo-full-web.png" alt="Monkyfi logo" /></div>
+    <div class="hero-logo"><img src="assets/logo-full-web-opt.png" alt="Monkyfi logo" width="380" height="380" fetchpriority="high" /></div>
     <div class="float-badge fb-1"><div class="b-ic">◈</div><div><b>Connect</b><small>Available now</small></div></div>
     <div class="float-badge fb-2"><div class="b-ic">⚡</div><div><b>Atlas</b><small>Pilot · coming soon</small></div></div>
     <div class="float-badge fb-3"><div class="b-ic">↘</div><div><b>Sentinel</b><small>Coming soon</small></div></div>
@@ -498,7 +496,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   <div class="map-wrap">
     <div class="map-grid">
       <div id="americasMap" class="cable-svg" style="position:relative;aspect-ratio:600/540">
-        <div id="mapLoading" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#64748b;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em">LOADING GEOGRAPHY…</div>
+        <img src="assets/subcabsys-opt.png" alt="Global subsea cable system map" style="width:100%;height:auto;display:block;border-radius:10px" loading="lazy" />
       </div>
       <div class="map-side">
         <p>Monkyfi brings together US-based technology and business expertise with deep understanding of telecommunications and digital infrastructure across Latin America.</p>
@@ -519,7 +517,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   </div>
   <div class="founder-wrap">
     <div>
-      <div class="founder-photo"><img src="assets/logo-icon-mark-web.png" alt="" /></div>
+      <div class="founder-photo"><img src="assets/logo-icon-mark-web-opt.png" alt="" width="220" height="220" loading="lazy" /></div>
     </div>
     <div>
       <p>Monkyfi is built on extensive telecommunications, network operations, service delivery, digital infrastructure, and technology transformation experience — now combined with advanced AI capabilities.</p>
@@ -641,7 +639,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   <div class="foot-top">
     <div>
       <div class="brand" style="margin-bottom:14px">
-        <div class="brand-mark" style="width:34px;height:34px;border-radius:8px"><img src="assets/logo-icon-mark-web.png" alt=""/></div>
+        <div class="brand-mark" style="width:34px;height:34px;border-radius:8px"><img src="assets/logo-icon-mark-web-opt.png" alt="" width="34" height="34" loading="lazy" /></div>
         <div class="brand-text"><b>Monkyfi</b><small>Get AI Power</small></div>
       </div>
       <p style="font-size:13px">AI Automation & Intelligence for Telecom Operations</p>
@@ -683,7 +681,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 <div class="chat-panel" id="chatPanel" role="dialog" aria-label="Monkyfi AI chat">
   <div class="chat-head">
     <div class="chat-head-left">
-      <div class="chat-avatar"><img src="assets/logo-icon-mark-web.png" alt="" /></div>
+      <div class="chat-avatar"><img src="assets/logo-icon-mark-web-opt.png" alt="" width="40" height="40" loading="lazy" /></div>
       <div><b>Monkyfi AI</b><small>● Online · powered by Claude</small></div>
     </div>
     <button class="chat-close" onclick="closeChat()" aria-label="Close">×</button>
@@ -814,152 +812,6 @@ window.sendMessage = sendMessage;
 function sendSuggestion(text){ input.value = text; sendMessage(); }
 window.sendSuggestion = sendSuggestion;
 input.addEventListener('keydown', (e)=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendMessage(); } });
-
-function staticMapSVG(){
-  return `<img src="assets/subcabsys.webp" alt="Global subsea cable system map" style="width:100%;height:auto;display:block;border-radius:10px" />`;
-}
-
-(async function drawAmericas(){
-  const host = document.getElementById('americasMap');
-  if(!host) return;
-  if(window.__d3Failed || window.__topoFailed || !window.d3 || !window.topojson){
-    host.innerHTML = staticMapSVG();
-    return;
-  }
-  const W = 600, H = 540;
-  const NS = 'http://www.w3.org/2000/svg';
-  host.innerHTML = '';
-  const svgEl = document.createElementNS(NS, 'svg');
-  svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  svgEl.setAttribute('class', 'cable-svg');
-  svgEl.innerHTML = `
-    <defs>
-      <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" stroke="rgba(148,163,184,.05)" fill="none"/></pattern>
-      <radialGradient id="city" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#4FA9E8" stop-opacity="1"/><stop offset="60%" stop-color="#4FA9E8" stop-opacity=".15"/><stop offset="100%" stop-color="#4FA9E8" stop-opacity="0"/></radialGradient>
-      <radialGradient id="hub" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#F2C98B" stop-opacity=".9"/><stop offset="55%" stop-color="#F2C98B" stop-opacity=".15"/><stop offset="100%" stop-color="#F2C98B" stop-opacity="0"/></radialGradient>
-      <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    </defs>
-    <rect width="${W}" height="${H}" fill="url(#grid)"/>
-  `;
-  host.appendChild(svgEl);
-  const svg = d3.select(svgEl);
-  let topo;
-  try{
-    const ctrl = new AbortController();
-    const timeoutId = setTimeout(()=>ctrl.abort(), 7000);
-    topo = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json', { signal: ctrl.signal }).then(r=>r.json());
-    clearTimeout(timeoutId);
-  }
-  catch(err){ console.error('map fetch failed', err); host.innerHTML = staticMapSVG(); return; }
-  const allCountries = topojson.feature(topo, topo.objects.countries);
-  const americas = { type:'FeatureCollection', features: allCountries.features.filter(f=>{
-    if(f.id === '304' || (f.properties && f.properties.name === 'Greenland')) return false;
-    const cen = d3.geoCentroid(f);
-    return cen[0] > -170 && cen[0] < -30 && cen[1] > -58 && cen[1] < 75;
-  })};
-  const projection = d3.geoMercator().fitExtent([[-60, -54], [W+60, H+54]], americas);
-  const path = d3.geoPath().projection(projection);
-  svg.append('g').selectAll('path.country').data(americas.features).enter().append('path')
-    .attr('d', path).attr('fill', 'rgba(20,38,68,.65)').attr('stroke', 'rgba(79,169,232,.32)').attr('stroke-width', 0.55).attr('stroke-linejoin','round');
-  const cities = [
-    { name:'Miami', lon:-80.19, lat:25.76, hub:true, side:'right' },
-    { name:'Ashburn', lon:-77.49, lat:39.04, side:'right' },
-    { name:'New York', lon:-74.00, lat:40.71, side:'left' },
-    { name:'Los Angeles', lon:-118.24, lat:34.05, side:'right' },
-    { name:'Querétaro', lon:-100.39, lat:20.59, side:'left' },
-    { name:'Mexico City', lon:-99.13, lat:19.43, side:'left' },
-    { name:'Panamá', lon:-79.53, lat:8.97, side:'left' },
-    { name:'San Juan', lon:-66.10, lat:18.46, side:'right' },
-    { name:'Bogotá', lon:-74.07, lat:4.71, side:'left' },
-    { name:'Caracas', lon:-66.90, lat:10.48, side:'right' },
-    { name:'Quito', lon:-78.46, lat:-0.18, side:'left' },
-    { name:'Lima', lon:-77.04, lat:-12.04, side:'left' },
-    { name:'Fortaleza', lon:-38.54, lat:-3.73, side:'right' },
-    { name:'Rio', lon:-43.17, lat:-22.91, side:'right' },
-    { name:'São Paulo', lon:-46.63, lat:-23.55, major:true, side:'right', latency:'112 ms' },
-    { name:'Santiago', lon:-70.66, lat:-33.45, side:'left' },
-    { name:'Buenos Aires', lon:-58.38, lat:-34.60, side:'right' },
-  ].map(cc => { const [x,y] = projection([cc.lon, cc.lat]); return {...cc, x, y}; });
-  const miami = cities.find(cc=>cc.hub);
-  const NON_HUB = cities.filter(cc=>!cc.hub);
-  function curvedPath(a, b, sign){
-    const dx = b.x - a.x, dy = b.y - a.y;
-    const dist = Math.sqrt(dx*dx + dy*dy) || 1;
-    const offset = Math.min(dist*0.18, 60);
-    const mx = (a.x + b.x)/2 - (dy/dist)*offset*sign;
-    const my = (a.y + b.y)/2 + (dx/dist)*offset*sign;
-    return `M${a.x} ${a.y} Q${mx} ${my} ${b.x} ${b.y}`;
-  }
-  const routesG = svg.append('g').attr('fill','none').attr('stroke','#4FA9E8').attr('stroke-linecap','round');
-  const miamiRoutes = NON_HUB.map((cc,i) => {
-    const sign = (cc.lon > -65 || cc.lat < -10) ? 1 : -1;
-    const d = curvedPath(miami, cc, sign);
-    routesG.append('path').attr('d', d).attr('stroke-opacity', 0.35).attr('stroke-width', 1).attr('stroke-dasharray','3 5');
-    return d;
-  });
-  const crossPairs = [['Bogotá','São Paulo'],['Mexico City','New York'],['Lima','Buenos Aires'],['Querétaro','Bogotá'],['Caracas','Fortaleza'],['Panamá','Lima'],['San Juan','Caracas'],['Quito','Santiago'],['Rio','Buenos Aires'],['Ashburn','São Paulo']];
-  const crossRoutes = [];
-  crossPairs.forEach(([n1,n2], i) => {
-    const a = cities.find(cc=>cc.name===n1);
-    const b = cities.find(cc=>cc.name===n2);
-    if(!a || !b) return;
-    const d = curvedPath(a, b, i%2===0 ? 1 : -1);
-    routesG.append('path').attr('d', d).attr('stroke-opacity', 0.15).attr('stroke-width', 0.8).attr('stroke-dasharray','2 6');
-    crossRoutes.push(d);
-  });
-  const allPaths = [...miamiRoutes, ...miamiRoutes, ...crossRoutes];
-  const colors = ['#4FA9E8','#4FA9E8','#4FA9E8','#ffffff','#F2C98B'];
-  const PACKETS = 38;
-  for(let i=0; i<PACKETS; i++){
-    const pathD = allPaths[Math.floor(Math.random()*allPaths.length)];
-    const r = 1.8 + Math.random()*2.4;
-    const color = colors[Math.floor(Math.random()*colors.length)];
-    const dur = (2.4 + Math.random()*6).toFixed(2)+'s';
-    const begin = (-Math.random()*8).toFixed(2)+'s';
-    const useGlow = Math.random() > 0.4;
-    const packet = svg.append('circle').attr('r', r).attr('fill', color).attr('opacity', 0.55 + Math.random()*0.45);
-    if(useGlow) packet.attr('filter','url(#softGlow)');
-    const am = document.createElementNS(NS,'animateMotion');
-    am.setAttribute('dur', dur); am.setAttribute('repeatCount','indefinite'); am.setAttribute('path', pathD); am.setAttribute('begin', begin); am.setAttribute('rotate', 'auto');
-    packet.node().appendChild(am);
-    const reseed = () => {
-      const newPath = allPaths[Math.floor(Math.random()*allPaths.length)];
-      am.setAttribute('path', newPath);
-      am.setAttribute('dur', (2.4 + Math.random()*6).toFixed(2)+'s');
-      am.beginElement && am.beginElement();
-    };
-    setInterval(reseed, 8000 + Math.random()*14000);
-  }
-  const citiesG = svg.append('g');
-  cities.forEach(cc => {
-    const g = citiesG.append('g');
-    if(cc.hub){
-      g.append('circle').attr('cx',cc.x).attr('cy',cc.y).attr('r',26).attr('fill','url(#hub)');
-      g.append('circle').attr('cx',cc.x).attr('cy',cc.y).attr('r',18).attr('fill','url(#city)');
-      g.append('circle').attr('cx',cc.x).attr('cy',cc.y).attr('r',5.5).attr('fill','#4FA9E8').attr('filter','url(#softGlow)');
-      const rring = g.append('circle').attr('cx',cc.x).attr('cy',cc.y).attr('r',7).attr('fill','none').attr('stroke','#4FA9E8').attr('stroke-width',1).attr('stroke-opacity',0.6);
-      const a1 = document.createElementNS(NS,'animate'); a1.setAttribute('attributeName','r'); a1.setAttribute('values','6;22;6'); a1.setAttribute('dur','2.6s'); a1.setAttribute('repeatCount','indefinite'); rring.node().appendChild(a1);
-      const a2 = document.createElementNS(NS,'animate'); a2.setAttribute('attributeName','stroke-opacity'); a2.setAttribute('values','.7;0;.7'); a2.setAttribute('dur','2.6s'); a2.setAttribute('repeatCount','indefinite'); rring.node().appendChild(a2);
-    } else {
-      g.append('circle').attr('cx',cc.x).attr('cy',cc.y).attr('r', cc.major ? 14 : 10).attr('fill','url(#city)');
-      g.append('circle').attr('cx',cc.x).attr('cy',cc.y).attr('r', cc.major ? 3.6 : 2.6).attr('fill','#4FA9E8');
-    }
-    const isRight = cc.side === 'right';
-    const lx = cc.x + (isRight ? (cc.hub?12:8) : -(cc.hub?12:8));
-    const fontSize = cc.hub ? 13 : (cc.major ? 12 : 10.5);
-    const weight = cc.hub ? 700 : (cc.major ? 600 : 500);
-    g.append('text').attr('x', lx).attr('y', cc.y - 3).attr('fill','#fff').attr('font-family','Poppins').attr('font-size', fontSize).attr('font-weight', weight).attr('text-anchor', isRight ? 'start' : 'end').text(cc.name);
-    if(cc.hub){
-      g.append('text').attr('x', lx).attr('y', cc.y + 10).attr('fill','#4FA9E8').attr('font-family','JetBrains Mono').attr('font-size', 9).attr('text-anchor', isRight ? 'start' : 'end').text('HUB · NAP OF THE AMERICAS');
-    } else if(cc.latency){
-      g.append('text').attr('x', lx).attr('y', cc.y + 10).attr('fill','#4FA9E8').attr('font-family','JetBrains Mono').attr('font-size', 9).attr('text-anchor', isRight ? 'start' : 'end').text(cc.latency);
-    }
-  });
-  const corner = svg.append('g').attr('transform', `translate(20 ${H-20})`);
-  const livedot = corner.append('circle').attr('cx',0).attr('cy',0).attr('r',3.5).attr('fill','#4FA9E8');
-  const ld = document.createElementNS(NS,'animate'); ld.setAttribute('attributeName','opacity'); ld.setAttribute('values','1;.25;1'); ld.setAttribute('dur','1.6s'); ld.setAttribute('repeatCount','indefinite'); livedot.node().appendChild(ld);
-  corner.append('text').attr('x',10).attr('y',4).attr('fill','#64748b').attr('font-family','JetBrains Mono').attr('font-size',9.5).attr('letter-spacing','.08em').text('LIVE · US ↔ LATAM CONNECTIVITY · 17 HUBS');
-})();
 
 const intakeForm = document.getElementById('intakeForm');
 if(intakeForm){
