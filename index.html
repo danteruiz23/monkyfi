@@ -261,6 +261,30 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .chat-send:disabled{opacity:.4;cursor:not-allowed}
 .chat-send svg{width:18px;height:18px}
 
+
+.intake-card{margin-top:44px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg, rgba(14,27,51,.7), rgba(10,20,38,.55));padding:40px 36px;max-width:860px;margin-left:auto;margin-right:auto}
+@media(max-width:600px){.intake-card{padding:28px 20px}}
+.intake-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:680px){.intake-grid{grid-template-columns:1fr}}
+.f-field{display:flex;flex-direction:column;gap:7px}
+.f-field.full{grid-column:1 / -1}
+.f-field label{color:#e2e8f0;font-size:13px;font-weight:600}
+.f-field label small{color:#64748b;font-weight:400}
+.f-input,.f-select,.f-textarea{background:rgba(7,11,20,.6);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:#EDEFF2;font-family:inherit;font-size:14px;outline:none;transition:border-color .2s;width:100%}
+.f-input:focus,.f-select:focus,.f-textarea:focus{border-color:var(--cyan)}
+.f-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+.f-textarea{min-height:110px;resize:vertical}
+.f-checks{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+@media(max-width:680px){.f-checks{grid-template-columns:1fr}}
+.f-check{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:10px;background:rgba(7,11,20,.5);border:1px solid var(--line);cursor:pointer;transition:border-color .2s;font-size:13px;color:#cbd5e1}
+.f-check:hover{border-color:rgba(79,169,232,.4)}
+.f-check input{accent-color:var(--cyan);width:15px;height:15px;flex-shrink:0}
+.f-check input:checked + span{color:var(--cyan)}
+.intake-note{font-size:12px;color:#64748b;margin-top:16px}
+.intake-status{display:none;margin-top:16px;padding:13px 16px;border-radius:10px;font-size:14px}
+.intake-status.ok{display:block;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.35);color:#22c55e}
+.intake-status.err{display:block;background:rgba(242,201,139,.1);border:1px solid rgba(242,201,139,.3);color:var(--cream)}
+
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s ease, transform .8s ease}
 .reveal.in{opacity:1;transform:none}
 </style>
@@ -280,7 +304,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
       <a href="#founder">About</a>
       <a href="#contact">Contact</a>
     </div>
-    <a href="mailto:hello@monkyfi.com?subject=AI%20Assessment" class="nav-cta">Book an AI Assessment</a>
+    <a href="#intake" class="nav-cta">Book an AI Assessment</a>
     <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
   <script>document.getElementById('navToggle').addEventListener('click',function(){this.classList.toggle('open');document.getElementById('navLinks').classList.toggle('open')});document.querySelectorAll('#navLinks a').forEach(function(a){a.addEventListener('click',function(){document.getElementById('navToggle').classList.remove('open');document.getElementById('navLinks').classList.remove('open')})})</script>
@@ -294,7 +318,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
     <h1>Get <span class="fi">AI Power</span></h1>
     <p class="hero-sub">Monkyfi helps telecommunications and digital infrastructure companies turn operational data and workflows into AI-powered intelligence, automation, and better decisions.</p>
     <div class="hero-ctas">
-      <a href="mailto:hello@monkyfi.com?subject=AI%20Assessment" class="btn btn-primary"><span>Book an AI Assessment</span> <span class="arr">→</span></a>
+      <a href="#intake" class="btn btn-primary"><span>Book an AI Assessment</span> <span class="arr">→</span></a>
       <a href="#solutions" class="btn btn-ghost">Explore Solutions</a>
     </div>
     <div class="hero-pillars">
@@ -357,7 +381,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
         <li>Data Readiness for AI</li>
         <li>AI Strategy & Advisory</li>
       </ul>
-      <a href="mailto:hello@monkyfi.com?subject=Monkyfi%20Connect" class="btn btn-primary">Explore Connect <span class="arr">→</span></a>
+      <a href="mailto:dante@monkyfi.com?subject=Monkyfi%20Connect" class="btn btn-primary">Explore Connect <span class="arr">→</span></a>
     </div>
 
     <div class="product reveal" id="atlas">
@@ -381,7 +405,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
         <li>Workflow automation</li>
       </ul>
       <div class="hitl">Human-in-the-loop. AI recommends. Your team decides.</div>
-      <a href="mailto:hello@monkyfi.com?subject=Atlas%20Pilot" class="btn btn-primary">Join the Atlas Pilot <span class="arr">→</span></a>
+      <a href="mailto:dante@monkyfi.com?subject=Atlas%20Pilot" class="btn btn-primary">Join the Atlas Pilot <span class="arr">→</span></a>
     </div>
 
     <div class="product reveal" id="sentinel">
@@ -403,7 +427,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
         <li>Capacity insights</li>
         <li>Resilience planning</li>
       </ul>
-      <a href="mailto:hello@monkyfi.com?subject=Monkyfi%20Sentinel" class="btn btn-primary">Learn About Sentinel <span class="arr">→</span></a>
+      <a href="mailto:dante@monkyfi.com?subject=Monkyfi%20Sentinel" class="btn btn-primary">Learn About Sentinel <span class="arr">→</span></a>
     </div>
   </div>
 </section>
@@ -513,14 +537,100 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   </div>
 </section>
 
+
+<section id="intake">
+  <div class="section-head">
+    <span class="eyebrow"><span class="dot"></span><span>Start Here</span></span>
+    <h2 style="margin-top:18px">Book Your AI Assessment</h2>
+    <p>Tell us a little about your operation — it takes 2 minutes. Dante will personally review it and reply within 24 hours with a recommended starting point.</p>
+  </div>
+  <form class="intake-card reveal" id="intakeForm" novalidate>
+    <input type="hidden" name="access_key" value="645f7dca-b0f1-4469-9541-83dc7a825ec7">
+    <input type="hidden" name="subject" value="New AI Assessment Request — Monkyfi Connect">
+    <input type="hidden" name="from_name" value="Monkyfi Website Intake">
+    <input type="text" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+    <div class="intake-grid">
+      <div class="f-field">
+        <label for="iq-name">Name</label>
+        <input class="f-input" id="iq-name" name="name" type="text" autocomplete="name" required />
+      </div>
+      <div class="f-field">
+        <label for="iq-email">Work email</label>
+        <input class="f-input" id="iq-email" name="email" type="email" autocomplete="email" required />
+      </div>
+      <div class="f-field">
+        <label for="iq-company">Company</label>
+        <input class="f-input" id="iq-company" name="company" type="text" autocomplete="organization" required />
+      </div>
+      <div class="f-field">
+        <label for="iq-segment">Type of operation</label>
+        <select class="f-select" id="iq-segment" name="segment" required>
+          <option value="" disabled selected>Select one…</option>
+          <option>Fiber / ISP</option>
+          <option>Mobile / MVNO</option>
+          <option>Subsea / Wholesale</option>
+          <option>Data Center / Infrastructure</option>
+          <option>Managed Service Provider</option>
+          <option>Enterprise IT</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="f-field">
+        <label for="iq-size">Approximate size</label>
+        <select class="f-select" id="iq-size" name="size" required>
+          <option value="" disabled selected>Select one…</option>
+          <option>Under 50k subscribers / small ops team</option>
+          <option>50k – 250k subscribers</option>
+          <option>250k – 1M subscribers</option>
+          <option>1M+ subscribers / wholesale scale</option>
+        </select>
+      </div>
+      <div class="f-field">
+        <label for="iq-pain">Biggest operational pain today</label>
+        <select class="f-select" id="iq-pain" name="pain" required>
+          <option value="" disabled selected>Select one…</option>
+          <option>High operating costs</option>
+          <option>Churn / customer experience</option>
+          <option>NOC alarm fatigue / manual triage</option>
+          <option>Slow provisioning / activation</option>
+          <option>We don't know where to start with AI</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="f-field full">
+        <label>What would you like to explore? <small>(select any)</small></label>
+        <div class="f-checks">
+          <label class="f-check"><input type="checkbox" name="interest" value="AI Readiness Assessment" /><span>AI Readiness Assessment</span></label>
+          <label class="f-check"><input type="checkbox" name="interest" value="Telecom Digital Transformation" /><span>Telecom Digital Transformation</span></label>
+          <label class="f-check"><input type="checkbox" name="interest" value="Service Delivery Optimization" /><span>Service Delivery Optimization</span></label>
+          <label class="f-check"><input type="checkbox" name="interest" value="Network Operations Automation" /><span>Network Operations Automation</span></label>
+          <label class="f-check"><input type="checkbox" name="interest" value="Data Readiness for AI" /><span>Data Readiness for AI</span></label>
+          <label class="f-check"><input type="checkbox" name="interest" value="AI Strategy & Advisory" /><span>AI Strategy &amp; Advisory</span></label>
+        </div>
+      </div>
+      <div class="f-field full">
+        <label for="iq-notes">Briefly, what's going on? <small>(optional, max 500 characters)</small></label>
+        <textarea class="f-textarea" id="iq-notes" name="notes" maxlength="500" placeholder="e.g. Our NOC handles thousands of alarms a day and our install times keep slipping…"></textarea>
+      </div>
+    </div>
+    <div class="h-captcha" data-captcha="true" style="margin-top:20px"></div>
+    <div style="display:flex;align-items:center;gap:16px;margin-top:20px;flex-wrap:wrap">
+      <button type="submit" class="btn btn-primary" id="intakeSubmit"><span>Request My Assessment</span> <span class="arr">&#8594;</span></button>
+      <span style="font-size:12.5px;color:#64748b">No spam. One reply, from a human.</span>
+    </div>
+    <div class="intake-status" id="intakeStatus" role="status"></div>
+    <p class="intake-note">Please don't include customer personal data or credentials — company-level information is all we need at this stage.</p>
+  </form>
+</section>
+
 <section id="contact">
   <div class="cta-strip">
     <span class="eyebrow"><span class="dot"></span><span>Let's Talk</span></span>
     <h2 style="margin-top:14px">Ready to Get AI Power?</h2>
     <p>Let's identify where AI can create measurable value in your telecom or digital infrastructure operations.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <a href="mailto:hello@monkyfi.com?subject=AI%20Assessment" class="btn btn-primary"><span>Book an AI Assessment</span> <span class="arr">→</span></a>
-      <a href="mailto:hello@monkyfi.com" class="btn btn-ghost">Contact Monkyfi</a>
+      <a href="#intake" class="btn btn-primary"><span>Book an AI Assessment</span> <span class="arr">→</span></a>
+      <a href="mailto:dante@monkyfi.com" class="btn btn-ghost">Contact Monkyfi</a>
     </div>
   </div>
 </section>
@@ -694,7 +804,7 @@ async function sendMessage(){
   }catch(err){
     console.error('chat error:', err);
     removeTyping();
-    append('bot', "Hmm — I couldn't reach the model just now. You can email Dante directly at **dante@monkyfi.com** or **hello@monkyfi.com** and he'll reply within 24 hours.");
+    append('bot', "Hmm — I couldn't reach the model just now. You can email Dante directly at **dante@monkyfi.com** or **dante@monkyfi.com** and he'll reply within 24 hours.");
   }
   sendBtn.disabled=false;
   input.focus();
@@ -730,10 +840,7 @@ input.addEventListener('keydown', (e)=>{ if(e.key==='Enter' && !e.shiftKey){ e.p
   const svg = d3.select(svgEl);
   let topo;
   try{
-    const ctrl = new AbortController();
-    const timeoutId = setTimeout(()=>ctrl.abort(), 7000);
-    topo = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json', { signal: ctrl.signal }).then(r=>r.json());
-    clearTimeout(timeoutId);
+    topo = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then(r=>r.json());
   }
   catch(err){ console.error('map fetch failed', err); host.innerHTML = '<div style="padding:40px;color:#64748b;font-family:monospace">Map data unavailable — check your connection</div>'; return; }
   const allCountries = topojson.feature(topo, topo.objects.countries);
@@ -845,6 +952,50 @@ input.addEventListener('keydown', (e)=>{ if(e.key==='Enter' && !e.shiftKey){ e.p
   const ld = document.createElementNS(NS,'animate'); ld.setAttribute('attributeName','opacity'); ld.setAttribute('values','1;.25;1'); ld.setAttribute('dur','1.6s'); ld.setAttribute('repeatCount','indefinite'); livedot.node().appendChild(ld);
   corner.append('text').attr('x',10).attr('y',4).attr('fill','#64748b').attr('font-family','JetBrains Mono').attr('font-size',9.5).attr('letter-spacing','.08em').text('LIVE · US ↔ LATAM CONNECTIVITY · 17 HUBS');
 })();
+const intakeForm = document.getElementById('intakeForm');
+if(intakeForm){
+  intakeForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const status = document.getElementById('intakeStatus');
+    const btn = document.getElementById('intakeSubmit');
+    if(intakeForm.botcheck && intakeForm.botcheck.value) return; // honeypot triggered, silently drop
+    const fd = new FormData(intakeForm);
+    const interests = fd.getAll('interest');
+    const required = ['name','email','company','segment','size','pain'];
+    for(const r of required){ if(!fd.get(r) || !String(fd.get(r)).trim()){ status.className='intake-status err'; status.textContent='Please complete the required fields above.'; return; } }
+    fd.set('interests', interests.join(', ') || '(none selected)');
+    fd.set('message', [
+      'New AI Assessment request from monkyfi.com',
+      '', 'Company: ' + fd.get('company'), 'Operation type: ' + fd.get('segment'),
+      'Approx. size: ' + fd.get('size'), 'Biggest pain: ' + fd.get('pain'),
+      'Interested in: ' + (interests.join(', ') || '(none selected)'),
+      '', 'Notes:', fd.get('notes') || '(none)'
+    ].join('\n'));
+    btn.disabled = true;
+    status.className = 'intake-status';
+    try{
+      const res = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{Accept:'application/json'}, body: fd });
+      const data = await res.json();
+      if(!res.ok || !data.success) throw new Error(data.message || ('API ' + res.status));
+      status.className = 'intake-status ok';
+      status.textContent = "Got it — thank you! Dante will review your info and reply within 24 hours.";
+      intakeForm.reset();
+    }catch(err){
+      console.error('web3forms error:', err);
+      const bodyLines = [
+        'Name: ' + fd.get('name'), 'Email: ' + fd.get('email'), 'Company: ' + fd.get('company'),
+        'Operation: ' + fd.get('segment'), 'Size: ' + fd.get('size'), 'Biggest pain: ' + fd.get('pain'),
+        'Interested in: ' + (interests.join(', ') || '(none selected)'), '', 'Notes:', fd.get('notes') || '(none)'
+      ].join('\n');
+      const mail = 'mailto:dante@monkyfi.com?subject=' + encodeURIComponent('AI Assessment Request — ' + fd.get('company')) + '&body=' + encodeURIComponent(bodyLines);
+      window.location.href = mail;
+      status.className = 'intake-status ok';
+      status.textContent = "We've opened an email with your answers pre-filled — just press send.";
+    }
+    btn.disabled = false;
+  });
+}
 </script>
+<script src="https://web3forms.com/client/script.js" async defer></script>
 </body>
 </html>
