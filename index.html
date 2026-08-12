@@ -257,11 +257,13 @@ p{line-height:1.65;color:#94a3b8;margin:0;font-size:16px}
 @media(max-width:880px){.map-grid{grid-template-columns:1fr}}
 .cable-svg{width:100%;height:auto;display:block}
 .map-side p{font-size:16px;margin-bottom:20px}
-.latam-stats{display:flex;gap:24px;margin-top:20px}
-.latam-stats div b{display:block;color:#EDEFF2;font-size:26px;font-weight:700;font-family:'JetBrains Mono',monospace}
-.latam-stats div small{color:#64748b;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.latam-stats{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap}
+.latam-stats div b,.founder-stats div b{display:block;color:#EDEFF2;font-size:26px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.latam-stats div small,.founder-stats div small{color:#64748b;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
 
 .founder-wrap{max-width:760px;margin:44px auto 0}
+.founder-stats{display:flex;gap:28px;flex-wrap:wrap;margin-top:22px}
+.founder-hitl{font-size:14px;line-height:1.55;color:#cbd5e1;background:rgba(79,169,232,.08);border:1px solid rgba(79,169,232,.25);border-radius:8px;padding:12px 14px;margin-top:22px}
 .founder-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 .founder-tags span{padding:8px 14px;border-radius:8px;background:rgba(14,27,51,.6);border:1px solid var(--line);font-size:14px;color:#cbd5e1}
 .founder-cred{margin-top:18px;padding:14px 16px;border-radius:10px;background:var(--cyan-soft);border:1px solid rgba(79,169,232,.25);font-size:15px;color:#e2e8f0}
@@ -365,6 +367,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   .product .tagline{font-size:17px;line-height:1.6}
   .cap-list li{font-size:16px;line-height:1.5}
   .hitl{font-size:15px}
+  .founder-hitl{font-size:15px;line-height:1.6}
   .product .btn{font-size:16px;padding:12px 18px}
   .badge,.p-tag{font-size:12.5px}
   .serve-card{padding:22px 18px}
@@ -376,7 +379,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   .outcome-card h4{font-size:19px}
   .outcome-card p{font-size:16px;line-height:1.55}
   .map-side p{font-size:18px;line-height:1.65}
-  .latam-stats div small{font-size:12.5px}
+  .latam-stats div small,.founder-stats div small{font-size:12.5px}
   .founder-wrap p{font-size:18px;line-height:1.65}
   .founder-tags span{font-size:15px}
   .founder-cred{font-size:15.5px}
@@ -680,6 +683,12 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   </div>
   <div class="founder-wrap">
     <p>Monkyfi is built on extensive telecommunications, network operations, service delivery, digital infrastructure, and technology transformation experience — now combined with advanced AI capabilities.</p>
+    <div class="founder-stats">
+      <div><b>80%</b><small>Incident reduction via process automation, submarine cable ops</small></div>
+      <div><b>99.5%</b><small>SLA sustained across 100+ global carrier clients</small></div>
+      <div><b>50+</b><small>International vendors managed, subsea &amp; terrestrial systems</small></div>
+    </div>
+    <div class="founder-hitl">Experienced in NOC leadership of the 16,000-mile SAM-1 submarine cable system, plus deployment and service delivery across a global subsea &amp; backbone network spanning systems including Dunant, Marea, Firmina, Celia, Brusa and PCCS.</div>
     <div class="founder-tags">
       <span>Telecom & Network Operations</span>
       <span>Service Delivery</span>
