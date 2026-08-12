@@ -85,7 +85,9 @@ a.brand:hover{color:inherit}
 .nav-links{display:flex;gap:28px;align-items:center;margin-left:auto}
 .nav-links a{color:#94a3b8;font-size:15px;font-weight:400;transition:color .2s;white-space:nowrap}
 .nav-links a:hover{color:var(--cyan)}
-.nav-end{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.nav-end{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.nav-brochure{padding:10px 16px;border-radius:8px;background:rgba(242,201,139,.14);color:var(--cream);font-weight:600;font-size:14.5px;border:1px solid rgba(242,201,139,.55);box-shadow:0 0 18px rgba(242,201,139,.12);transition:transform .2s, box-shadow .2s, background .2s, border-color .2s;white-space:nowrap;line-height:1.2}
+.nav-brochure:hover{transform:translateY(-1px);background:rgba(242,201,139,.24);color:var(--cream);border-color:var(--cream);box-shadow:0 0 28px rgba(242,201,139,.28)}
 .nav-cta{padding:10px 18px;border-radius:8px;background:var(--cyan);color:var(--ink);font-weight:600;font-size:14.5px;box-shadow:0 0 0 1px var(--cyan), 0 0 22px rgba(79,169,232,.4);transition:transform .2s, box-shadow .2s;white-space:nowrap;line-height:1.2}
 .nav-cta .cta-short{display:none}
 .nav-cta:hover{transform:translateY(-1px);box-shadow:0 0 0 1px var(--cyan), 0 0 32px rgba(79,169,232,.65);color:var(--ink)}
@@ -99,8 +101,9 @@ a.brand:hover{color:inherit}
   .nav-links{position:fixed;top:66px;left:0;right:0;margin-left:0;flex-direction:column;align-items:flex-start;gap:0;background:rgba(7,11,20,.97);border-bottom:1px solid var(--line);padding:10px 16px 18px;max-height:0;overflow:hidden;transition:max-height .25s ease}
   .nav-links.open{max-height:400px}
   .nav-links a{padding:12px 0;width:100%;border-bottom:1px solid rgba(255,255,255,.05)}
-  .nav-end{margin-left:auto}
+  .nav-end{margin-left:auto;gap:8px}
   .nav-toggle{display:flex}
+  .nav-brochure{padding:9px 12px;font-size:13px}
   .nav-cta{padding:9px 12px;font-size:13.5px}
   .nav-cta .cta-full{display:none}
   .nav-cta .cta-short{display:inline}
@@ -406,7 +409,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .f-field label small{color:#64748b;font-weight:400}
 .f-input,.f-select,.f-textarea{background:rgba(7,11,20,.6);border:1px solid var(--line);border-radius:10px;padding:13px 15px;color:#EDEFF2;font-family:inherit;font-size:16px;outline:none;transition:border-color .2s;width:100%}
 .f-input:focus,.f-select:focus,.f-textarea:focus{border-color:var(--cyan)}
-.f-input:focus-visible,.f-select:focus-visible,.f-textarea:focus-visible,.btn:focus-visible,.nav-links a:focus-visible,.nav-cta:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.f-input:focus-visible,.f-select:focus-visible,.f-textarea:focus-visible,.btn:focus-visible,.nav-links a:focus-visible,.nav-cta:focus-visible,.nav-brochure:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 .f-check:focus-within{outline:2px solid var(--cyan);outline-offset:2px;border-color:rgba(79,169,232,.4)}
 .f-field.is-error label{color:#fca5a5}
 .f-field.is-error .f-input,.f-field.is-error .f-select,.f-field.is-error .f-textarea{border-color:rgba(248,113,113,.7);box-shadow:0 0 0 1px rgba(248,113,113,.2)}
@@ -458,9 +461,9 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
       <a href="#process">How We Work</a>
       <a href="#founder">About</a>
       <a href="#contact">Contact</a>
-      <a href="assets/monkyfi-brochure.pdf" download="Monkyfi-Brochure.pdf">Brochure</a>
     </div>
     <div class="nav-end">
+      <a href="assets/monkyfi-brochure.pdf" class="nav-brochure" download="Monkyfi-Brochure.pdf">Brochure</a>
       <a href="#intake" class="nav-cta"><span class="cta-full">Book an AI Assessment</span><span class="cta-short">Book Assessment</span></a>
       <button class="nav-toggle" id="navToggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
     </div>
