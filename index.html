@@ -39,7 +39,9 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
+html{scroll-padding-top:78px}
 body{font-family:'Poppins',system-ui,sans-serif;background:var(--ink);color:#cbd5e1;font-size:17px;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased;letter-spacing:-0.005em}
+section[id]{scroll-margin-top:78px}
 ::selection{background:var(--cyan);color:var(--ink)}
 a{color:inherit;text-decoration:none}
 a:hover{color:var(--cyan)}
@@ -53,7 +55,7 @@ a.brand:hover{color:inherit}
 .brand-mark img{width:90%;height:90%;object-fit:contain}
 .brand-text{display:flex;flex-direction:column;line-height:1}
 .brand-text b{color:#EDEFF2;font-weight:700;font-size:18px;letter-spacing:-.02em}
-.brand-text small{color:var(--cyan);font-size:10px;letter-spacing:.32em;text-transform:uppercase;margin-top:4px;font-weight:600}
+.brand-text small{color:var(--cyan);font-size:11px;letter-spacing:.32em;text-transform:uppercase;margin-top:4px;font-weight:600}
 .nav-links{display:flex;gap:28px;align-items:center;margin-left:auto}
 .nav-links a{color:#94a3b8;font-size:15px;font-weight:400;transition:color .2s;white-space:nowrap}
 .nav-links a:hover{color:var(--cyan)}
@@ -133,7 +135,7 @@ p{line-height:1.65;color:#94a3b8;margin:0;font-size:16px}
 .float-badge{position:absolute;background:rgba(14,27,51,.92);border:1px solid rgba(79,169,232,.3);border-radius:12px;padding:10px 14px;backdrop-filter:blur(8px);display:flex;align-items:center;gap:10px;box-shadow:0 12px 40px rgba(0,0,0,.4);z-index:3}
 .float-badge .b-ic{width:32px;height:32px;border-radius:8px;background:var(--cyan-soft);color:var(--cyan);display:flex;align-items:center;justify-content:center;font-size:14px}
 .float-badge b{color:#EDEFF2;font-size:14px;font-weight:600;display:block;line-height:1.1}
-.float-badge small{color:#64748b;font-size:12px;letter-spacing:.04em}
+.float-badge small{color:#64748b;font-size:12.5px;letter-spacing:.04em}
 .fb-1{top:14%;left:-6%;animation:float 6s ease-in-out infinite}
 .fb-2{top:16%;left:auto;right:calc(-18% - 40px);animation:float 7s ease-in-out infinite .5s}
 .fb-3{bottom:10%;left:2%;animation:float 8s ease-in-out infinite 1s}
@@ -146,7 +148,7 @@ p{line-height:1.65;color:#94a3b8;margin:0;font-size:16px}
   .float-badge{padding:8px 11px;gap:8px}
   .float-badge .b-ic{width:28px;height:28px;font-size:12px}
   .float-badge b{font-size:12px}
-  .float-badge small{font-size:10px}
+  .float-badge small{font-size:11px}
   .fb-1{left:0;top:10%}
   .fb-2{right:-18%;left:auto;top:8%}
   .fb-3{left:0;bottom:8%}
@@ -177,8 +179,8 @@ p{line-height:1.65;color:#94a3b8;margin:0;font-size:16px}
 .product:hover{border-color:rgba(79,169,232,.4);transform:translateY(-6px);box-shadow:0 24px 60px rgba(79,169,232,.12)}
 .product::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.4}
 .p-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
-.p-tag{font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--cyan);text-transform:uppercase}
-.badge{display:inline-flex;padding:5px 11px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.p-tag{font-size:12px;font-weight:700;letter-spacing:.18em;color:var(--cyan);text-transform:uppercase}
+.badge{display:inline-flex;padding:5px 11px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 .badge-live{background:rgba(34,197,94,.14);color:#22c55e;border:1px solid rgba(34,197,94,.35)}
 .badge-pilot{background:var(--cyan-soft);color:var(--cyan);border:1px solid rgba(79,169,232,.3)}
 .badge-soon{background:rgba(148,163,184,.12);color:#94a3b8;border:1px solid var(--line)}
@@ -315,7 +317,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   body{font-size:18px}
   p{font-size:18px;line-height:1.65}
   .brand-text b{font-size:19px}
-  .brand-text small{font-size:10px;letter-spacing:.28em}
+  .brand-text small{font-size:11px;letter-spacing:.28em}
   .nav-links a{font-size:17px}
   .nav-cta{font-size:13.5px;padding:9px 12px}
   .eyebrow{font-size:13.5px;padding:7px 13px}
@@ -338,7 +340,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   .cap-list li{font-size:16px;line-height:1.5}
   .hitl{font-size:15px}
   .product .btn{font-size:16px;padding:12px 18px}
-  .badge,.p-tag{font-size:12px}
+  .badge,.p-tag{font-size:12.5px}
   .serve-card{padding:22px 18px}
   .serve-card span{font-size:16px}
   .step h4{font-size:18px}
@@ -375,6 +377,16 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .f-field label small{color:#64748b;font-weight:400}
 .f-input,.f-select,.f-textarea{background:rgba(7,11,20,.6);border:1px solid var(--line);border-radius:10px;padding:13px 15px;color:#EDEFF2;font-family:inherit;font-size:16px;outline:none;transition:border-color .2s;width:100%}
 .f-input:focus,.f-select:focus,.f-textarea:focus{border-color:var(--cyan)}
+.f-input:focus-visible,.f-select:focus-visible,.f-textarea:focus-visible,.btn:focus-visible,.nav-links a:focus-visible,.nav-cta:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.f-check:focus-within{outline:2px solid var(--cyan);outline-offset:2px;border-color:rgba(79,169,232,.4)}
+.f-field.is-error label{color:#fca5a5}
+.f-field.is-error .f-input,.f-field.is-error .f-select,.f-field.is-error .f-textarea{border-color:rgba(248,113,113,.7);box-shadow:0 0 0 1px rgba(248,113,113,.2)}
+.f-field.is-error .captcha-wrap{border-color:rgba(248,113,113,.7);box-shadow:0 0 0 1px rgba(248,113,113,.2)}
+.f-field-error{display:none;font-size:13px;color:#fca5a5;margin:0;line-height:1.35}
+.f-field.is-error .f-field-error{display:block}
+.f-char-count{font-size:13px;color:#64748b;text-align:right;margin-top:4px}
+.f-char-count.is-near{color:var(--cream)}
+.f-char-count.is-max{color:#fca5a5}
 .f-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
 .f-textarea{min-height:110px;resize:vertical}
 .f-checks{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -668,19 +680,22 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
     <div class="intake-grid">
       <div class="f-field">
         <label for="iq-name">Name</label>
-        <input class="f-input" id="iq-name" name="name" type="text" autocomplete="name" required />
+        <input class="f-input" id="iq-name" name="name" type="text" autocomplete="name" required aria-describedby="iq-name-error" />
+        <span class="f-field-error" id="iq-name-error" role="alert"></span>
       </div>
       <div class="f-field">
         <label for="iq-email">Work email</label>
-        <input class="f-input" id="iq-email" name="email" type="email" autocomplete="email" required />
+        <input class="f-input" id="iq-email" name="email" type="email" autocomplete="email" required aria-describedby="iq-email-error" />
+        <span class="f-field-error" id="iq-email-error" role="alert"></span>
       </div>
       <div class="f-field">
         <label for="iq-company">Company</label>
-        <input class="f-input" id="iq-company" name="company" type="text" autocomplete="organization" required />
+        <input class="f-input" id="iq-company" name="company" type="text" autocomplete="organization" required aria-describedby="iq-company-error" />
+        <span class="f-field-error" id="iq-company-error" role="alert"></span>
       </div>
       <div class="f-field">
         <label for="iq-segment">Type of operation</label>
-        <select class="f-select" id="iq-segment" name="segment" required>
+        <select class="f-select" id="iq-segment" name="segment" required aria-describedby="iq-segment-error">
           <option value="" disabled selected>Select one…</option>
           <option>Fiber / ISP</option>
           <option>Mobile / MVNO</option>
@@ -690,14 +705,16 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
           <option>Enterprise IT</option>
           <option>Other</option>
         </select>
+        <span class="f-field-error" id="iq-segment-error" role="alert"></span>
       </div>
       <div class="f-field full" id="iq-segment-other-wrap" hidden>
         <label for="iq-segment-other">Other — Please specify operation type</label>
-        <input class="f-input" id="iq-segment-other" name="segment_other" type="text" maxlength="120" autocomplete="off" />
+        <input class="f-input" id="iq-segment-other" name="segment_other" type="text" maxlength="120" autocomplete="off" aria-describedby="iq-segment-other-error" />
+        <span class="f-field-error" id="iq-segment-other-error" role="alert"></span>
       </div>
       <div class="f-field">
         <label for="iq-size">Company size</label>
-        <select class="f-select" id="iq-size" name="size" required>
+        <select class="f-select" id="iq-size" name="size" required aria-describedby="iq-size-error">
           <option value="" disabled selected>Select one…</option>
           <option>Startup</option>
           <option>Small</option>
@@ -707,14 +724,16 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
           <option>Hyperscaler</option>
           <option value="Other">Other — Please specify company size</option>
         </select>
+        <span class="f-field-error" id="iq-size-error" role="alert"></span>
       </div>
       <div class="f-field" id="iq-size-other-wrap" hidden>
         <label for="iq-size-other">Other — Please specify company size</label>
-        <input class="f-input" id="iq-size-other" name="size_other" type="text" maxlength="80" autocomplete="off" />
+        <input class="f-input" id="iq-size-other" name="size_other" type="text" maxlength="80" autocomplete="off" aria-describedby="iq-size-other-error" />
+        <span class="f-field-error" id="iq-size-other-error" role="alert"></span>
       </div>
       <div class="f-field">
         <label for="iq-issue">Biggest operational issue today</label>
-        <select class="f-select" id="iq-issue" name="issue" required>
+        <select class="f-select" id="iq-issue" name="issue" required aria-describedby="iq-issue-error">
           <option value="" disabled selected>Select one…</option>
           <option>We don't know where to start with AI</option>
           <option>High operating costs</option>
@@ -723,10 +742,12 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
           <option>Slow provisioning / activation</option>
           <option>Other</option>
         </select>
+        <span class="f-field-error" id="iq-issue-error" role="alert"></span>
       </div>
       <div class="f-field full" id="iq-issue-other-wrap" hidden>
         <label for="iq-issue-other">Other — Please describe the issue</label>
-        <input class="f-input" id="iq-issue-other" name="issue_other" type="text" maxlength="200" autocomplete="off" />
+        <input class="f-input" id="iq-issue-other" name="issue_other" type="text" maxlength="200" autocomplete="off" aria-describedby="iq-issue-other-error" />
+        <span class="f-field-error" id="iq-issue-other-error" role="alert"></span>
       </div>
       <div class="f-field full">
         <label>What would you like to explore? <small class="select-hint">(select any)</small></label>
@@ -741,13 +762,16 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
       </div>
       <div class="f-field full">
         <label for="iq-notes">Briefly, what's going on? <small>(optional, max 500 characters)</small></label>
-        <textarea class="f-textarea" id="iq-notes" name="notes" maxlength="500" placeholder="e.g. Our NOC handles thousands of alarms a day and our install times keep slipping…"></textarea>
+        <textarea class="f-textarea" id="iq-notes" name="notes" maxlength="500" placeholder="e.g. Our NOC handles thousands of alarms a day and our install times keep slipping…" aria-describedby="iq-notes-count"></textarea>
+        <div class="f-char-count" id="iq-notes-count" aria-live="polite">0 / 500</div>
       </div>
     </div>
-    <div class="f-field full" style="margin-top:20px">
+    <div class="f-field full" id="captchaField" style="margin-top:20px">
+      <label for="iq-captcha">Verification</label>
       <div class="captcha-wrap">
-        <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
+        <div class="h-captcha" id="iq-captcha" data-captcha="true" data-theme="dark"></div>
       </div>
+      <span class="f-field-error" id="iq-captcha-error" role="alert"></span>
     </div>
     <div style="display:flex;align-items:center;gap:16px;margin-top:20px;flex-wrap:wrap">
       <button type="submit" class="btn btn-primary" id="intakeSubmit"><span>Request My Assessment</span> <span class="arr">&#8594;</span></button>
@@ -1047,6 +1071,63 @@ if(intakeForm){
   wireOther('iq-size', 'iq-size-other-wrap', 'iq-size-other');
   wireOther('iq-issue', 'iq-issue-other-wrap', 'iq-issue-other');
 
+  const notesInput = document.getElementById('iq-notes');
+  const notesCount = document.getElementById('iq-notes-count');
+  const NOTES_MAX = 500;
+  function updateNotesCount(){
+    if(!notesInput || !notesCount) return;
+    const len = notesInput.value.length;
+    notesCount.textContent = len + ' / ' + NOTES_MAX;
+    notesCount.classList.toggle('is-near', len >= NOTES_MAX - 50 && len < NOTES_MAX);
+    notesCount.classList.toggle('is-max', len >= NOTES_MAX);
+  }
+  if(notesInput){
+    notesInput.addEventListener('input', updateNotesCount);
+    updateNotesCount();
+  }
+
+  function clearIntakeErrors(){
+    intakeForm.querySelectorAll('.f-field.is-error').forEach(function(field){
+      field.classList.remove('is-error');
+      field.querySelectorAll('.f-input,.f-select,.f-textarea').forEach(function(el){
+        el.removeAttribute('aria-invalid');
+      });
+      var err = field.querySelector('.f-field-error');
+      if(err) err.textContent = '';
+    });
+  }
+  function setFieldError(inputId, message){
+    var input = document.getElementById(inputId);
+    if(!input) return null;
+    var field = input.closest('.f-field');
+    if(!field) return null;
+    field.classList.add('is-error');
+    input.setAttribute('aria-invalid', 'true');
+    var err = field.querySelector('.f-field-error');
+    if(err) err.textContent = message;
+    return input;
+  }
+  intakeForm.addEventListener('input', function(e){
+    var field = e.target.closest('.f-field');
+    if(!field || !field.classList.contains('is-error')) return;
+    if(e.target.matches('.f-input,.f-select,.f-textarea')){
+      field.classList.remove('is-error');
+      e.target.removeAttribute('aria-invalid');
+      var err = field.querySelector('.f-field-error');
+      if(err) err.textContent = '';
+    }
+  });
+  intakeForm.addEventListener('change', function(e){
+    if(!e.target.matches('.f-select')) return;
+    var field = e.target.closest('.f-field');
+    if(field && field.classList.contains('is-error')){
+      field.classList.remove('is-error');
+      e.target.removeAttribute('aria-invalid');
+      var err = field.querySelector('.f-field-error');
+      if(err) err.textContent = '';
+    }
+  });
+
   function resolveChoice(value, otherValue){
     if(value !== 'Other') return value;
     const detail = (otherValue || '').toString().trim();
@@ -1066,20 +1147,52 @@ if(intakeForm){
     if(intakeForm.botcheck && intakeForm.botcheck.checked) return;
     const fd = new FormData(intakeForm);
     const interests = fd.getAll('interest');
-    const required = ['name','email','company','segment','size','issue'];
-    for(const r of required){ if(!fd.get(r) || !String(fd.get(r)).trim()){ showIntakeStatus(status,'err','Please complete the required fields above.'); return; } }
+    clearIntakeErrors();
+    var firstErrorInput = null;
+    function markError(inputId, message){
+      var el = setFieldError(inputId, message);
+      if(el && !firstErrorInput) firstErrorInput = el;
+    }
+    const required = [
+      ['name', 'iq-name', 'Name is required.'],
+      ['email', 'iq-email', 'Work email is required.'],
+      ['company', 'iq-company', 'Company is required.'],
+      ['segment', 'iq-segment', 'Please select an operation type.'],
+      ['size', 'iq-size', 'Please select a company size.'],
+      ['issue', 'iq-issue', 'Please select your biggest operational issue.']
+    ];
+    for(const r of required){
+      if(!fd.get(r[0]) || !String(fd.get(r[0])).trim()) markError(r[1], r[2]);
+    }
+    const emailVal = String(fd.get('email') || '').trim();
+    if(emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)){
+      markError('iq-email', 'Please enter a valid email address.');
+    }
     if(fd.get('segment') === 'Other' && !String(fd.get('segment_other') || '').trim()){
-      showIntakeStatus(status,'err','Please specify the type of operation.'); return;
+      markError('iq-segment-other', 'Please specify the operation type.');
     }
     if(fd.get('size') === 'Other' && !String(fd.get('size_other') || '').trim()){
-      showIntakeStatus(status,'err','Please specify the company size.'); return;
+      markError('iq-size-other', 'Please specify the company size.');
     }
     if(fd.get('issue') === 'Other' && !String(fd.get('issue_other') || '').trim()){
-      showIntakeStatus(status,'err','Please describe the operational issue.'); return;
+      markError('iq-issue-other', 'Please describe the operational issue.');
     }
     const captchaToken = (fd.get('h-captcha-response') || '').toString().trim();
     if(!captchaToken){
-      showIntakeStatus(status,'err','Please complete the captcha, then try again.');
+      var captchaField = document.getElementById('captchaField');
+      if(captchaField){
+        captchaField.classList.add('is-error');
+        var captchaErr = document.getElementById('iq-captcha-error');
+        if(captchaErr) captchaErr.textContent = 'Please complete the verification checkbox.';
+      }
+    }
+    if(firstErrorInput || !captchaToken){
+      showIntakeStatus(status,'err', firstErrorInput ? 'Please fix the highlighted fields above.' : 'Please complete the verification checkbox.');
+      var scrollTarget = firstErrorInput || document.getElementById('captchaField');
+      if(scrollTarget){
+        try{ scrollTarget.focus({ preventScroll: true }); }catch(_){}
+        try{ scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'center' }); }catch(_){}
+      }
       return;
     }
     const segment = resolveChoice(fd.get('segment'), fd.get('segment_other'));
@@ -1117,6 +1230,8 @@ if(intakeForm){
       if(!res.ok || !data.success) throw new Error(data.message || ('API ' + res.status));
       showIntakeStatus(status,'ok',"Got it — thank you! We'll review your info and reply within 24 hours.");
       intakeForm.reset();
+      clearIntakeErrors();
+      updateNotesCount();
       toggleOtherField('iq-segment', 'iq-segment-other-wrap', 'iq-segment-other');
       toggleOtherField('iq-size', 'iq-size-other-wrap', 'iq-size-other');
       toggleOtherField('iq-issue', 'iq-issue-other-wrap', 'iq-issue-other');
@@ -1130,7 +1245,7 @@ if(intakeForm){
         : ((err && err.message) ? String(err.message) : 'Submission failed.');
       if(/captcha|mandatory|invalid|spam|rate|too may|too many/i.test(msg)){
         showIntakeStatus(status,'err', /captcha/i.test(msg)
-          ? 'Please complete the captcha, then try again.'
+          ? 'Please complete the verification checkbox.'
           : (/rate|too may|too many/i.test(msg)
             ? 'Too many submissions just now — please wait a moment and try again.'
             : msg));
