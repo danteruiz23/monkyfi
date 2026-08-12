@@ -10,11 +10,13 @@
 <meta property="og:url" content="https://monkyfi.com/" />
 <meta property="og:title" content="Monkyfi — Get AI Power" />
 <meta property="og:description" content="Monkyfi combines real telecom expertise with AI to help critical infrastructure companies automate operations, turn data into intelligence, and prepare for the next generation of network operations." />
-<meta property="og:image" content="https://monkyfi.com/assets/og-image.png" />
+<meta property="og:image" content="https://monkyfi.com/assets/og-image.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Monkyfi — Get AI Power" />
 <meta name="twitter:description" content="AI automation and intelligence for telecom and digital infrastructure operations." />
-<meta name="twitter:image" content="https://monkyfi.com/assets/og-image.png" />
+<meta name="twitter:image" content="https://monkyfi.com/assets/og-image.jpg" />
 <link rel="icon" href="assets/favicon-48.png" type="image/png" sizes="48x48" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -202,10 +204,7 @@ p{line-height:1.6;color:#94a3b8;margin:0}
 .latam-stats div b{display:block;color:#EDEFF2;font-size:26px;font-weight:700;font-family:'JetBrains Mono',monospace}
 .latam-stats div small{color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
 
-.founder-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center;margin-top:44px}
-@media(max-width:880px){.founder-wrap{grid-template-columns:1fr}}
-.founder-photo{width:220px;height:220px;border-radius:20px;background:radial-gradient(circle at 35% 30%, #1a2c4d, #0a1426 70%);border:1px solid rgba(79,169,232,.35);box-shadow:0 0 50px rgba(79,169,232,.2);display:flex;align-items:center;justify-content:center;overflow:hidden;margin:0 auto}
-.founder-photo picture{width:70%;height:70%;display:flex;align-items:center;justify-content:center}.founder-photo img{width:100%;height:100%;object-fit:contain}
+.founder-wrap{max-width:760px;margin:44px auto 0}
 .founder-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 .founder-tags span{padding:8px 14px;border-radius:8px;background:rgba(14,27,51,.6);border:1px solid var(--line);font-size:12.5px;color:#cbd5e1}
 .founder-cred{margin-top:18px;padding:14px 16px;border-radius:10px;background:var(--cyan-soft);border:1px solid rgba(79,169,232,.25);font-size:13px;color:#e2e8f0}
@@ -541,28 +540,18 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
     <h2 style="margin-top:18px">Built from Real Telecom Experience</h2>
   </div>
   <div class="founder-wrap">
-    <div>
-      <div class="founder-photo">
-        <picture>
-          <source type="image/webp" srcset="assets/logo-icon-mark-256.webp" />
-          <img src="assets/logo-icon-mark-web-opt.png" alt="" width="220" height="220" loading="lazy" decoding="async" />
-        </picture>
-      </div>
+    <p>Monkyfi is built on extensive telecommunications, network operations, service delivery, digital infrastructure, and technology transformation experience — now combined with advanced AI capabilities.</p>
+    <div class="founder-tags">
+      <span>Telecom & Network Operations</span>
+      <span>Service Delivery</span>
+      <span>Digital Infrastructure</span>
+      <span>Subsea Cable Experience</span>
+      <span>AI & Digital Transformation</span>
+      <span>Generative AI</span>
+      <span>Agentic AI</span>
     </div>
-    <div>
-      <p>Monkyfi is built on extensive telecommunications, network operations, service delivery, digital infrastructure, and technology transformation experience — now combined with advanced AI capabilities.</p>
-      <div class="founder-tags">
-        <span>Telecom & Network Operations</span>
-        <span>Service Delivery</span>
-        <span>Digital Infrastructure</span>
-        <span>Subsea Cable Experience</span>
-        <span>AI & Digital Transformation</span>
-        <span>Generative AI</span>
-        <span>Agentic AI</span>
-      </div>
-      <div class="founder-cred"><b>Massachusetts Institute of Technology</b> — Generative AI for Digital Transformation — CERTIFIED</div>
-      <div class="founder-cred" style="margin-top:10px"><b>Harvard</b> — Agentic AI Foundation - Risk and Application - CERTIFIED</div>
-    </div>
+    <div class="founder-cred"><b>Massachusetts Institute of Technology</b> — Generative AI for Digital Transformation — CERTIFIED</div>
+    <div class="founder-cred" style="margin-top:10px"><b>Harvard</b> — Agentic AI Foundation - Risk and Application - CERTIFIED</div>
   </div>
 </section>
 
@@ -570,14 +559,12 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   <div class="section-head">
     <span class="eyebrow"><span class="dot"></span><span>Start Here</span></span>
     <h2 style="margin-top:18px">Book Your AI Assessment</h2>
-    <p>Tell us a little about your operation — it takes 2 minutes. Dante will personally review it and reply within 24 hours with a recommended starting point.</p>
+    <p>Tell us a little about your operation — it takes 2 minutes. We'll review it and reply within 24 hours with a recommended starting point.</p>
   </div>
   <form class="intake-card reveal" id="intakeForm" novalidate>
     <input type="hidden" name="access_key" value="645f7dca-b0f1-4469-9541-83dc7a825ec7">
     <input type="hidden" name="subject" value="New AI Assessment Request — Monkyfi Connect">
     <input type="hidden" name="from_name" value="Monkyfi Website Intake">
-    <input type="hidden" name="to" value="hello@monkyfi.com">
-    <input type="hidden" name="cc" value="dante@monkyfi.com">
     <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
     <div class="intake-grid">
       <div class="f-field">
@@ -605,6 +592,10 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
           <option>Other</option>
         </select>
       </div>
+      <div class="f-field full" id="iq-segment-other-wrap" hidden>
+        <label for="iq-segment-other">Please specify operation type</label>
+        <input class="f-input" id="iq-segment-other" name="segment_other" type="text" maxlength="120" autocomplete="off" />
+      </div>
       <div class="f-field">
         <label for="iq-size">Company size</label>
         <select class="f-select" id="iq-size" name="size" required>
@@ -618,6 +609,10 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
           <option>Other</option>
         </select>
       </div>
+      <div class="f-field" id="iq-size-other-wrap" hidden>
+        <label for="iq-size-other">Please specify company size</label>
+        <input class="f-input" id="iq-size-other" name="size_other" type="text" maxlength="80" autocomplete="off" />
+      </div>
       <div class="f-field">
         <label for="iq-pain">Biggest operational pain today</label>
         <select class="f-select" id="iq-pain" name="pain" required>
@@ -629,6 +624,10 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
           <option>We don't know where to start with AI</option>
           <option>Other</option>
         </select>
+      </div>
+      <div class="f-field full" id="iq-pain-other-wrap" hidden>
+        <label for="iq-pain-other">Please describe the pain</label>
+        <input class="f-input" id="iq-pain-other" name="pain_other" type="text" maxlength="200" autocomplete="off" />
       </div>
       <div class="f-field full">
         <label>What would you like to explore? <small>(select any)</small></label>
@@ -704,7 +703,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
     </div>
   </div>
   <div class="foot-bottom">
-    <small>© 2026 Monkyfi LLC · Miami, Florida, USA · <a href="tel:+17863779802">786-377-9802</a> · <a href="mailto:hello@monkyfi.com">hello@monkyfi.com</a> · <a href="mailto:dante@monkyfi.com">dante@monkyfi.com</a></small>
+    <small>© 2026 Monkyfi LLC · Miami, Florida, USA · <a href="tel:+17863779802">786-377-9802</a> · <a href="mailto:hello@monkyfi.com">hello@monkyfi.com</a></small>
     <div class="social"><a href="https://linkedin.com/company/monkyfi" target="_blank" rel="noopener">LinkedIn</a></div>
   </div>
 </footer>
@@ -913,7 +912,7 @@ async function sendMessage(){
   }catch(err){
     console.error('chat error:', err);
     removeTyping();
-    append('bot', "Hmm — I couldn't reach the model just now. You can email Dante directly at **dante@monkyfi.com** or **hello@monkyfi.com** and he'll reply within 24 hours.");
+    append('bot', "Hmm — I couldn't reach the model just now. You can email **hello@monkyfi.com** and we'll reply within 24 hours.");
   }
   sendBtn.disabled=false;
   input.focus();
@@ -926,29 +925,77 @@ input.addEventListener('keydown', (e)=>{ if(e.key==='Enter' && !e.shiftKey){ e.p
 const intakeForm = document.getElementById('intakeForm');
 if(intakeForm){
   const INTAKE_BTN_HTML = '<span>Request My Assessment</span> <span class="arr">&#8594;</span>';
+  let intakeSubmitting = false;
+  function toggleOtherField(selectId, wrapId, inputId){
+    const sel = document.getElementById(selectId);
+    const wrap = document.getElementById(wrapId);
+    const input = document.getElementById(inputId);
+    if(!sel || !wrap || !input) return;
+    const show = sel.value === 'Other';
+    wrap.hidden = !show;
+    input.required = show;
+    if(!show) input.value = '';
+  }
+  function wireOther(selectId, wrapId, inputId){
+    const sel = document.getElementById(selectId);
+    if(!sel) return;
+    sel.addEventListener('change', () => toggleOtherField(selectId, wrapId, inputId));
+    toggleOtherField(selectId, wrapId, inputId);
+  }
+  wireOther('iq-segment', 'iq-segment-other-wrap', 'iq-segment-other');
+  wireOther('iq-size', 'iq-size-other-wrap', 'iq-size-other');
+  wireOther('iq-pain', 'iq-pain-other-wrap', 'iq-pain-other');
+
+  function resolveChoice(value, otherValue){
+    if(value !== 'Other') return value;
+    const detail = (otherValue || '').toString().trim();
+    return detail ? ('Other — ' + detail) : 'Other';
+  }
+  function showIntakeStatus(el, kind, text){
+    el.className = 'intake-status ' + kind;
+    el.textContent = text;
+    try{ el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }catch(_){}
+  }
+
   intakeForm.addEventListener('submit', async function(e){
     e.preventDefault();
+    if(intakeSubmitting) return;
     const status = document.getElementById('intakeStatus');
     const btn = document.getElementById('intakeSubmit');
     if(intakeForm.botcheck && intakeForm.botcheck.checked) return;
     const fd = new FormData(intakeForm);
     const interests = fd.getAll('interest');
     const required = ['name','email','company','segment','size','pain'];
-    for(const r of required){ if(!fd.get(r) || !String(fd.get(r)).trim()){ status.className='intake-status err'; status.textContent='Please complete the required fields above.'; return; } }
+    for(const r of required){ if(!fd.get(r) || !String(fd.get(r)).trim()){ showIntakeStatus(status,'err','Please complete the required fields above.'); return; } }
+    if(fd.get('segment') === 'Other' && !String(fd.get('segment_other') || '').trim()){
+      showIntakeStatus(status,'err','Please specify the type of operation.'); return;
+    }
+    if(fd.get('size') === 'Other' && !String(fd.get('size_other') || '').trim()){
+      showIntakeStatus(status,'err','Please specify the company size.'); return;
+    }
+    if(fd.get('pain') === 'Other' && !String(fd.get('pain_other') || '').trim()){
+      showIntakeStatus(status,'err','Please describe the operational pain.'); return;
+    }
     const captchaToken = (fd.get('h-captcha-response') || '').toString().trim();
     if(!captchaToken){
-      status.className = 'intake-status err';
-      status.textContent = 'Please complete the captcha, then try again.';
+      showIntakeStatus(status,'err','Please complete the captcha, then try again.');
       return;
     }
+    const segment = resolveChoice(fd.get('segment'), fd.get('segment_other'));
+    const size = resolveChoice(fd.get('size'), fd.get('size_other'));
+    const pain = resolveChoice(fd.get('pain'), fd.get('pain_other'));
+    fd.set('segment', segment);
+    fd.set('size', size);
+    fd.set('pain', pain);
     fd.set('interests', interests.join(', ') || '(none selected)');
     fd.set('message', [
       'New AI Assessment request from monkyfi.com',
-      '', 'Company: ' + fd.get('company'), 'Operation type: ' + fd.get('segment'),
-      'Company size: ' + fd.get('size'), 'Biggest pain: ' + fd.get('pain'),
+      '', 'Company: ' + fd.get('company'), 'Operation type: ' + segment,
+      'Company size: ' + size, 'Biggest pain: ' + pain,
       'Interested in: ' + (interests.join(', ') || '(none selected)'),
       '', 'Notes:', fd.get('notes') || '(none)'
     ].join('\n'));
+    intakeSubmitting = true;
     btn.disabled = true;
     btn.innerHTML = '<span>Sending…</span>';
     status.className = 'intake-status';
@@ -967,9 +1014,11 @@ if(intakeForm){
       clearTimeout(timeout);
       const data = await res.json().catch(() => ({}));
       if(!res.ok || !data.success) throw new Error(data.message || ('API ' + res.status));
-      status.className = 'intake-status ok';
-      status.textContent = "Got it — thank you! Dante will review your info and reply within 24 hours.";
+      showIntakeStatus(status,'ok',"Got it — thank you! We'll review your info and reply within 24 hours.");
       intakeForm.reset();
+      toggleOtherField('iq-segment', 'iq-segment-other-wrap', 'iq-segment-other');
+      toggleOtherField('iq-size', 'iq-size-other-wrap', 'iq-size-other');
+      toggleOtherField('iq-pain', 'iq-pain-other-wrap', 'iq-pain-other');
       if(window.hcaptcha && typeof window.hcaptcha.reset === 'function'){
         try{ window.hcaptcha.reset(); }catch(_){}
       }
@@ -978,24 +1027,24 @@ if(intakeForm){
       const msg = (err && err.name === 'AbortError')
         ? 'That took too long. You can email hello@monkyfi.com directly, or try again.'
         : ((err && err.message) ? String(err.message) : 'Submission failed.');
-      // Captcha / validation errors: show the real reason — don't pretend mailto succeeded.
       if(/captcha|mandatory|invalid|spam|rate|too may|too many/i.test(msg)){
-        status.className = 'intake-status err';
-        status.textContent = /captcha/i.test(msg)
+        showIntakeStatus(status,'err', /captcha/i.test(msg)
           ? 'Please complete the captcha, then try again.'
-          : msg;
+          : (/rate|too may|too many/i.test(msg)
+            ? 'Too many submissions just now — please wait a moment and try again.'
+            : msg));
       } else {
         const bodyLines = [
           'Name: ' + fd.get('name'), 'Email: ' + fd.get('email'), 'Company: ' + fd.get('company'),
-          'Operation: ' + fd.get('segment'), 'Size: ' + fd.get('size'), 'Biggest pain: ' + fd.get('pain'),
+          'Operation: ' + segment, 'Size: ' + size, 'Biggest pain: ' + pain,
           'Interested in: ' + (interests.join(', ') || '(none selected)'), '', 'Notes:', fd.get('notes') || '(none)'
         ].join('\n');
-        const mail = 'mailto:hello@monkyfi.com?cc=dante@monkyfi.com&subject=' + encodeURIComponent('AI Assessment Request — ' + fd.get('company')) + '&body=' + encodeURIComponent(bodyLines);
+        const mail = 'mailto:hello@monkyfi.com?subject=' + encodeURIComponent('AI Assessment Request — ' + fd.get('company')) + '&body=' + encodeURIComponent(bodyLines);
         window.location.href = mail;
-        status.className = 'intake-status ok';
-        status.textContent = "We've opened an email with your answers pre-filled — just press send.";
+        showIntakeStatus(status,'ok',"We've opened an email with your answers pre-filled — just press send.");
       }
     }
+    intakeSubmitting = false;
     btn.disabled = false;
     btn.innerHTML = INTAKE_BTN_HTML;
   });
