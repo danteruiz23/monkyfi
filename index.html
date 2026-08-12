@@ -284,6 +284,8 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .intake-status{display:none;margin-top:16px;padding:13px 16px;border-radius:10px;font-size:14px}
 .intake-status.ok{display:block;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.35);color:#22c55e}
 .intake-status.err{display:block;background:rgba(242,201,139,.1);border:1px solid rgba(242,201,139,.3);color:var(--cream)}
+.status-link{display:inline-block;margin-top:10px;color:var(--cyan);font-weight:600}
+.status-link:hover{text-decoration:underline}
 .status-retry{margin-top:10px;padding:0;background:none;border:none;color:var(--cyan);font:inherit;font-weight:600;cursor:pointer}
 .status-retry:hover{text-decoration:underline}
 
@@ -822,9 +824,17 @@ if(intakeForm){
   const intakeSubmit = document.getElementById('intakeSubmit');
   const intakeStorageKey = 'monkyfi-intake-form';
   const intakeFields = intakeForm.querySelectorAll('input[name]:not([type="hidden"]):not([name="botcheck"]), select[name], textarea[name]');
-  function setStatus(kind, message, showRetry){
+  function setStatus(kind, message, showRetry, mailToHref){
     intakeStatus.className = kind ? ('intake-status ' + kind) : 'intake-status';
     intakeStatus.textContent = message || '';
+    if(mailToHref){
+      const link = document.createElement('a');
+      link.href = mailToHref;
+      link.className = 'status-link';
+      link.textContent = 'Open a pre-filled email';
+      intakeStatus.appendChild(document.createElement('br'));
+      intakeStatus.appendChild(link);
+    }
     if(showRetry){
       const retry = document.createElement('button');
       retry.type = 'button';
@@ -950,8 +960,7 @@ if(intakeForm){
         'Interested in: ' + (interests.join(', ') || '(none selected)'), '', 'Notes:', fd.get('notes') || '(none)'
       ].join('\n');
       const mail = 'mailto:hello@monkyfi.com?cc=dante@monkyfi.com&subject=' + encodeURIComponent('AI Assessment Request — ' + fd.get('company')) + '&body=' + encodeURIComponent(bodyLines);
-      setStatus('err', "We couldn't submit your request automatically. Your answers are still saved on this device. Please try again, or send the pre-filled email if it opens.", true);
-      window.location.href = mail;
+      setStatus('err', "We couldn't submit your request automatically. Your answers are still saved on this device. Please try again, or use the pre-filled email option below.", true, mail);
     }
     intakeSubmit.disabled = false;
   });
