@@ -283,6 +283,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .intake-note{font-size:12px;color:#64748b;margin-top:16px}
 .intake-status{display:none;margin-top:16px;padding:13px 16px;border-radius:10px;font-size:14px}
 .intake-status.ok{display:block;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.35);color:#22c55e}
+.intake-status.info{display:block;background:rgba(79,169,232,.12);border:1px solid rgba(79,169,232,.28);color:#cfe9fb}
 .intake-status.err{display:block;background:rgba(242,201,139,.1);border:1px solid rgba(242,201,139,.3);color:var(--cream)}
 .status-link{display:inline-block;margin-top:10px;color:var(--cyan);font-weight:600}
 .status-link:hover{text-decoration:underline}
@@ -891,7 +892,7 @@ if(intakeForm){
         }
         if(typeof value === 'string') field.value = value;
       });
-      setStatus('err', 'We restored your previous answers so you can review them and try again.', false);
+      setStatus('info', 'We restored your previous answers so you can review them and try again.', false);
     }catch(err){
       console.warn('intake cache restore failed:', err);
       clearFormState();
@@ -901,7 +902,8 @@ if(intakeForm){
     clearFieldErrors();
     const missing = [];
     intakeFields.forEach(function(field){
-      if(field.required && !String(field.value || '').trim()){
+      const isMissing = field.type === 'checkbox' ? !field.checked : !String(field.value || '').trim();
+      if(field.required && isMissing){
         markFieldError(field);
         missing.push(field);
       }else if(field.type === 'email' && field.value && !field.checkValidity()){
