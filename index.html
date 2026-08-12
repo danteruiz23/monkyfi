@@ -20,7 +20,7 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": ["Organization", "LocalBusiness"],
   "name": "Monkyfi",
   "description": "Telecom AI consulting and automation for critical digital infrastructure operators.",
   "url": "https://monkyfi.com/",
@@ -457,7 +457,10 @@
 </div>
 
 <script>
+let circuitCanvasInitialized = false;
 function initCircuitCanvas(){
+  if(circuitCanvasInitialized) return;
+  circuitCanvasInitialized = true;
   const c = document.getElementById('circuitCanvas');
   if(!c) return;
   const ctx = c.getContext('2d');
