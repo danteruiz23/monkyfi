@@ -15,12 +15,12 @@
 <meta name="twitter:title" content="Monkyfi — Get AI Power" />
 <meta name="twitter:description" content="AI automation and intelligence for telecom and digital infrastructure operations." />
 <meta name="twitter:image" content="https://monkyfi.com/assets/og-image.png" />
-<link rel="icon" href="assets/logo-icon-mark-web-opt.png" />
+<link rel="icon" href="assets/favicon-48.png" type="image/png" sizes="48x48" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-<noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" /></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+<noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" /></noscript>
 <style>
 :root{
   --cyan:#4FA9E8;
@@ -53,7 +53,7 @@ a.brand:hover{color:inherit}
 .brand-text b{color:#EDEFF2;font-weight:700;font-size:18px;letter-spacing:-.02em}
 .brand-text small{color:var(--cyan);font-size:9px;letter-spacing:.32em;text-transform:uppercase;margin-top:4px;font-weight:600}
 .nav-links{display:flex;gap:32px;align-items:center}
-.nav-links a{color:#94a3b8;font-size:13.5px;font-weight:500;transition:color .2s}
+.nav-links a{color:#94a3b8;font-size:13.5px;font-weight:400;transition:color .2s}
 .nav-links a:hover{color:var(--cyan)}
 .nav-cta{padding:9px 18px;border-radius:8px;background:var(--cyan);color:var(--ink);font-weight:600;font-size:13px;box-shadow:0 0 0 1px var(--cyan), 0 0 22px rgba(79,169,232,.4);transition:transform .2s, box-shadow .2s}
 .nav-cta:hover{transform:translateY(-1px);box-shadow:0 0 0 1px var(--cyan), 0 0 32px rgba(79,169,232,.65);color:var(--ink)}
@@ -205,7 +205,7 @@ p{line-height:1.6;color:#94a3b8;margin:0}
 .founder-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center;margin-top:44px}
 @media(max-width:880px){.founder-wrap{grid-template-columns:1fr}}
 .founder-photo{width:220px;height:220px;border-radius:20px;background:radial-gradient(circle at 35% 30%, #1a2c4d, #0a1426 70%);border:1px solid rgba(79,169,232,.35);box-shadow:0 0 50px rgba(79,169,232,.2);display:flex;align-items:center;justify-content:center;overflow:hidden;margin:0 auto}
-.founder-photo img{width:70%;height:70%;object-fit:contain}
+.founder-photo picture{width:70%;height:70%;display:flex;align-items:center;justify-content:center}.founder-photo img{width:100%;height:100%;object-fit:contain}
 .founder-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 .founder-tags span{padding:8px 14px;border-radius:8px;background:rgba(14,27,51,.6);border:1px solid var(--line);font-size:12.5px;color:#cbd5e1}
 .founder-cred{margin-top:18px;padding:14px 16px;border-radius:10px;background:var(--cyan-soft);border:1px solid rgba(79,169,232,.25);font-size:13px;color:#e2e8f0}
@@ -298,6 +298,11 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s ease, transform .8s ease}
 .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .orb,.ring,.float-badge,.eyebrow .dot,.chat-fab .pulse{animation:none !important}
+  #circuitCanvas{display:none}
+}
 </style>
 </head>
 <body>
@@ -305,7 +310,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 <nav class="top">
   <div class="wrap">
     <a href="#top" class="brand" aria-label="Monkyfi home">
-      <div class="brand-mark"><img src="assets/logo-icon-mark-web-opt.png" alt="" width="42" height="42" /></div>
+      <div class="brand-mark"><img src="assets/favicon-48.png" alt="" width="42" height="42" /></div>
       <div class="brand-text"><b>Monkyfi</b><small>Get AI Power</small></div>
     </a>
     <div class="nav-links" id="navLinks">
@@ -343,7 +348,12 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   <div class="hero-visual">
     <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
     <div class="orb"></div>
-    <div class="hero-logo"><img src="assets/logo-full-web-opt.png" alt="Monkyfi logo" width="380" height="380" fetchpriority="high" /></div>
+    <div class="hero-logo">
+      <picture>
+        <source type="image/webp" srcset="assets/logo-full-hero-sm.webp 440w, assets/logo-full-hero.webp 760w" sizes="(max-width:980px) min(70vw,380px), 380px" />
+        <img src="assets/logo-full-web-opt.png" alt="Monkyfi logo" width="380" height="380" fetchpriority="high" decoding="async" />
+      </picture>
+    </div>
     <div class="float-badge fb-1"><div class="b-ic">◈</div><div><b>Connect</b><small>Available now</small></div></div>
     <div class="float-badge fb-2"><div class="b-ic">⚡</div><div><b>Atlas</b><small>Pilot · coming soon</small></div></div>
     <div class="float-badge fb-3"><div class="b-ic">↘</div><div><b>Sentinel</b><small>Coming soon</small></div></div>
@@ -508,7 +518,10 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   <div class="map-wrap">
     <div class="map-grid">
       <div id="americasMap" class="cable-svg" style="position:relative;aspect-ratio:600/540">
-        <img src="assets/subcabsys-opt.png" alt="Global subsea cable system map" style="width:100%;height:auto;display:block;border-radius:10px" loading="lazy" />
+        <picture>
+          <source type="image/webp" srcset="assets/subcabsys-map.webp" />
+          <img src="assets/subcabsys-opt.png" alt="Global subsea cable system map" style="width:100%;height:auto;display:block;border-radius:10px" loading="lazy" decoding="async" width="900" height="835" />
+        </picture>
       </div>
       <div class="map-side">
         <p>Monkyfi brings together US-based technology and business expertise with deep understanding of telecommunications and digital infrastructure across Latin America.</p>
@@ -529,7 +542,12 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   </div>
   <div class="founder-wrap">
     <div>
-      <div class="founder-photo"><img src="assets/logo-icon-mark-web-opt.png" alt="" width="220" height="220" loading="lazy" /></div>
+      <div class="founder-photo">
+        <picture>
+          <source type="image/webp" srcset="assets/logo-icon-mark-256.webp" />
+          <img src="assets/logo-icon-mark-web-opt.png" alt="" width="220" height="220" loading="lazy" decoding="async" />
+        </picture>
+      </div>
     </div>
     <div>
       <p>Monkyfi is built on extensive telecommunications, network operations, service delivery, digital infrastructure, and technology transformation experience — now combined with advanced AI capabilities.</p>
@@ -654,7 +672,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   <div class="foot-top">
     <div>
       <div class="brand" style="margin-bottom:14px">
-        <div class="brand-mark" style="width:34px;height:34px;border-radius:8px"><img src="assets/logo-icon-mark-web-opt.png" alt="" width="34" height="34" loading="lazy" /></div>
+        <div class="brand-mark" style="width:34px;height:34px;border-radius:8px"><img src="assets/favicon-48.png" alt="" width="34" height="34" loading="lazy" decoding="async" /></div>
         <div class="brand-text"><b>Monkyfi</b><small>Get AI Power</small></div>
       </div>
       <p style="font-size:13px">AI Automation & Intelligence for Telecom Operations</p>
@@ -696,7 +714,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 <div class="chat-panel" id="chatPanel" role="dialog" aria-modal="true" aria-labelledby="chatTitle" aria-hidden="true" hidden>
   <div class="chat-head">
     <div class="chat-head-left">
-      <div class="chat-avatar"><img src="assets/logo-icon-mark-web-opt.png" alt="" width="40" height="40" loading="lazy" /></div>
+      <div class="chat-avatar"><img src="assets/favicon-48.png" alt="" width="40" height="40" loading="lazy" decoding="async" /></div>
       <div><b id="chatTitle">Monkyfi AI</b><small>● Online · powered by Claude</small></div>
     </div>
     <button class="chat-close" type="button" onclick="closeChat()" aria-label="Close chat">×</button>
@@ -721,26 +739,48 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 (function(){
   const c = document.getElementById('circuitCanvas');
   if(!c) return;
-  const ctx = c.getContext('2d');
-  let w, h, nodes;
-  function size(){ w = c.width = c.offsetWidth * devicePixelRatio; h = c.height = c.offsetHeight * devicePixelRatio; }
-  function init(){
-    size();
-    const count = Math.max(30, Math.floor((w*h)/40000));
-    nodes = Array.from({length: count}, () => ({x: Math.random()*w, y: Math.random()*h, vx:(Math.random()-.5)*0.25, vy:(Math.random()-.5)*0.25, r: Math.random()*1.6+0.6}));
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){ c.style.display='none'; return; }
+  const ctx = c.getContext('2d', { alpha: true });
+  let w, h, nodes, raf = 0, running = false, last = 0;
+  const isMobile = () => window.matchMedia('(max-width:980px), (pointer:coarse)').matches;
+  function size(){
+    const dpr = Math.min(window.devicePixelRatio || 1, isMobile() ? 1.25 : 1.75);
+    w = c.width = Math.floor(c.offsetWidth * dpr);
+    h = c.height = Math.floor(c.offsetHeight * dpr);
+    return dpr;
   }
-  function draw(){
+  function init(){
+    const dpr = size();
+    const area = w * h;
+    const density = isMobile() ? 90000 : 50000;
+    const count = Math.max(isMobile() ? 14 : 24, Math.min(isMobile() ? 36 : 70, Math.floor(area / density)));
+    nodes = Array.from({length: count}, () => ({
+      x: Math.random()*w, y: Math.random()*h,
+      vx:(Math.random()-.5)*(isMobile()?0.18:0.25),
+      vy:(Math.random()-.5)*(isMobile()?0.18:0.25),
+      r: Math.random()*1.4+0.5
+    }));
+    c._dpr = dpr;
+  }
+  function draw(ts){
+    if(!running) return;
+    const targetFps = isMobile() ? 24 : 40;
+    const minDelta = 1000 / targetFps;
+    if(ts - last < minDelta){ raf = requestAnimationFrame(draw); return; }
+    last = ts;
+    const dpr = c._dpr || 1;
     ctx.clearRect(0,0,w,h);
+    const max = (isMobile() ? 110 : 160) * dpr;
     for(let i=0;i<nodes.length;i++){
       for(let j=i+1;j<nodes.length;j++){
         const a=nodes[i], b=nodes[j];
         const dx=a.x-b.x, dy=a.y-b.y;
         const d=Math.sqrt(dx*dx+dy*dy);
-        const max = 180*devicePixelRatio;
         if(d<max){
-          const o = (1-d/max)*0.4;
+          const o = (1-d/max)*0.35;
           ctx.strokeStyle = `rgba(79,169,232,${o})`;
-          ctx.lineWidth = 0.6*devicePixelRatio;
+          ctx.lineWidth = 0.6*dpr;
           ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
         }
       }
@@ -750,12 +790,30 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
       if(n.x<0||n.x>w) n.vx*=-1;
       if(n.y<0||n.y>h) n.vy*=-1;
       ctx.fillStyle = 'rgba(79,169,232,.9)';
-      ctx.beginPath();ctx.arc(n.x,n.y,n.r*devicePixelRatio,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(n.x,n.y,n.r*dpr,0,Math.PI*2);ctx.fill();
     }
-    requestAnimationFrame(draw);
+    raf = requestAnimationFrame(draw);
   }
-  window.addEventListener('resize', init);
-  init(); draw();
+  function start(){
+    if(running) return;
+    running = true;
+    last = 0;
+    raf = requestAnimationFrame(draw);
+  }
+  function stop(){
+    running = false;
+    if(raf) cancelAnimationFrame(raf);
+    raf = 0;
+  }
+  window.addEventListener('resize', () => { init(); });
+  document.addEventListener('visibilitychange', () => {
+    if(document.hidden) stop(); else start();
+  });
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e => { if(e.isIntersecting) start(); else stop(); });
+  }, { threshold: 0.05 });
+  io.observe(c);
+  init();
 })();
 
 const revObs = new IntersectionObserver((entries)=>{
@@ -940,6 +998,29 @@ if(intakeForm){
   });
 }
 </script>
-<script src="https://web3forms.com/client/script.js" async defer></script>
+<script>
+(function(){
+  const intake = document.getElementById('intake');
+  if(!intake) return;
+  let loaded = false;
+  function loadCaptcha(){
+    if(loaded) return;
+    loaded = true;
+    const s = document.createElement('script');
+    s.src = 'https://web3forms.com/client/script.js';
+    s.async = true;
+    s.defer = true;
+    document.body.appendChild(s);
+  }
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      if(entries.some(e => e.isIntersecting)){ loadCaptcha(); io.disconnect(); }
+    }, { rootMargin: '200px 0px' });
+    io.observe(intake);
+  } else {
+    window.addEventListener('load', loadCaptcha, { once:true });
+  }
+})();
+</script>
 </body>
 </html>
