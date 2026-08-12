@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Monkyfi — Get AI Power</title>
+<title data-i18n-title="meta.title">Monkyfi — Get AI Power</title>
 <meta name="description" content="Monkyfi combines real telecom expertise with AI to help critical infrastructure companies automate operations, turn data into intelligence, and prepare for the next generation of network operations." />
 <link rel="canonical" href="https://monkyfi.com/" />
 <meta property="og:type" content="website" />
@@ -86,6 +86,41 @@ a.brand:hover{color:inherit}
 .nav-links a{color:#94a3b8;font-size:15px;font-weight:400;transition:color .2s;white-space:nowrap}
 .nav-links a:hover{color:var(--cyan)}
 .nav-end{display:flex;align-items:center;gap:10px;flex-shrink:0}
+
+.lang-switch{position:relative}
+.lang-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:9px 12px;border-radius:8px;
+  background:rgba(14,27,51,.6);color:#cbd5e1;
+  border:1px solid var(--line);
+  font-family:inherit;font-size:13px;font-weight:600;
+  cursor:pointer;transition:all .2s;line-height:1.2;
+}
+.lang-btn:hover{border-color:rgba(79,169,232,.45);color:#EDEFF2}
+.lang-btn:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.lang-btn .chev{opacity:.7;font-size:10px}
+.lang-menu{
+  position:absolute;top:calc(100% + 8px);right:0;
+  background:linear-gradient(180deg, #0E1B33, #0A1426);
+  border:1px solid rgba(79,169,232,.25);border-radius:10px;
+  padding:6px;min-width:168px;
+  box-shadow:0 14px 34px rgba(0,0,0,.5);
+  display:none;flex-direction:column;z-index:90;
+}
+.lang-menu.open{display:flex}
+.lang-menu button{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;border-radius:6px;
+  background:transparent;border:none;color:#cbd5e1;
+  font-family:inherit;font-size:13px;font-weight:500;text-align:left;cursor:pointer;
+  transition:background .15s, color .15s;
+}
+.lang-menu button:hover,.lang-menu button[aria-pressed="true"]{background:rgba(79,169,232,.12);color:var(--cyan)}
+.lang-menu .flag{font-size:15px;line-height:1}
+@media(max-width:820px){
+  .lang-btn{padding:8px 10px;font-size:12.5px}
+}
+
 .nav-brochure{padding:10px 16px;border-radius:8px;background:rgba(242,201,139,.14);color:var(--cream);font-weight:600;font-size:14.5px;border:1px solid rgba(242,201,139,.55);box-shadow:0 0 18px rgba(242,201,139,.12);transition:transform .2s, box-shadow .2s, background .2s, border-color .2s;white-space:nowrap;line-height:1.2}
 .nav-brochure:hover{transform:translateY(-1px);background:rgba(242,201,139,.24);color:var(--cream);border-color:var(--cream);box-shadow:0 0 28px rgba(242,201,139,.28)}
 .nav-cta{padding:10px 18px;border-radius:8px;background:var(--cyan);color:var(--ink);font-weight:600;font-size:14.5px;box-shadow:0 0 0 1px var(--cyan), 0 0 22px rgba(79,169,232,.4);transition:transform .2s, box-shadow .2s;white-space:nowrap;line-height:1.2}
@@ -447,25 +482,35 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 </head>
 <body>
 
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#main-content" class="skip-link" data-i18n="a11y.skip">Skip to main content</a>
 
 <nav class="top">
   <div class="wrap">
-    <a href="#top" class="brand" aria-label="Monkyfi home">
+    <a href="#top" class="brand" aria-label="Monkyfi home" data-i18n-aria="a11y.home">
       <div class="brand-mark"><img src="assets/favicon-48.png" alt="" width="42" height="42" /></div>
-      <div class="brand-text"><b>Monkyfi</b><small>Get AI Power</small></div>
+      <div class="brand-text"><b>Monkyfi</b><small data-i18n="brand.tag">Get AI Power</small></div>
     </a>
     <div class="nav-links" id="navLinks">
-      <a href="#solutions">Solutions</a>
-      <a href="#serve">Who We Serve</a>
-      <a href="#process">How We Work</a>
-      <a href="#founder">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#solutions" data-i18n="nav.solutions">Solutions</a>
+      <a href="#serve" data-i18n="nav.serve">Who We Serve</a>
+      <a href="#process" data-i18n="nav.process">How We Work</a>
+      <a href="#founder" data-i18n="nav.about">About</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
     </div>
     <div class="nav-end">
-      <a href="assets/monkyfi-brochure.pdf" class="nav-brochure" download="Monkyfi-Brochure.pdf">Brochure</a>
-      <a href="#intake" class="nav-cta"><span class="cta-full">Book an AI Assessment</span><span class="cta-short">Book Assessment</span></a>
-      <button class="nav-toggle" id="navToggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+      <div class="lang-switch" id="langSwitch">
+        <button type="button" class="lang-btn" id="langBtn" onclick="toggleLang()" aria-haspopup="menu" aria-expanded="false" aria-controls="langMenu" data-i18n-aria="lang.label">
+          <span id="langCurrent">EN</span><span class="chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="lang-menu" id="langMenu" role="menu" aria-label="Language">
+          <button type="button" role="menuitem" data-lang="EN" onclick="setLang('EN')" aria-pressed="true"><span class="flag" aria-hidden="true">🇺🇸</span>English</button>
+          <button type="button" role="menuitem" data-lang="ES" onclick="setLang('ES')" aria-pressed="false"><span class="flag" aria-hidden="true">🇪🇸</span>Español</button>
+          <button type="button" role="menuitem" data-lang="PT" onclick="setLang('PT')" aria-pressed="false"><span class="flag" aria-hidden="true">🇧🇷</span>Português</button>
+        </div>
+      </div>
+      <a href="assets/monkyfi-brochure.pdf" class="nav-brochure" download="Monkyfi-Brochure.pdf" data-i18n="nav.brochure">Brochure</a>
+      <a href="#intake" class="nav-cta"><span class="cta-full" data-i18n="nav.cta">Book an AI Assessment</span><span class="cta-short" data-i18n="nav.ctaShort">Book Assessment</span></a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Menu" data-i18n-aria="a11y.menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
     </div>
   </div>
   <script>document.getElementById('navToggle').addEventListener('click',function(){var open=this.classList.toggle('open');document.getElementById('navLinks').classList.toggle('open');this.setAttribute('aria-expanded',open?'true':'false')});document.querySelectorAll('#navLinks a').forEach(function(a){a.addEventListener('click',function(){var t=document.getElementById('navToggle');t.classList.remove('open');t.setAttribute('aria-expanded','false');document.getElementById('navLinks').classList.remove('open')})})</script>
@@ -475,19 +520,19 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 <section class="hero" id="top">
   <div class="hero-bg"><canvas id="circuitCanvas"></canvas></div>
   <div class="hero-copy">
-    <span class="eyebrow"><span class="dot"></span><span>AI Automation & Intelligence for Telecom Operations</span></span>
-    <h1>Get <span class="fi">AI Power</span></h1>
-    <p class="hero-sub">Monkyfi helps telecommunications and digital infrastructure companies turn operational data and workflows into AI-powered intelligence, automation, and better decisions.</p>
+    <span class="eyebrow"><span class="dot"></span><span data-i18n="hero.eyebrow">AI Automation & Intelligence for Telecom Operations</span></span>
+    <h1 data-i18n="hero.h1">Get <span class="fi">AI Power</span></h1>
+    <p class="hero-sub" data-i18n="hero.sub">Monkyfi helps telecommunications and digital infrastructure companies turn operational data and workflows into AI-powered intelligence, automation, and better decisions.</p>
     <div class="hero-ctas">
-      <a href="#intake" class="btn btn-primary"><span>Book an AI Assessment</span> <span class="arr">→</span></a>
-      <a href="#solutions" class="btn btn-ghost">Explore Solutions</a>
+      <a href="#intake" class="btn btn-primary"><span data-i18n="hero.cta1">Book an AI Assessment</span> <span class="arr">→</span></a>
+      <a href="#solutions" class="btn btn-ghost" data-i18n="hero.cta2">Explore Solutions</a>
     </div>
     <div class="hero-pillars">
-      <div class="pillar"><span class="ic">◈</span><b>AI-First</b><small>Built for 2026+</small></div>
-      <div class="pillar"><span class="ic">⚡</span><b>Powerful</b><small>Real impact</small></div>
-      <div class="pillar"><span class="ic">◎</span><b>Focused</b><small>Boutique craft</small></div>
-      <div class="pillar"><span class="ic">↗</span><b>Scalable</b><small>From 1 to N</small></div>
-      <div class="pillar"><span class="ic">◇</span><b>Trusted</b><small>Real telecom roots</small></div>
+      <div class="pillar"><span class="ic">◈</span><b data-i18n="hero.pillar1.title">AI-First</b><small data-i18n="hero.pillar1.sub">Built for 2026+</small></div>
+      <div class="pillar"><span class="ic">⚡</span><b data-i18n="hero.pillar2.title">Powerful</b><small data-i18n="hero.pillar2.sub">Real impact</small></div>
+      <div class="pillar"><span class="ic">◎</span><b data-i18n="hero.pillar3.title">Focused</b><small data-i18n="hero.pillar3.sub">Boutique craft</small></div>
+      <div class="pillar"><span class="ic">↗</span><b data-i18n="hero.pillar4.title">Scalable</b><small data-i18n="hero.pillar4.sub">From 1 to N</small></div>
+      <div class="pillar"><span class="ic">◇</span><b data-i18n="hero.pillar5.title">Trusted</b><small data-i18n="hero.pillar5.sub">Real telecom roots</small></div>
     </div>
   </div>
   <div class="hero-visual">
@@ -499,36 +544,36 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
         <img src="assets/logo-full-web-opt.png" alt="Monkyfi logo" width="380" height="380" fetchpriority="high" decoding="async" />
       </picture>
     </div>
-    <div class="float-badge fb-1"><div class="b-ic">◈</div><div><b>Connect</b><small>Available now</small></div></div>
-    <div class="float-badge fb-2"><div class="b-ic">⚡</div><div><b>Atlas</b><small>Pilot · coming soon</small></div></div>
-    <div class="float-badge fb-3"><div class="b-ic">↘</div><div><b>Sentinel</b><small>Coming soon</small></div></div>
+    <div class="float-badge fb-1"><div class="b-ic">◈</div><div><b data-i18n="hero.badge1.title">Connect</b><small data-i18n="hero.badge1.sub">Available now</small></div></div>
+    <div class="float-badge fb-2"><div class="b-ic">⚡</div><div><b data-i18n="hero.badge2.title">Atlas</b><small data-i18n="hero.badge2.sub">Pilot · coming soon</small></div></div>
+    <div class="float-badge fb-3"><div class="b-ic">↘</div><div><b data-i18n="hero.badge3.title">Sentinel</b><small data-i18n="hero.badge3.sub">Coming soon</small></div></div>
   </div>
 </section>
 
 <section id="why">
   <div class="section-head">
-    <span class="eyebrow"><span class="dot"></span><span>Why Monkyfi</span></span>
-    <h2 style="margin-top:18px">Telecom Expertise + AI Innovation</h2>
-    <p>Monkyfi combines deep telecommunications and digital infrastructure experience with modern AI technologies to solve practical operational problems. We understand: Networks. Operations. Service Delivery. Infrastructure. AI.</p>
+    <span class="eyebrow"><span class="dot"></span><span data-i18n="why.eyebrow">Why Monkyfi</span></span>
+    <h2 style="margin-top:18px" data-i18n="why.h2">Telecom Expertise + AI Innovation</h2>
+    <p data-i18n="why.lead">Monkyfi combines deep telecommunications and digital infrastructure experience with modern AI technologies to solve practical operational problems. We understand: Networks. Operations. Service Delivery. Infrastructure. AI.</p>
   </div>
   <div class="grid-5">
-    <div class="tile reveal"><div class="t-ic">◈</div><h4>Telecom Operations</h4><p>Real network and NOC experience, not theory.</p></div>
-    <div class="tile reveal"><div class="t-ic">⚙</div><h4>AI & Automation</h4><p>Practical automation for real operational workflows.</p></div>
-    <div class="tile reveal"><div class="t-ic">◎</div><h4>Digital Infrastructure</h4><p>Networks, data centers, and critical systems.</p></div>
-    <div class="tile reveal"><div class="t-ic">▤</div><h4>Data Readiness</h4><p>Preparing operational data for AI use.</p></div>
-    <div class="tile reveal"><div class="t-ic">↗</div><h4>Digital Transformation</h4><p>From legacy process to modern, AI-ready operations.</p></div>
+    <div class="tile reveal"><div class="t-ic">◈</div><h4 data-i18n="why.t1.title">Telecom Operations</h4><p data-i18n="why.t1.body">Real network and NOC experience, not theory.</p></div>
+    <div class="tile reveal"><div class="t-ic">⚙</div><h4 data-i18n="why.t2.title">AI & Automation</h4><p data-i18n="why.t2.body">Practical automation for real operational workflows.</p></div>
+    <div class="tile reveal"><div class="t-ic">◎</div><h4 data-i18n="why.t3.title">Digital Infrastructure</h4><p data-i18n="why.t3.body">Networks, data centers, and critical systems.</p></div>
+    <div class="tile reveal"><div class="t-ic">▤</div><h4 data-i18n="why.t4.title">Data Readiness</h4><p data-i18n="why.t4.body">Preparing operational data for AI use.</p></div>
+    <div class="tile reveal"><div class="t-ic">↗</div><h4 data-i18n="why.t5.title">Digital Transformation</h4><p data-i18n="why.t5.body">From legacy process to modern, AI-ready operations.</p></div>
   </div>
-  <p class="why-note">We don't apply AI for the sake of technology. We identify where AI can create <em>measurable business value</em>, then help organizations assess, pilot, and scale practical solutions.</p>
+  <p class="why-note" data-i18n="why.note">We don't apply AI for the sake of technology. We identify where AI can create <em>measurable business value</em>, then help organizations assess, pilot, and scale practical solutions.</p>
 </section>
 
 <section id="solutions">
   <div class="section-head">
-    <span class="eyebrow"><span class="dot"></span><span>Monkyfi Solutions</span></span>
-    <h2 style="margin-top:18px">Consulting first. AI pilots next. A scalable platform ahead.</h2>
+    <span class="eyebrow"><span class="dot"></span><span data-i18n="sol.eyebrow">Monkyfi Solutions</span></span>
+    <h2 style="margin-top:18px" data-i18n="sol.h2">Consulting first. AI pilots next. A scalable platform ahead.</h2>
   </div>
   <div class="products">
     <div class="product reveal" id="connect">
-      <div class="p-head"><span class="badge badge-live">Available now</span><span class="p-tag">01</span></div>
+      <div class="p-head"><span class="badge badge-live" data-i18n="badge.live">Available now</span><span class="p-tag">01</span></div>
       <div class="p-icon">
         <svg viewBox="0 0 64 64" width="34" height="34" fill="none" stroke="#4FA9E8" stroke-width="2.2" stroke-linecap="round">
           <circle cx="14" cy="14" r="5"/><circle cx="50" cy="14" r="5"/><circle cx="14" cy="50" r="5"/><circle cx="50" cy="50" r="5"/>
@@ -537,21 +582,21 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
         </svg>
       </div>
       <h3>Monkyfi Connect</h3>
-      <div class="p-sub">AI & Telecom Consulting</div>
-      <p class="tagline">Practical telecom and AI consulting designed to identify operational opportunities, improve service delivery, and create a roadmap for AI adoption.</p>
+      <div class="p-sub" data-i18n="connect.sub">AI & Telecom Consulting</div>
+      <p class="tagline" data-i18n="connect.tagline">Practical telecom and AI consulting designed to identify operational opportunities, improve service delivery, and create a roadmap for AI adoption.</p>
       <ul class="cap-list">
-        <li>AI Readiness Assessment</li>
-        <li>Telecom Digital Transformation</li>
-        <li>Service Delivery Optimization</li>
-        <li>Network Operations Automation</li>
-        <li>Data Readiness for AI</li>
-        <li>AI Strategy & Advisory</li>
+        <li data-i18n="connect.c1">AI Readiness Assessment</li>
+        <li data-i18n="connect.c2">Telecom Digital Transformation</li>
+        <li data-i18n="connect.c3">Service Delivery Optimization</li>
+        <li data-i18n="connect.c4">Network Operations Automation</li>
+        <li data-i18n="connect.c5">Data Readiness for AI</li>
+        <li data-i18n="connect.c6">AI Strategy & Advisory</li>
       </ul>
-      <a href="mailto:hello@monkyfi.com?subject=Monkyfi%20Connect" class="btn btn-primary">Explore Connect <span class="arr">→</span></a>
+      <a href="mailto:hello@monkyfi.com?subject=Monkyfi%20Connect" class="btn btn-primary" data-i18n="connect.cta">Explore Connect <span class="arr">→</span></a>
     </div>
 
     <div class="product reveal" id="atlas">
-      <div class="p-head"><span class="badge badge-pilot">Pilot · coming soon</span><span class="p-tag">02</span></div>
+      <div class="p-head"><span class="badge badge-pilot" data-i18n="badge.pilot">Pilot · coming soon</span><span class="p-tag">02</span></div>
       <div class="p-icon">
         <svg viewBox="0 0 64 64" width="34" height="34" fill="none" stroke="#4FA9E8" stroke-width="2.2" stroke-linecap="round">
           <circle cx="32" cy="32" r="6" fill="#4FA9E8" fill-opacity=".3"/>
@@ -560,22 +605,22 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
         </svg>
       </div>
       <h3>Monkyfi Atlas</h3>
-      <div class="p-sub">Agentic AI for Network Operations</div>
-      <p class="tagline">An AI copilot designed to help Network Operations Center teams understand incidents, search operational knowledge, correlate events, accelerate troubleshooting, and recommend next actions.</p>
+      <div class="p-sub" data-i18n="atlas.sub">Agentic AI for Network Operations</div>
+      <p class="tagline" data-i18n="atlas.tagline">An AI copilot designed to help Network Operations Center teams understand incidents, search operational knowledge, correlate events, accelerate troubleshooting, and recommend next actions.</p>
       <ul class="cap-list">
-        <li>Alarm & incident analysis</li>
-        <li>Operational knowledge retrieval</li>
-        <li>Event correlation</li>
-        <li>Troubleshooting assistance</li>
-        <li>Recommended next actions</li>
-        <li>Workflow automation</li>
+        <li data-i18n="atlas.c1">Alarm & incident analysis</li>
+        <li data-i18n="atlas.c2">Operational knowledge retrieval</li>
+        <li data-i18n="atlas.c3">Event correlation</li>
+        <li data-i18n="atlas.c4">Troubleshooting assistance</li>
+        <li data-i18n="atlas.c5">Recommended next actions</li>
+        <li data-i18n="atlas.c6">Workflow automation</li>
       </ul>
-      <div class="hitl">Human-in-the-loop. AI recommends. Your team decides.</div>
-      <a href="mailto:hello@monkyfi.com?subject=Atlas%20Pilot" class="btn btn-primary">Join the Atlas Pilot <span class="arr">→</span></a>
+      <div class="hitl" data-i18n="atlas.hitl">Human-in-the-loop. AI recommends. Your team decides.</div>
+      <a href="mailto:hello@monkyfi.com?subject=Atlas%20Pilot" class="btn btn-primary" data-i18n="atlas.cta">Join the Atlas Pilot <span class="arr">→</span></a>
     </div>
 
     <div class="product reveal" id="sentinel">
-      <div class="p-head"><span class="badge badge-soon">Coming soon</span><span class="p-tag">03</span></div>
+      <div class="p-head"><span class="badge badge-soon" data-i18n="badge.soon">Coming soon</span><span class="p-tag">03</span></div>
       <div class="p-icon">
         <svg viewBox="0 0 64 64" width="34" height="34" fill="none" stroke="#4FA9E8" stroke-width="2.2" stroke-linecap="round">
           <circle cx="32" cy="32" r="22"/><circle cx="32" cy="32" r="14" stroke-opacity=".6"/><circle cx="32" cy="32" r="6" stroke-opacity=".4"/><circle cx="32" cy="32" r="2" fill="#4FA9E8"/>
@@ -583,97 +628,97 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
         </svg>
       </div>
       <h3>Monkyfi Sentinel</h3>
-      <div class="p-sub">AI for Subsea Cable & Backbone Resilience</div>
-      <p class="tagline">AI-powered intelligence for critical digital infrastructure, helping operators identify risks, improve operational visibility, and strengthen the resilience of subsea cable and backbone networks.</p>
+      <div class="p-sub" data-i18n="sentinel.sub">AI for Subsea Cable & Backbone Resilience</div>
+      <p class="tagline" data-i18n="sentinel.tagline">AI-powered intelligence for critical digital infrastructure, helping operators identify risks, improve operational visibility, and strengthen the resilience of subsea cable and backbone networks.</p>
       <ul class="cap-list">
-        <li>Subsea cable intelligence</li>
-        <li>Backbone monitoring</li>
-        <li>Risk analysis</li>
-        <li>Incident intelligence</li>
-        <li>Capacity insights</li>
-        <li>Resilience planning</li>
+        <li data-i18n="sentinel.c1">Subsea cable intelligence</li>
+        <li data-i18n="sentinel.c2">Backbone monitoring</li>
+        <li data-i18n="sentinel.c3">Risk analysis</li>
+        <li data-i18n="sentinel.c4">Incident intelligence</li>
+        <li data-i18n="sentinel.c5">Capacity insights</li>
+        <li data-i18n="sentinel.c6">Resilience planning</li>
       </ul>
-      <a href="mailto:hello@monkyfi.com?subject=Monkyfi%20Sentinel" class="btn btn-primary">Learn About Sentinel <span class="arr">→</span></a>
+      <a href="mailto:hello@monkyfi.com?subject=Monkyfi%20Sentinel" class="btn btn-primary" data-i18n="sentinel.cta">Learn About Sentinel <span class="arr">→</span></a>
     </div>
   </div>
 </section>
 
 <section id="serve">
   <div class="section-head">
-    <span class="eyebrow"><span class="dot"></span><span>Who We Serve</span></span>
-    <h2 style="margin-top:18px">Built for Critical Digital Infrastructure</h2>
+    <span class="eyebrow"><span class="dot"></span><span data-i18n="serve.eyebrow">Who We Serve</span></span>
+    <h2 style="margin-top:18px" data-i18n="serve.h2">Built for Critical Digital Infrastructure</h2>
   </div>
   <div class="serve-grid">
-    <div class="serve-card reveal"><span>Telecom Carriers</span></div>
-    <div class="serve-card reveal"><span>Fiber & Network Operators</span></div>
-    <div class="serve-card reveal"><span>Data Centers</span></div>
-    <div class="serve-card reveal"><span>Digital Infrastructure Providers</span></div>
-    <div class="serve-card reveal"><span>Managed Service Providers</span></div>
-    <div class="serve-card reveal"><span>Technology Companies</span></div>
-    <div class="serve-card reveal"><span>Enterprise IT Operations</span></div>
+    <div class="serve-card reveal"><span data-i18n="serve.1">Telecom Carriers</span></div>
+    <div class="serve-card reveal"><span data-i18n="serve.2">Fiber & Network Operators</span></div>
+    <div class="serve-card reveal"><span data-i18n="serve.3">Data Centers</span></div>
+    <div class="serve-card reveal"><span data-i18n="serve.4">Digital Infrastructure Providers</span></div>
+    <div class="serve-card reveal"><span data-i18n="serve.5">Managed Service Providers</span></div>
+    <div class="serve-card reveal"><span data-i18n="serve.6">Technology Companies</span></div>
+    <div class="serve-card reveal"><span data-i18n="serve.7">Enterprise IT Operations</span></div>
   </div>
 </section>
 
 <section id="process">
   <div class="section-head">
-    <span class="eyebrow"><span class="dot"></span><span>How We Work</span></span>
-    <h2 style="margin-top:18px">From AI Opportunity to Real-World Impact</h2>
+    <span class="eyebrow"><span class="dot"></span><span data-i18n="process.eyebrow">How We Work</span></span>
+    <h2 style="margin-top:18px" data-i18n="process.h2">From AI Opportunity to Real-World Impact</h2>
   </div>
   <div class="how-grid">
-    <div class="step reveal"><div class="s-ic">01</div><h4>Discover</h4><p>Understand your business, data, systems, and operational challenges.</p></div>
-    <div class="step reveal"><div class="s-ic">02</div><h4>Assess</h4><p>Evaluate AI readiness and identify high-value opportunities.</p></div>
-    <div class="step reveal"><div class="s-ic">03</div><h4>Prioritize</h4><p>Select use cases based on business impact, feasibility, and risk.</p></div>
-    <div class="step reveal"><div class="s-ic">04</div><h4>Pilot</h4><p>Build and validate a focused AI solution.</p></div>
-    <div class="step reveal"><div class="s-ic">05</div><h4>Scale</h4><p>Expand successful solutions across the organization.</p></div>
+    <div class="step reveal"><div class="s-ic">01</div><h4 data-i18n="process.s1.title">Discover</h4><p data-i18n="process.s1.body">Understand your business, data, systems, and operational challenges.</p></div>
+    <div class="step reveal"><div class="s-ic">02</div><h4 data-i18n="process.s2.title">Assess</h4><p data-i18n="process.s2.body">Evaluate AI readiness and identify high-value opportunities.</p></div>
+    <div class="step reveal"><div class="s-ic">03</div><h4 data-i18n="process.s3.title">Prioritize</h4><p data-i18n="process.s3.body">Select use cases based on business impact, feasibility, and risk.</p></div>
+    <div class="step reveal"><div class="s-ic">04</div><h4 data-i18n="process.s4.title">Pilot</h4><p data-i18n="process.s4.body">Build and validate a focused AI solution.</p></div>
+    <div class="step reveal"><div class="s-ic">05</div><h4 data-i18n="process.s5.title">Scale</h4><p data-i18n="process.s5.body">Expand successful solutions across the organization.</p></div>
   </div>
 </section>
 
 <section id="engagement-flow">
   <div class="section-head">
-    <span class="eyebrow"><span class="dot"></span><span>Our Approach</span></span>
-    <h2 style="margin-top:18px">A Clear Path From Assessment to Action</h2>
+    <span class="eyebrow"><span class="dot"></span><span data-i18n="approach.eyebrow">Our Approach</span></span>
+    <h2 style="margin-top:18px" data-i18n="approach.h2">A Clear Path From Assessment to Action</h2>
   </div>
   <div class="flow-row">
-    <div class="flow-card reveal"><h4>Discover</h4><p>Where you stand today</p></div>
+    <div class="flow-card reveal"><h4 data-i18n="approach.1.title">Discover</h4><p data-i18n="approach.1.body">Where you stand today</p></div>
     <div class="flow-arrow">&#8594;</div>
-    <div class="flow-card reveal"><h4>Diagnose</h4><p>Deep dive where it matters most</p></div>
+    <div class="flow-card reveal"><h4 data-i18n="approach.2.title">Diagnose</h4><p data-i18n="approach.2.body">Deep dive where it matters most</p></div>
     <div class="flow-arrow">&#8594;</div>
-    <div class="flow-card reveal"><h4>Prioritize</h4><p>A sequenced, actionable roadmap</p></div>
+    <div class="flow-card reveal"><h4 data-i18n="approach.3.title">Prioritize</h4><p data-i18n="approach.3.body">A sequenced, actionable roadmap</p></div>
     <div class="flow-arrow">&#8594;</div>
-    <div class="flow-card flow-card-final reveal"><h4>Deliver</h4><p>Reviewed and ready to execute</p></div>
+    <div class="flow-card flow-card-final reveal"><h4 data-i18n="approach.4.title">Deliver</h4><p data-i18n="approach.4.body">Reviewed and ready to execute</p></div>
   </div>
 </section>
 
 <section id="outcomes">
   <div class="section-head">
-    <span class="eyebrow"><span class="dot"></span><span>Business Outcomes</span></span>
-    <h2 style="margin-top:18px">AI That Delivers Business Value</h2>
+    <span class="eyebrow"><span class="dot"></span><span data-i18n="out.eyebrow">Business Outcomes</span></span>
+    <h2 style="margin-top:18px" data-i18n="out.h2">AI That Delivers Business Value</h2>
   </div>
   <div class="grid-4">
-    <div class="outcome-card reveal"><div class="o-ic">⚙</div><h4>Reduce Manual Work</h4><p>Automate repetitive operational workflows.</p></div>
-    <div class="outcome-card reveal"><div class="o-ic">⚡</div><h4>Accelerate Resolution</h4><p>Help teams analyze incidents and make faster decisions.</p></div>
-    <div class="outcome-card reveal"><div class="o-ic">◎</div><h4>Improve Visibility</h4><p>Turn operational data into actionable intelligence.</p></div>
-    <div class="outcome-card reveal"><div class="o-ic">↗</div><h4>Scale Expertise</h4><p>Make organizational knowledge available through AI-powered assistants.</p></div>
+    <div class="outcome-card reveal"><div class="o-ic">⚙</div><h4 data-i18n="out.1.title">Reduce Manual Work</h4><p data-i18n="out.1.body">Automate repetitive operational workflows.</p></div>
+    <div class="outcome-card reveal"><div class="o-ic">⚡</div><h4 data-i18n="out.2.title">Accelerate Resolution</h4><p data-i18n="out.2.body">Help teams analyze incidents and make faster decisions.</p></div>
+    <div class="outcome-card reveal"><div class="o-ic">◎</div><h4 data-i18n="out.3.title">Improve Visibility</h4><p data-i18n="out.3.body">Turn operational data into actionable intelligence.</p></div>
+    <div class="outcome-card reveal"><div class="o-ic">↗</div><h4 data-i18n="out.4.title">Scale Expertise</h4><p data-i18n="out.4.body">Make organizational knowledge available through AI-powered assistants.</p></div>
   </div>
 </section>
 
 <section id="network" class="map-section">
-  <span class="eyebrow"><span class="dot"></span><span>Geographic advantage</span></span>
-  <h2 style="margin-top:18px;max-width:760px">Connecting <span class="glow">US &amp; LATAM</span> Telecom Expertise</h2>
+  <span class="eyebrow"><span class="dot"></span><span data-i18n="net.eyebrow">Geographic advantage</span></span>
+  <h2 style="margin-top:18px;max-width:760px" data-i18n="net.h2">Connecting <span class="glow">US &amp; LATAM</span> Telecom Expertise</h2>
   <div class="map-wrap">
     <div class="map-grid">
       <div id="americasMap" class="cable-svg" style="position:relative;aspect-ratio:600/540">
         <picture>
           <source type="image/webp" srcset="assets/subcabsys-map.webp" />
-          <img src="assets/subcabsys-opt.png" alt="Global subsea cable system map" style="width:100%;height:auto;display:block;border-radius:10px" loading="lazy" decoding="async" width="900" height="835" />
+          <img src="assets/subcabsys-opt.png" alt="Global subsea cable system map" data-i18n-alt="net.mapAlt" style="width:100%;height:auto;display:block;border-radius:10px" loading="lazy" decoding="async" width="900" height="835" />
         </picture>
       </div>
       <div class="map-side">
-        <p>Monkyfi brings together US-based technology and business expertise with deep understanding of telecommunications and digital infrastructure across Latin America.</p>
+        <p data-i18n="net.body">Monkyfi brings together US-based technology and business expertise with deep understanding of telecommunications and digital infrastructure across Latin America.</p>
         <div class="latam-stats">
-          <div><b>20+</b><small>Years experience</small></div>
-          <div><b>17</b><small>Connectivity hubs</small></div>
-          <div><b>Miami</b><small>Home base</small></div>
+          <div><b>20+</b><small data-i18n="net.s1">Years experience</small></div>
+          <div><b>17</b><small data-i18n="net.s2">Connectivity hubs</small></div>
+          <div><b>Miami</b><small data-i18n="net.s3">Home base</small></div>
         </div>
       </div>
     </div>
@@ -682,36 +727,36 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 
 <section id="founder">
   <div class="section-head">
-    <span class="eyebrow"><span class="dot"></span><span>Founder</span></span>
-    <h2 style="margin-top:18px">Built from Real Telecom Experience</h2>
+    <span class="eyebrow"><span class="dot"></span><span data-i18n="founder.eyebrow">Founder</span></span>
+    <h2 style="margin-top:18px" data-i18n="founder.h2">Built from Real Telecom Experience</h2>
   </div>
   <div class="founder-wrap">
-    <p>Monkyfi is built on extensive telecommunications, network operations, service delivery, digital infrastructure, and technology transformation experience — now combined with advanced AI capabilities.</p>
+    <p data-i18n="founder.lead">Monkyfi is built on extensive telecommunications, network operations, service delivery, digital infrastructure, and technology transformation experience — now combined with advanced AI capabilities.</p>
     <div class="founder-stats">
-      <div><b>80%</b><small>Incident reduction via process automation, submarine cable ops</small></div>
-      <div><b>99.5%</b><small>SLA sustained across 100+ global carrier clients</small></div>
-      <div><b>50+</b><small>International vendors managed, subsea &amp; terrestrial systems</small></div>
+      <div><b>80%</b><small data-i18n="founder.stat1">Incident reduction via process automation, submarine cable ops</small></div>
+      <div><b>99.5%</b><small data-i18n="founder.stat2">SLA sustained across 100+ global carrier clients</small></div>
+      <div><b>50+</b><small data-i18n="founder.stat3">International vendors managed, subsea &amp; terrestrial systems</small></div>
     </div>
-    <div class="founder-hitl">Experienced in NOC leadership of the 16,000-mile SAM-1 submarine cable system, plus deployment and service delivery across a global subsea &amp; backbone network spanning systems including Dunant, Marea, Firmina, Celia, Brusa and PCCS.</div>
+    <div class="founder-hitl" data-i18n="founder.hitl">Experienced in NOC leadership of the 16,000-mile SAM-1 submarine cable system, plus deployment and service delivery across a global subsea &amp; backbone network spanning systems including Dunant, Marea, Firmina, Celia, Brusa and PCCS.</div>
     <div class="founder-tags">
-      <span>Telecom & Network Operations</span>
-      <span>Service Delivery</span>
-      <span>Digital Infrastructure</span>
-      <span>Subsea Cable Experience</span>
-      <span>AI & Digital Transformation</span>
-      <span>Generative AI</span>
-      <span>Agentic AI</span>
+      <span data-i18n="founder.tag1">Telecom & Network Operations</span>
+      <span data-i18n="founder.tag2">Service Delivery</span>
+      <span data-i18n="founder.tag3">Digital Infrastructure</span>
+      <span data-i18n="founder.tag4">Subsea Cable Experience</span>
+      <span data-i18n="founder.tag5">AI & Digital Transformation</span>
+      <span data-i18n="founder.tag6">Generative AI</span>
+      <span data-i18n="founder.tag7">Agentic AI</span>
     </div>
-    <div class="founder-cred"><b>Massachusetts Institute of Technology</b> — Generative AI for Digital Transformation — CERTIFIED</div>
-    <div class="founder-cred" style="margin-top:10px"><b>Harvard</b> — Agentic AI Foundation - Risk and Application - CERTIFIED</div>
+    <div class="founder-cred" data-i18n="founder.cred1"><b>Massachusetts Institute of Technology</b> — Generative AI for Digital Transformation — CERTIFIED</div>
+    <div class="founder-cred" style="margin-top:10px" data-i18n="founder.cred2"><b>Harvard</b> — Agentic AI Foundation - Risk and Application - CERTIFIED</div>
   </div>
 </section>
 
 <section id="intake">
   <div class="section-head">
-    <span class="eyebrow"><span class="dot"></span><span>Start Here</span></span>
-    <h2 style="margin-top:18px">Book Your AI Assessment</h2>
-    <p>Tell us a little about your operation — it takes 2 minutes. We'll review it and reply within 24 hours with a recommended starting point.</p>
+    <span class="eyebrow"><span class="dot"></span><span data-i18n="intake.eyebrow">Start Here</span></span>
+    <h2 style="margin-top:18px" data-i18n="intake.h2">Book Your AI Assessment</h2>
+    <p data-i18n="intake.lead">Tell us a little about your operation — it takes 2 minutes. We'll review it and reply within 24 hours with a recommended starting point.</p>
   </div>
   <form class="intake-card reveal" id="intakeForm" novalidate>
     <input type="hidden" name="access_key" value="645f7dca-b0f1-4469-9541-83dc7a825ec7">
@@ -720,117 +765,117 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
     <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
     <div class="intake-grid">
       <div class="f-field">
-        <label for="iq-name">Name</label>
+        <label for="iq-name" data-i18n="intake.name">Name</label>
         <input class="f-input" id="iq-name" name="name" type="text" autocomplete="name" required aria-describedby="iq-name-error" />
         <span class="f-field-error" id="iq-name-error" role="alert"></span>
       </div>
       <div class="f-field">
-        <label for="iq-email">Work email</label>
+        <label for="iq-email" data-i18n="intake.email">Work email</label>
         <input class="f-input" id="iq-email" name="email" type="email" autocomplete="email" required aria-describedby="iq-email-error" />
         <span class="f-field-error" id="iq-email-error" role="alert"></span>
       </div>
       <div class="f-field">
-        <label for="iq-company">Company</label>
+        <label for="iq-company" data-i18n="intake.company">Company</label>
         <input class="f-input" id="iq-company" name="company" type="text" autocomplete="organization" required aria-describedby="iq-company-error" />
         <span class="f-field-error" id="iq-company-error" role="alert"></span>
       </div>
       <div class="f-field">
-        <label for="iq-segment">Type of operation</label>
+        <label for="iq-segment" data-i18n="intake.segment">Type of operation</label>
         <select class="f-select" id="iq-segment" name="segment" required aria-describedby="iq-segment-error">
-          <option value="" disabled selected>Select one…</option>
-          <option>Fiber / ISP</option>
-          <option>Mobile / MVNO</option>
-          <option>Subsea / Wholesale</option>
-          <option>Data Center / Infrastructure</option>
-          <option>Managed Service Provider</option>
-          <option>Enterprise IT</option>
-          <option>Other</option>
+          <option value="" disabled selected data-i18n="intake.select">Select one…</option>
+          <option value="Fiber / ISP" data-i18n="intake.seg.fiber">Fiber / ISP</option>
+          <option value="Mobile / MVNO" data-i18n="intake.seg.mobile">Mobile / MVNO</option>
+          <option value="Subsea / Wholesale" data-i18n="intake.seg.subsea">Subsea / Wholesale</option>
+          <option value="Data Center / Infrastructure" data-i18n="intake.seg.dc">Data Center / Infrastructure</option>
+          <option value="Managed Service Provider" data-i18n="intake.seg.msp">Managed Service Provider</option>
+          <option value="Enterprise IT" data-i18n="intake.seg.ent">Enterprise IT</option>
+          <option value="Other" data-i18n="intake.seg.other">Other</option>
         </select>
         <span class="f-field-error" id="iq-segment-error" role="alert"></span>
       </div>
       <div class="f-field full" id="iq-segment-other-wrap" hidden>
-        <label for="iq-segment-other">Other — Please specify operation type</label>
+        <label for="iq-segment-other" data-i18n="intake.seg.otherLabel">Other — Please specify operation type</label>
         <input class="f-input" id="iq-segment-other" name="segment_other" type="text" maxlength="120" autocomplete="off" aria-describedby="iq-segment-other-error" />
         <span class="f-field-error" id="iq-segment-other-error" role="alert"></span>
       </div>
       <div class="f-field">
-        <label for="iq-size">Company size</label>
+        <label for="iq-size" data-i18n="intake.size">Company size</label>
         <select class="f-select" id="iq-size" name="size" required aria-describedby="iq-size-error">
-          <option value="" disabled selected>Select one…</option>
-          <option>Startup</option>
-          <option>Small</option>
-          <option>Medium</option>
-          <option>Large</option>
-          <option>Wholesale</option>
-          <option>Hyperscaler</option>
-          <option value="Other">Other — Please specify company size</option>
+          <option value="" disabled selected data-i18n="intake.select">Select one…</option>
+          <option value="Startup" data-i18n="intake.size.startup">Startup</option>
+          <option value="Small" data-i18n="intake.size.small">Small</option>
+          <option value="Medium" data-i18n="intake.size.medium">Medium</option>
+          <option value="Large" data-i18n="intake.size.large">Large</option>
+          <option value="Wholesale" data-i18n="intake.size.wholesale">Wholesale</option>
+          <option value="Hyperscaler" data-i18n="intake.size.hyper">Hyperscaler</option>
+          <option value="Other" data-i18n="intake.size.otherOpt">Other — Please specify company size</option>
         </select>
         <span class="f-field-error" id="iq-size-error" role="alert"></span>
       </div>
       <div class="f-field" id="iq-size-other-wrap" hidden>
-        <label for="iq-size-other">Other — Please specify company size</label>
+        <label for="iq-size-other" data-i18n="intake.size.otherLabel">Other — Please specify company size</label>
         <input class="f-input" id="iq-size-other" name="size_other" type="text" maxlength="80" autocomplete="off" aria-describedby="iq-size-other-error" />
         <span class="f-field-error" id="iq-size-other-error" role="alert"></span>
       </div>
       <div class="f-field">
-        <label for="iq-issue">Biggest operational issue today</label>
+        <label for="iq-issue" data-i18n="intake.issue">Biggest operational issue today</label>
         <select class="f-select" id="iq-issue" name="issue" required aria-describedby="iq-issue-error">
-          <option value="" disabled selected>Select one…</option>
-          <option>We don't know where to start with AI</option>
-          <option>High operating costs</option>
-          <option>Churn / customer experience</option>
-          <option>NOC alarm fatigue / manual triage</option>
-          <option>Slow provisioning / activation</option>
-          <option>Other</option>
+          <option value="" disabled selected data-i18n="intake.select">Select one…</option>
+          <option value="We don't know where to start with AI" data-i18n="intake.issue.ai">We don't know where to start with AI</option>
+          <option value="High operating costs" data-i18n="intake.issue.cost">High operating costs</option>
+          <option value="Churn / customer experience" data-i18n="intake.issue.churn">Churn / customer experience</option>
+          <option value="NOC alarm fatigue / manual triage" data-i18n="intake.issue.noc">NOC alarm fatigue / manual triage</option>
+          <option value="Slow provisioning / activation" data-i18n="intake.issue.prov">Slow provisioning / activation</option>
+          <option value="Other" data-i18n="intake.issue.other">Other</option>
         </select>
         <span class="f-field-error" id="iq-issue-error" role="alert"></span>
       </div>
       <div class="f-field full" id="iq-issue-other-wrap" hidden>
-        <label for="iq-issue-other">Other — Please describe the issue</label>
+        <label for="iq-issue-other" data-i18n="intake.issue.otherLabel">Other — Please describe the issue</label>
         <input class="f-input" id="iq-issue-other" name="issue_other" type="text" maxlength="200" autocomplete="off" aria-describedby="iq-issue-other-error" />
         <span class="f-field-error" id="iq-issue-other-error" role="alert"></span>
       </div>
       <div class="f-field full">
-        <label>What would you like to explore? <small class="select-hint">(select any)</small></label>
+        <label data-i18n="intake.explore">What would you like to explore? <small class="select-hint">(select any)</small></label>
         <div class="f-checks">
-          <label class="f-check"><input type="checkbox" name="interest" value="AI Readiness Assessment" /><span>AI Readiness Assessment</span></label>
-          <label class="f-check"><input type="checkbox" name="interest" value="Telecom Digital Transformation" /><span>Telecom Digital Transformation</span></label>
-          <label class="f-check"><input type="checkbox" name="interest" value="Service Delivery Optimization" /><span>Service Delivery Optimization</span></label>
-          <label class="f-check"><input type="checkbox" name="interest" value="Network Operations Automation" /><span>Network Operations Automation</span></label>
-          <label class="f-check"><input type="checkbox" name="interest" value="Data Readiness for AI" /><span>Data Readiness for AI</span></label>
-          <label class="f-check"><input type="checkbox" name="interest" value="AI Strategy & Advisory" /><span>AI Strategy &amp; Advisory</span></label>
+          <label class="f-check"><input type="checkbox" name="interest" value="AI Readiness Assessment" /><span data-i18n="intake.int1">AI Readiness Assessment</span></label>
+          <label class="f-check"><input type="checkbox" name="interest" value="Telecom Digital Transformation" /><span data-i18n="intake.int2">Telecom Digital Transformation</span></label>
+          <label class="f-check"><input type="checkbox" name="interest" value="Service Delivery Optimization" /><span data-i18n="intake.int3">Service Delivery Optimization</span></label>
+          <label class="f-check"><input type="checkbox" name="interest" value="Network Operations Automation" /><span data-i18n="intake.int4">Network Operations Automation</span></label>
+          <label class="f-check"><input type="checkbox" name="interest" value="Data Readiness for AI" /><span data-i18n="intake.int5">Data Readiness for AI</span></label>
+          <label class="f-check"><input type="checkbox" name="interest" value="AI Strategy & Advisory" /><span data-i18n="intake.int6">AI Strategy &amp; Advisory</span></label>
         </div>
       </div>
       <div class="f-field full">
-        <label for="iq-notes">Briefly, what's going on? <small>(optional, max 500 characters)</small></label>
-        <textarea class="f-textarea" id="iq-notes" name="notes" maxlength="500" placeholder="e.g. Our NOC handles thousands of alarms a day and our install times keep slipping…" aria-describedby="iq-notes-count"></textarea>
+        <label for="iq-notes" data-i18n="intake.notes">Briefly, what's going on? <small>(optional, max 500 characters)</small></label>
+        <textarea class="f-textarea" id="iq-notes" name="notes" maxlength="500" data-i18n-placeholder="intake.notesPh" placeholder="e.g. Our NOC handles thousands of alarms a day and our install times keep slipping…" aria-describedby="iq-notes-count"></textarea>
         <div class="f-char-count" id="iq-notes-count" aria-live="polite">0 / 500</div>
       </div>
     </div>
     <div class="f-field full" id="captchaField" style="margin-top:20px">
-      <label for="iq-captcha">Verification</label>
+      <label for="iq-captcha" data-i18n="intake.verify">Verification</label>
       <div class="captcha-wrap">
         <div class="h-captcha" id="iq-captcha" data-captcha="true" data-theme="dark"></div>
       </div>
       <span class="f-field-error" id="iq-captcha-error" role="alert"></span>
     </div>
     <div style="display:flex;align-items:center;gap:16px;margin-top:20px;flex-wrap:wrap">
-      <button type="submit" class="btn btn-primary" id="intakeSubmit"><span>Request My Assessment</span> <span class="arr">&#8594;</span></button>
-      <span class="intake-aside">No spam. One reply, from a human.</span>
+      <button type="submit" class="btn btn-primary" id="intakeSubmit"><span data-i18n="intake.submit">Request My Assessment</span> <span class="arr">&#8594;</span></button>
+      <span class="intake-aside" data-i18n="intake.aside">No spam. One reply, from a human.</span>
     </div>
     <div class="intake-status" id="intakeStatus" role="status" aria-live="polite" tabindex="-1"></div>
-    <p class="intake-note">Please don't include customer personal data or credentials — company-level information is all we need at this stage.</p>
+    <p class="intake-note" data-i18n="intake.note">Please don't include customer personal data or credentials — company-level information is all we need at this stage.</p>
   </form>
 </section>
 
 <section id="contact">
   <div class="cta-strip">
-    <span class="eyebrow"><span class="dot"></span><span>Let's Talk</span></span>
-    <h2 style="margin-top:14px">Ready to Get AI Power?</h2>
-    <p>Let's identify where AI can create measurable value in your telecom or digital infrastructure operations.</p>
+    <span class="eyebrow"><span class="dot"></span><span data-i18n="contact.eyebrow">Let's Talk</span></span>
+    <h2 style="margin-top:14px" data-i18n="contact.h2">Ready to Get AI Power?</h2>
+    <p data-i18n="contact.body">Let's identify where AI can create measurable value in your telecom or digital infrastructure operations.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <a href="#intake" class="btn btn-primary"><span>Book an AI Assessment</span> <span class="arr">→</span></a>
-      <a href="mailto:hello@monkyfi.com" class="btn btn-ghost">Contact Monkyfi</a>
+      <a href="#intake" class="btn btn-primary"><span data-i18n="contact.cta1">Book an AI Assessment</span> <span class="arr">→</span></a>
+      <a href="mailto:hello@monkyfi.com" class="btn btn-ghost" data-i18n="contact.cta2">Contact Monkyfi</a>
     </div>
   </div>
 </section>
@@ -841,41 +886,41 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
     <div>
       <div class="brand" style="margin-bottom:14px">
         <div class="brand-mark" style="width:34px;height:34px;border-radius:8px"><img src="assets/favicon-48.png" alt="" width="34" height="34" loading="lazy" decoding="async" /></div>
-        <div class="brand-text"><b>Monkyfi</b><small>Get AI Power</small></div>
+        <div class="brand-text"><b>Monkyfi</b><small data-i18n="brand.tag">Get AI Power</small></div>
       </div>
-      <p style="font-size:15px">AI Automation & Intelligence for Telecom Operations</p>
+      <p style="font-size:15px" data-i18n="foot.tagline">AI Automation & Intelligence for Telecom Operations</p>
     </div>
     <div>
-      <h5>Solutions</h5>
+      <h5 data-i18n="foot.solutions">Solutions</h5>
       <ul>
         <li><a href="#connect">Connect</a></li>
         <li><a href="#atlas">Atlas</a></li>
         <li><a href="#sentinel">Sentinel</a></li>
-        <li><a href="assets/monkyfi-brochure.pdf" download="Monkyfi-Brochure.pdf">Brochure</a></li>
+        <li><a href="assets/monkyfi-brochure.pdf" download="Monkyfi-Brochure.pdf" data-i18n="foot.brochure">Brochure</a></li>
       </ul>
     </div>
     <div>
-      <h5>Company</h5>
+      <h5 data-i18n="foot.company">Company</h5>
       <ul>
-        <li><a href="#founder">About</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#founder" data-i18n="foot.about">About</a></li>
+        <li><a href="#contact" data-i18n="foot.contact">Contact</a></li>
       </ul>
     </div>
     <div>
-      <h5>Legal</h5>
+      <h5 data-i18n="foot.legal">Legal</h5>
       <ul>
-        <li><a href="privacy.html">Privacy Policy</a></li>
-        <li><a href="terms.html">Terms</a></li>
+        <li><a href="privacy.html" data-i18n="foot.privacy">Privacy Policy</a></li>
+        <li><a href="terms.html" data-i18n="foot.terms">Terms</a></li>
       </ul>
     </div>
   </div>
   <div class="foot-bottom">
-    <small>© 2026 Monkyfi LLC · Miami, Florida, USA · <a href="tel:+17863779802">786-377-9802</a> · <a href="mailto:hello@monkyfi.com">hello@monkyfi.com</a></small>
+    <small data-i18n="foot.copy">© 2026 Monkyfi LLC · Miami, Florida, USA · <a href="tel:+17863779802">786-377-9802</a> · <a href="mailto:hello@monkyfi.com">hello@monkyfi.com</a></small>
     <div class="social"><a href="https://linkedin.com/company/monkyfi" target="_blank" rel="noopener">LinkedIn</a></div>
   </div>
 </footer>
 
-<button class="chat-fab" id="chatFab" onclick="openChat()" aria-label="Open AI chat" aria-haspopup="dialog" aria-controls="chatPanel" aria-expanded="false">
+<button class="chat-fab" id="chatFab" onclick="openChat()" aria-label="Open AI chat" data-i18n-aria="a11y.openChat" aria-haspopup="dialog" aria-controls="chatPanel" aria-expanded="false">
   <span class="pulse"></span><span class="dot-status"></span>
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
 </button>
@@ -884,26 +929,27 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   <div class="chat-head">
     <div class="chat-head-left">
       <div class="chat-avatar"><img src="assets/favicon-48.png" alt="" width="40" height="40" loading="lazy" decoding="async" /></div>
-      <div><b id="chatTitle">Monkyfi AI</b><small>● Online · powered by Claude</small></div>
+      <div><b id="chatTitle">Monkyfi AI</b><small data-i18n="chat.online">● Online · powered by Claude</small></div>
     </div>
-    <button class="chat-close" type="button" onclick="closeChat()" aria-label="Close chat">×</button>
+    <button class="chat-close" type="button" onclick="closeChat()" aria-label="Close chat" data-i18n-aria="a11y.closeChat">×</button>
   </div>
   <div class="chat-body" id="chatBody">
-    <div class="msg bot"><div class="msg-bubble">Hey 👋 I'm the Monkyfi AI. Ask me about <strong>Connect</strong> (available now), <strong>Atlas</strong> (pilot), <strong>Sentinel</strong> (coming soon), or how we work.</div></div>
+    <div class="msg bot"><div class="msg-bubble" data-i18n="chat.welcome">Hey 👋 I'm the Monkyfi AI. Ask me about <strong>Connect</strong> (available now), <strong>Atlas</strong> (pilot), <strong>Sentinel</strong> (coming soon), or how we work.</div></div>
   </div>
   <div class="chat-suggestions" id="chatSuggestions">
-    <button class="chip" onclick="sendSuggestion('What does Monkyfi Connect include?')">What does Connect include?</button>
-    <button class="chip" onclick="sendSuggestion('How does the Atlas pilot work?')">How does the Atlas pilot work?</button>
-    <button class="chip" onclick="sendSuggestion('What happens on a discovery call?')">What happens on a discovery call?</button>
+    <button class="chip" data-i18n="chat.chip1" data-suggestion-key="chat.chip1.full" onclick="sendSuggestionI18n(this)">What does Connect include?</button>
+    <button class="chip" data-i18n="chat.chip2" data-suggestion-key="chat.chip2.full" onclick="sendSuggestionI18n(this)">How does the Atlas pilot work?</button>
+    <button class="chip" data-i18n="chat.chip3" data-suggestion-key="chat.chip3.full" onclick="sendSuggestionI18n(this)">What happens on a discovery call?</button>
   </div>
   <div class="chat-input-wrap">
-    <input id="chatInput" class="chat-input" placeholder="Ask about solutions, pilots, or how we work…" autocomplete="off" />
-    <button class="chat-send" id="chatSend" onclick="sendMessage()" aria-label="Send">
+    <input id="chatInput" class="chat-input" data-i18n-placeholder="chat.placeholder" placeholder="Ask about solutions, pilots, or how we work…" autocomplete="off" />
+    <button class="chat-send" id="chatSend" onclick="sendMessage()" aria-label="Send" data-i18n-aria="a11y.send">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
     </button>
   </div>
 </div>
 
+<script src="assets/i18n.js"></script>
 <script>
 (function(){
   const c = document.getElementById('circuitCanvas');
@@ -989,6 +1035,16 @@ const revObs = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); revObs.unobserve(e.target); } });
 },{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+function i18nT(key){
+  try{
+    if(window.MonkyfiI18n && typeof window.MonkyfiI18n.t === 'function') return window.MonkyfiI18n.t(key);
+  }catch(_){}
+  return key;
+}
+function intakeSubmitHtml(){
+  return '<span data-i18n="intake.submit">' + i18nT('intake.submit') + '</span> <span class="arr">&#8594;</span>';
+}
 
 const fab = document.getElementById('chatFab');
 const panel = document.getElementById('chatPanel');
@@ -1079,7 +1135,7 @@ async function sendMessage(){
   }catch(err){
     console.error('chat error:', err);
     removeTyping();
-    append('bot', "Hmm — I couldn't reach the model just now. You can email **hello@monkyfi.com** and we'll reply within 24 hours.");
+    append('bot', i18nT('chat.error'));
   }
   sendBtn.disabled=false;
   input.focus();
@@ -1091,7 +1147,7 @@ input.addEventListener('keydown', (e)=>{ if(e.key==='Enter' && !e.shiftKey){ e.p
 
 const intakeForm = document.getElementById('intakeForm');
 if(intakeForm){
-  const INTAKE_BTN_HTML = '<span>Request My Assessment</span> <span class="arr">&#8594;</span>';
+  const INTAKE_BTN_HTML = intakeSubmitHtml();
   let intakeSubmitting = false;
   function toggleOtherField(selectId, wrapId, inputId){
     const sel = document.getElementById(selectId);
@@ -1208,28 +1264,28 @@ if(intakeForm){
       if(el && !firstErrorInput) firstErrorInput = el;
     }
     const required = [
-      ['name', 'iq-name', 'Name is required.'],
-      ['email', 'iq-email', 'Work email is required.'],
-      ['company', 'iq-company', 'Company is required.'],
-      ['segment', 'iq-segment', 'Please select an operation type.'],
-      ['size', 'iq-size', 'Please select a company size.'],
-      ['issue', 'iq-issue', 'Please select your biggest operational issue.']
+      ['name', 'iq-name', i18nT('intake.js.reqName')],
+      ['email', 'iq-email', i18nT('intake.js.reqEmail')],
+      ['company', 'iq-company', i18nT('intake.js.reqCompany')],
+      ['segment', 'iq-segment', i18nT('intake.js.reqSegment')],
+      ['size', 'iq-size', i18nT('intake.js.reqSize')],
+      ['issue', 'iq-issue', i18nT('intake.js.reqIssue')]
     ];
     for(const r of required){
       if(!fd.get(r[0]) || !String(fd.get(r[0])).trim()) markError(r[1], r[2]);
     }
     const emailVal = String(fd.get('email') || '').trim();
     if(emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)){
-      markError('iq-email', 'Please enter a valid email address.');
+      markError('iq-email', i18nT('intake.js.badEmail'));
     }
     if(fd.get('segment') === 'Other' && !String(fd.get('segment_other') || '').trim()){
-      markError('iq-segment-other', 'Please specify the operation type.');
+      markError('iq-segment-other', i18nT('intake.js.specSegment'));
     }
     if(fd.get('size') === 'Other' && !String(fd.get('size_other') || '').trim()){
-      markError('iq-size-other', 'Please specify the company size.');
+      markError('iq-size-other', i18nT('intake.js.specSize'));
     }
     if(fd.get('issue') === 'Other' && !String(fd.get('issue_other') || '').trim()){
-      markError('iq-issue-other', 'Please describe the operational issue.');
+      markError('iq-issue-other', i18nT('intake.js.specIssue'));
     }
     const captchaToken = (fd.get('h-captcha-response') || '').toString().trim();
     if(!captchaToken){
@@ -1237,11 +1293,11 @@ if(intakeForm){
       if(captchaField){
         captchaField.classList.add('is-error');
         var captchaErr = document.getElementById('iq-captcha-error');
-        if(captchaErr) captchaErr.textContent = 'Please complete the verification checkbox.';
+        if(captchaErr) captchaErr.textContent = i18nT('intake.js.captcha');
       }
     }
     if(firstErrorInput || !captchaToken){
-      showIntakeStatus(status,'err', firstErrorInput ? 'Please fix the highlighted fields above.' : 'Please complete the verification checkbox.');
+      showIntakeStatus(status,'err', firstErrorInput ? i18nT('intake.js.fixErrors') : i18nT('intake.js.captcha'));
       var scrollTarget = firstErrorInput || document.getElementById('captchaField');
       if(scrollTarget){
         try{ scrollTarget.focus({ preventScroll: true }); }catch(_){}
@@ -1265,7 +1321,7 @@ if(intakeForm){
     ].join('\n'));
     intakeSubmitting = true;
     btn.disabled = true;
-    btn.innerHTML = '<span>Sending…</span>';
+    btn.innerHTML = '<span>' + i18nT('intake.js.sending') + '</span>';
     status.className = 'intake-status';
     status.textContent = '';
     const payload = Object.fromEntries(fd);
@@ -1282,7 +1338,7 @@ if(intakeForm){
       clearTimeout(timeout);
       const data = await res.json().catch(() => ({}));
       if(!res.ok || !data.success) throw new Error(data.message || ('API ' + res.status));
-      showIntakeStatus(status,'ok',"Got it — thank you! We'll review your info and reply within 24 hours.");
+      showIntakeStatus(status,'ok', i18nT('intake.js.ok'));
       trackEvent('Intake Submit Success');
       intakeForm.reset();
       clearIntakeErrors();
@@ -1296,13 +1352,13 @@ if(intakeForm){
     }catch(err){
       console.error('web3forms error:', err);
       const msg = (err && err.name === 'AbortError')
-        ? 'That took too long. You can email hello@monkyfi.com directly, or try again.'
-        : ((err && err.message) ? String(err.message) : 'Submission failed.');
+        ? i18nT('intake.js.timeout')
+        : ((err && err.message) ? String(err.message) : i18nT('intake.js.fail'));
       if(/captcha|mandatory|invalid|spam|rate|too may|too many/i.test(msg)){
         showIntakeStatus(status,'err', /captcha/i.test(msg)
-          ? 'Please complete the verification checkbox.'
+          ? i18nT('intake.js.captcha')
           : (/rate|too may|too many/i.test(msg)
-            ? 'Too many submissions just now — please wait a moment and try again.'
+            ? i18nT('intake.js.rate')
             : msg));
       } else {
         const bodyLines = [
@@ -1312,12 +1368,12 @@ if(intakeForm){
         ].join('\n');
         const mail = 'mailto:hello@monkyfi.com?subject=' + encodeURIComponent('AI Assessment Request — ' + fd.get('company')) + '&body=' + encodeURIComponent(bodyLines);
         window.location.href = mail;
-        showIntakeStatus(status,'ok',"We've opened an email with your answers pre-filled — just press send.");
+        showIntakeStatus(status,'ok', i18nT('intake.js.mailOpened'));
       }
     }
     intakeSubmitting = false;
     btn.disabled = false;
-    btn.innerHTML = INTAKE_BTN_HTML;
+    btn.innerHTML = intakeSubmitHtml();
   });
 }
 </script>
