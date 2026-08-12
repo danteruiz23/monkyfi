@@ -271,6 +271,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .f-field label small{color:#64748b;font-weight:400}
 .f-input,.f-select,.f-textarea{background:rgba(7,11,20,.6);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:#EDEFF2;font-family:inherit;font-size:14px;outline:none;transition:border-color .2s;width:100%}
 .f-input:focus,.f-select:focus,.f-textarea:focus{border-color:var(--cyan)}
+.f-input.field-error,.f-select.field-error,.f-textarea.field-error{border-color:#f2c98b;box-shadow:0 0 0 3px rgba(242,201,139,.12)}
 .f-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
 .f-textarea{min-height:110px;resize:vertical}
 .f-checks{display:grid;grid-template-columns:1fr 1fr;gap:9px}
@@ -283,6 +284,8 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .intake-status{display:none;margin-top:16px;padding:13px 16px;border-radius:10px;font-size:14px}
 .intake-status.ok{display:block;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.35);color:#22c55e}
 .intake-status.err{display:block;background:rgba(242,201,139,.1);border:1px solid rgba(242,201,139,.3);color:var(--cream)}
+.status-retry{margin-top:10px;padding:0;background:none;border:none;color:var(--cyan);font:inherit;font-weight:600;cursor:pointer}
+.status-retry:hover{text-decoration:underline}
 
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s ease, transform .8s ease}
 .reveal.in{opacity:1;transform:none}
@@ -304,9 +307,9 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
       <a href="#contact">Contact</a>
     </div>
     <a href="#intake" class="nav-cta">Book an AI Assessment</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-controls="navLinks" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
-  <script>document.getElementById('navToggle').addEventListener('click',function(){this.classList.toggle('open');document.getElementById('navLinks').classList.toggle('open')});document.querySelectorAll('#navLinks a').forEach(function(a){a.addEventListener('click',function(){document.getElementById('navToggle').classList.remove('open');document.getElementById('navLinks').classList.remove('open')})})</script>
+  <script>const navToggle=document.getElementById('navToggle');const navLinks=document.getElementById('navLinks');function setNavMenuState(isOpen){navToggle.classList.toggle('open',isOpen);navLinks.classList.toggle('open',isOpen);navToggle.setAttribute('aria-expanded',String(isOpen));}navToggle.addEventListener('click',function(){setNavMenuState(!navLinks.classList.contains('open'))});document.querySelectorAll('#navLinks a, .nav-cta').forEach(function(a){a.addEventListener('click',function(){setNavMenuState(false)})})</script>
 </nav>
 
 <main>
@@ -815,15 +818,113 @@ input.addEventListener('keydown', (e)=>{ if(e.key==='Enter' && !e.shiftKey){ e.p
 
 const intakeForm = document.getElementById('intakeForm');
 if(intakeForm){
+  const intakeStatus = document.getElementById('intakeStatus');
+  const intakeSubmit = document.getElementById('intakeSubmit');
+  const intakeStorageKey = 'monkyfi-intake-form';
+  const intakeFields = intakeForm.querySelectorAll('input[name]:not([type="hidden"]):not([name="botcheck"]), select[name], textarea[name]');
+  function setStatus(kind, message, showRetry){
+    intakeStatus.className = kind ? ('intake-status ' + kind) : 'intake-status';
+    intakeStatus.textContent = message || '';
+    if(showRetry){
+      const retry = document.createElement('button');
+      retry.type = 'button';
+      retry.className = 'status-retry';
+      retry.textContent = 'Review answers and try again';
+      retry.addEventListener('click', function(){
+        intakeStatus.className = 'intake-status';
+        const firstError = intakeForm.querySelector('.field-error');
+        (firstError || intakeSubmit).focus();
+      });
+      intakeStatus.appendChild(document.createElement('br'));
+      intakeStatus.appendChild(retry);
+    }
+  }
+  function clearFieldErrors(){
+    intakeFields.forEach(function(field){
+      field.classList.remove('field-error');
+      field.removeAttribute('aria-invalid');
+    });
+  }
+  function markFieldError(field){
+    field.classList.add('field-error');
+    field.setAttribute('aria-invalid', 'true');
+  }
+  function collectFormState(){
+    const state = {};
+    intakeFields.forEach(function(field){
+      if(field.type === 'checkbox'){
+        if(!Array.isArray(state[field.name])) state[field.name] = [];
+        if(field.checked) state[field.name].push(field.value);
+        return;
+      }
+      state[field.name] = field.value;
+    });
+    return state;
+  }
+  function saveFormState(){
+    try{ localStorage.setItem(intakeStorageKey, JSON.stringify(collectFormState())); }catch(err){ console.warn('intake cache unavailable:', err); }
+  }
+  function clearFormState(){
+    try{ localStorage.removeItem(intakeStorageKey); }catch(err){ console.warn('intake cache unavailable:', err); }
+  }
+  function restoreFormState(){
+    let saved;
+    try{ saved = localStorage.getItem(intakeStorageKey); }catch(err){ console.warn('intake cache unavailable:', err); return; }
+    if(!saved) return;
+    try{
+      const state = JSON.parse(saved);
+      intakeFields.forEach(function(field){
+        const value = state[field.name];
+        if(field.type === 'checkbox'){
+          field.checked = Array.isArray(value) && value.includes(field.value);
+          return;
+        }
+        if(typeof value === 'string') field.value = value;
+      });
+      setStatus('err', 'We restored your previous answers so you can review them and try again.', false);
+    }catch(err){
+      console.warn('intake cache restore failed:', err);
+      clearFormState();
+    }
+  }
+  function validateForm(){
+    clearFieldErrors();
+    const missing = [];
+    intakeFields.forEach(function(field){
+      if(field.required && !String(field.value || '').trim()){
+        markFieldError(field);
+        missing.push(field);
+      }else if(field.type === 'email' && field.value && !field.checkValidity()){
+        markFieldError(field);
+        missing.push(field);
+      }
+    });
+    if(missing.length){
+      setStatus('err', 'Please complete the highlighted required fields and verify your email address before submitting.', false);
+      missing[0].focus();
+      return false;
+    }
+    setStatus('', '', false);
+    return true;
+  }
+  intakeFields.forEach(function(field){
+    field.addEventListener('input', function(){
+      if(field.classList.contains('field-error') && field.checkValidity() && String(field.value || '').trim()){
+        field.classList.remove('field-error');
+        field.removeAttribute('aria-invalid');
+      }
+      saveFormState();
+    });
+    field.addEventListener('change', saveFormState);
+  });
+  restoreFormState();
   intakeForm.addEventListener('submit', async function(e){
     e.preventDefault();
-    const status = document.getElementById('intakeStatus');
-    const btn = document.getElementById('intakeSubmit');
     if(intakeForm.botcheck && intakeForm.botcheck.value) return;
+    saveFormState();
     const fd = new FormData(intakeForm);
     const interests = fd.getAll('interest');
-    const required = ['name','email','company','segment','size','pain'];
-    for(const r of required){ if(!fd.get(r) || !String(fd.get(r)).trim()){ status.className='intake-status err'; status.textContent='Please complete the required fields above.'; return; } }
+    if(!validateForm()) return;
     fd.set('interests', interests.join(', ') || '(none selected)');
     fd.set('message', [
       'New AI Assessment request from monkyfi.com',
@@ -832,14 +933,14 @@ if(intakeForm){
       'Interested in: ' + (interests.join(', ') || '(none selected)'),
       '', 'Notes:', fd.get('notes') || '(none)'
     ].join('\n'));
-    btn.disabled = true;
-    status.className = 'intake-status';
+    intakeSubmit.disabled = true;
+    setStatus('', '', false);
     try{
       const res = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{Accept:'application/json'}, body: fd });
       const data = await res.json();
       if(!res.ok || !data.success) throw new Error(data.message || ('API ' + res.status));
-      status.className = 'intake-status ok';
-      status.textContent = "Got it — thank you! Dante will review your info and reply within 24 hours.";
+      clearFormState();
+      setStatus('ok', "Got it — thank you! Dante will review your info and reply within 24 hours.", false);
       intakeForm.reset();
     }catch(err){
       console.error('web3forms error:', err);
@@ -849,11 +950,10 @@ if(intakeForm){
         'Interested in: ' + (interests.join(', ') || '(none selected)'), '', 'Notes:', fd.get('notes') || '(none)'
       ].join('\n');
       const mail = 'mailto:hello@monkyfi.com?cc=dante@monkyfi.com&subject=' + encodeURIComponent('AI Assessment Request — ' + fd.get('company')) + '&body=' + encodeURIComponent(bodyLines);
+      setStatus('err', "We couldn't submit your request automatically. Your answers are still saved on this device. Please try again, or send the pre-filled email if it opens.", true);
       window.location.href = mail;
-      status.className = 'intake-status ok';
-      status.textContent = "We've opened an email with your answers pre-filled — just press send.";
     }
-    btn.disabled = false;
+    intakeSubmit.disabled = false;
   });
 }
 </script>
