@@ -560,7 +560,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
     <input type="hidden" name="from_name" value="Monkyfi Website Intake">
     <input type="hidden" name="to" value="hello@monkyfi.com">
     <input type="hidden" name="cc" value="dante@monkyfi.com">
-    <input type="text" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+    <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
     <div class="intake-grid">
       <div class="f-field">
         <label for="iq-name">Name</label>
@@ -626,10 +626,13 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
       </div>
     </div>
     <div style="display:flex;align-items:center;gap:16px;margin-top:20px;flex-wrap:wrap">
+      <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;margin-top:20px;flex-wrap:wrap">
       <button type="submit" class="btn btn-primary" id="intakeSubmit"><span>Request My Assessment</span> <span class="arr">&#8594;</span></button>
       <span style="font-size:12.5px;color:#64748b">No spam. One reply, from a human.</span>
     </div>
-    <div class="intake-status" id="intakeStatus" role="status"></div>
+    <div class="intake-status" id="intakeStatus" role="status" aria-live="polite"></div>
     <p class="intake-note">Please don't include customer personal data or credentials — company-level information is all we need at this stage.</p>
   </form>
 </section>
@@ -861,15 +864,22 @@ input.addEventListener('keydown', (e)=>{ if(e.key==='Enter' && !e.shiftKey){ e.p
 
 const intakeForm = document.getElementById('intakeForm');
 if(intakeForm){
+  const INTAKE_BTN_HTML = '<span>Request My Assessment</span> <span class="arr">&#8594;</span>';
   intakeForm.addEventListener('submit', async function(e){
     e.preventDefault();
     const status = document.getElementById('intakeStatus');
     const btn = document.getElementById('intakeSubmit');
-    if(intakeForm.botcheck && intakeForm.botcheck.value) return;
+    if(intakeForm.botcheck && intakeForm.botcheck.checked) return;
     const fd = new FormData(intakeForm);
     const interests = fd.getAll('interest');
     const required = ['name','email','company','segment','size','pain'];
     for(const r of required){ if(!fd.get(r) || !String(fd.get(r)).trim()){ status.className='intake-status err'; status.textContent='Please complete the required fields above.'; return; } }
+    const captchaToken = (fd.get('h-captcha-response') || '').toString().trim();
+    if(!captchaToken){
+      status.className = 'intake-status err';
+      status.textContent = 'Please complete the captcha, then try again.';
+      return;
+    }
     fd.set('interests', interests.join(', ') || '(none selected)');
     fd.set('message', [
       'New AI Assessment request from monkyfi.com',
@@ -879,29 +889,57 @@ if(intakeForm){
       '', 'Notes:', fd.get('notes') || '(none)'
     ].join('\n'));
     btn.disabled = true;
+    btn.innerHTML = '<span>Sending…</span>';
     status.className = 'intake-status';
+    status.textContent = '';
+    const payload = Object.fromEntries(fd);
+    payload['h-captcha-response'] = captchaToken;
     try{
-      const res = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body: JSON.stringify(Object.fromEntries(fd)) });
-      const data = await res.json();
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      });
+      clearTimeout(timeout);
+      const data = await res.json().catch(() => ({}));
       if(!res.ok || !data.success) throw new Error(data.message || ('API ' + res.status));
       status.className = 'intake-status ok';
       status.textContent = "Got it — thank you! Dante will review your info and reply within 24 hours.";
       intakeForm.reset();
+      if(window.hcaptcha && typeof window.hcaptcha.reset === 'function'){
+        try{ window.hcaptcha.reset(); }catch(_){}
+      }
     }catch(err){
       console.error('web3forms error:', err);
-      const bodyLines = [
-        'Name: ' + fd.get('name'), 'Email: ' + fd.get('email'), 'Company: ' + fd.get('company'),
-        'Operation: ' + fd.get('segment'), 'Size: ' + fd.get('size'), 'Biggest pain: ' + fd.get('pain'),
-        'Interested in: ' + (interests.join(', ') || '(none selected)'), '', 'Notes:', fd.get('notes') || '(none)'
-      ].join('\n');
-      const mail = 'mailto:hello@monkyfi.com?cc=dante@monkyfi.com&subject=' + encodeURIComponent('AI Assessment Request — ' + fd.get('company')) + '&body=' + encodeURIComponent(bodyLines);
-      window.location.href = mail;
-      status.className = 'intake-status ok';
-      status.textContent = "We've opened an email with your answers pre-filled — just press send.";
+      const msg = (err && err.name === 'AbortError')
+        ? 'That took too long. You can email hello@monkyfi.com directly, or try again.'
+        : ((err && err.message) ? String(err.message) : 'Submission failed.');
+      // Captcha / validation errors: show the real reason — don't pretend mailto succeeded.
+      if(/captcha|mandatory|invalid|spam|rate|too may|too many/i.test(msg)){
+        status.className = 'intake-status err';
+        status.textContent = /captcha/i.test(msg)
+          ? 'Please complete the captcha, then try again.'
+          : msg;
+      } else {
+        const bodyLines = [
+          'Name: ' + fd.get('name'), 'Email: ' + fd.get('email'), 'Company: ' + fd.get('company'),
+          'Operation: ' + fd.get('segment'), 'Size: ' + fd.get('size'), 'Biggest pain: ' + fd.get('pain'),
+          'Interested in: ' + (interests.join(', ') || '(none selected)'), '', 'Notes:', fd.get('notes') || '(none)'
+        ].join('\n');
+        const mail = 'mailto:hello@monkyfi.com?cc=dante@monkyfi.com&subject=' + encodeURIComponent('AI Assessment Request — ' + fd.get('company')) + '&body=' + encodeURIComponent(bodyLines);
+        window.location.href = mail;
+        status.className = 'intake-status ok';
+        status.textContent = "We've opened an email with your answers pre-filled — just press send.";
+      }
     }
     btn.disabled = false;
+    btn.innerHTML = INTAKE_BTN_HTML;
   });
 }
 </script>
+<script src="https://web3forms.com/client/script.js" async defer></script>
 </body>
 </html>
