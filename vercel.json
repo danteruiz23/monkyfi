@@ -1,6 +1,14 @@
 {
   "headers": [
     {
+      "source": "/assets/monkyfi-connect-brochure.pdf",
+      "headers": [
+        { "key": "Content-Type", "value": "application/pdf" },
+        { "key": "Content-Disposition", "value": "attachment; filename=\"Monkyfi-Connect-Brochure.pdf\"" },
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
