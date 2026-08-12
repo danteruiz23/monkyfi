@@ -872,27 +872,40 @@ if(intakeForm){
     });
     return state;
   }
-  function saveFormState(){
-    try{ localStorage.setItem(intakeStorageKey, JSON.stringify(collectFormState())); }catch(err){ console.warn('intake cache unavailable:', err); }
+  function readStoredFormState(){
+    try{
+      const saved = localStorage.getItem(intakeStorageKey);
+      return saved ? JSON.parse(saved) : null;
+    }catch(err){
+      console.warn('intake cache unavailable:', err);
+      return null;
+    }
+  }
+  function saveFormState(restoreNotice){
+    try{
+      const saved = readStoredFormState();
+      localStorage.setItem(intakeStorageKey, JSON.stringify({
+        fields: collectFormState(),
+        restoreNotice: typeof restoreNotice === 'boolean' ? restoreNotice : !!(saved && saved.restoreNotice)
+      }));
+    }catch(err){ console.warn('intake cache unavailable:', err); }
   }
   function clearFormState(){
     try{ localStorage.removeItem(intakeStorageKey); }catch(err){ console.warn('intake cache unavailable:', err); }
   }
   function restoreFormState(){
-    let saved;
-    try{ saved = localStorage.getItem(intakeStorageKey); }catch(err){ console.warn('intake cache unavailable:', err); return; }
-    if(!saved) return;
+    const saved = readStoredFormState();
+    if(!saved || !saved.fields) return;
     try{
-      const state = JSON.parse(saved);
       intakeFields.forEach(function(field){
-        const value = state[field.name];
+        const value = saved.fields[field.name];
         if(field.type === 'checkbox'){
           field.checked = Array.isArray(value) && value.includes(field.value);
           return;
         }
         if(typeof value === 'string') field.value = value;
       });
-      setStatus('info', 'We restored your previous answers so you can review them and try again.', false);
+      if(saved.restoreNotice) setStatus('info', 'We restored your previous answers so you can review them and try again.', false);
     }catch(err){
       console.warn('intake cache restore failed:', err);
       clearFormState();
@@ -962,6 +975,7 @@ if(intakeForm){
         'Interested in: ' + (interests.join(', ') || '(none selected)'), '', 'Notes:', fd.get('notes') || '(none)'
       ].join('\n');
       const mail = 'mailto:hello@monkyfi.com?cc=dante@monkyfi.com&subject=' + encodeURIComponent('AI Assessment Request — ' + fd.get('company')) + '&body=' + encodeURIComponent(bodyLines);
+      saveFormState(true);
       setStatus('err', "We couldn't submit your request automatically. Your answers are still saved on this device. Please try again, or use the pre-filled email option below.", true, mail);
     }
     intakeSubmit.disabled = false;
