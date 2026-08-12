@@ -835,7 +835,7 @@ if(intakeForm){
     btn.disabled = true;
     status.className = 'intake-status';
     try{
-      const res = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(Object.fromEntries(fd)) });
+      const res = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body: JSON.stringify(Object.fromEntries(fd)) });
       const data = await res.json();
       if(!res.ok || !data.success) throw new Error(data.message || ('API ' + res.status));
       status.className = 'intake-status ok';
