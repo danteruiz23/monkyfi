@@ -606,13 +606,15 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
         </select>
       </div>
       <div class="f-field">
-        <label for="iq-size">Approximate size</label>
+        <label for="iq-size">Company size</label>
         <select class="f-select" id="iq-size" name="size" required>
           <option value="" disabled selected>Select one…</option>
-          <option>Under 50k subscribers / small ops team</option>
-          <option>50k – 250k subscribers</option>
-          <option>250k – 1M subscribers</option>
-          <option>1M+ subscribers / wholesale scale</option>
+          <option>Startup</option>
+          <option>Small</option>
+          <option>Medium</option>
+          <option>Large</option>
+          <option>Wholesale</option>
+          <option>Hyperscaler</option>
         </select>
       </div>
       <div class="f-field">
@@ -942,7 +944,7 @@ if(intakeForm){
     fd.set('message', [
       'New AI Assessment request from monkyfi.com',
       '', 'Company: ' + fd.get('company'), 'Operation type: ' + fd.get('segment'),
-      'Approx. size: ' + fd.get('size'), 'Biggest pain: ' + fd.get('pain'),
+      'Company size: ' + fd.get('size'), 'Biggest pain: ' + fd.get('pain'),
       'Interested in: ' + (interests.join(', ') || '(none selected)'),
       '', 'Notes:', fd.get('notes') || '(none)'
     ].join('\n'));
