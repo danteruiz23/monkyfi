@@ -449,8 +449,18 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .intake-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:28px;flex-wrap:wrap}
 .intake-back{background:none;border:none;color:#64748b;font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;padding:10px 4px;transition:color .2s}
 .intake-back:hover{color:#EDEFF2}
-.intake-back[hidden]{display:none !important}
 .btn:disabled,.btn[disabled]{opacity:.4;cursor:not-allowed;transform:none !important;box-shadow:none !important}
+/* .btn sets display:inline-flex, which overrides the UA [hidden] rule — force hide */
+.btn[hidden],
+.intake-back[hidden],
+.intake-step[hidden],
+.intake-success[hidden],
+#intakeNav[hidden],
+#intakeSteps[hidden],
+#intakeNote[hidden],
+#intakeProgress[hidden],
+#intakeAside[hidden]{display:none !important}
+.intake-nav-actions{display:flex;align-items:center;gap:10px;margin-left:auto}
 .f-check{position:relative}
 .f-check input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
 .f-check .box{width:18px;height:18px;border-radius:5px;border:1.5px solid rgba(148,163,184,.4);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;background:transparent}
@@ -914,8 +924,10 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
     <div class="intake-nav" id="intakeNav">
       <button type="button" class="intake-back" id="intakeBack" hidden data-i18n="intake.back">Back</button>
       <span class="intake-aside" id="intakeAside" data-i18n="intake.aside">No spam. One reply, from a human.</span>
-      <button type="button" class="btn btn-primary" id="intakeContinue" disabled><span data-i18n="intake.continue">Continue</span> <span class="arr">&#8594;</span></button>
-      <button type="submit" class="btn btn-primary" id="intakeSubmit" hidden disabled><span data-i18n="intake.submit">Submit</span> <span class="arr">&#8594;</span></button>
+      <div class="intake-nav-actions">
+        <button type="button" class="btn btn-primary" id="intakeContinue" disabled><span data-i18n="intake.continue">Continue</span> <span class="arr">&#8594;</span></button>
+        <button type="submit" class="btn btn-primary" id="intakeSubmit" hidden disabled><span data-i18n="intake.submit">Submit</span> <span class="arr">&#8594;</span></button>
+      </div>
     </div>
     <div class="intake-status" id="intakeStatus" role="status" aria-live="polite" tabindex="-1"></div>
     <p class="intake-note" id="intakeNote" data-i18n="intake.note">Please don't include customer personal data or credentials — company-level information is all we need at this stage.</p>
@@ -1257,6 +1269,13 @@ if(intakeForm){
     });
   }
 
+  // Autofill often skips `input` events — re-check validity on these too
+  ['change','blur','keyup'].forEach(function(evt){
+    intakeForm.addEventListener(evt, function(){ updateStepValidity(); }, true);
+  });
+  setTimeout(updateStepValidity, 300);
+  setTimeout(updateStepValidity, 1000);
+
   function clearIntakeErrors(){
     intakeForm.querySelectorAll('.f-field.is-error').forEach(function(field){
       field.classList.remove('is-error');
@@ -1575,8 +1594,6 @@ if(intakeForm){
     if(cont && !cont.hidden) cont.innerHTML = '<span data-i18n="intake.continue">' + i18nT('intake.continue') + '</span> <span class="arr">&#8594;</span>';
     if(sub && !sub.hidden && !intakeSubmitting) sub.innerHTML = intakeSubmitHtml();
   });
-}
-
 }
 </script>
 <script>
