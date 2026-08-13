@@ -846,11 +846,10 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
             <label for="iq-segment"><span data-i18n="intake.segment">Type of operation</span><span class="req" aria-hidden="true">*</span></label>
             <select class="f-select" id="iq-segment" name="segment" required aria-describedby="iq-segment-error">
               <option value="" disabled selected data-i18n="intake.select">Select one…</option>
-              <option value="Mobile Network Operator" data-i18n="intake.seg.mno">Mobile Network Operator</option>
-              <option value="Fixed / Broadband Operator" data-i18n="intake.seg.fixed">Fixed / Broadband Operator</option>
-              <option value="Subsea / Backbone Infrastructure" data-i18n="intake.seg.subsea">Subsea / Backbone Infrastructure</option>
-              <option value="MVNO" data-i18n="intake.seg.mvno">MVNO</option>
-              <option value="Tower / Infrastructure Company" data-i18n="intake.seg.tower">Tower / Infrastructure Company</option>
+              <option value="Mobile / MNO/MVNO" data-i18n="intake.seg.mobile">Mobile / MNO/MVNO</option>
+              <option value="Broadband / Fixed" data-i18n="intake.seg.fixed">Broadband / Fixed</option>
+              <option value="Subsea / Backbone" data-i18n="intake.seg.subsea">Subsea / Backbone</option>
+              <option value="Data Center / Infrastructure" data-i18n="intake.seg.dc">Data Center / Infrastructure</option>
               <option value="Other" data-i18n="intake.seg.other">Other</option>
             </select>
             <span class="f-field-error" id="iq-segment-error" role="alert"></span>
@@ -864,28 +863,23 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
             <label for="iq-size"><span data-i18n="intake.size">Company size</span><span class="req" aria-hidden="true">*</span></label>
             <select class="f-select" id="iq-size" name="size" required aria-describedby="iq-size-error">
               <option value="" disabled selected data-i18n="intake.select">Select one…</option>
-              <option value="1–50 employees" data-i18n="intake.size.s1">1–50 employees</option>
-              <option value="51–200 employees" data-i18n="intake.size.s2">51–200 employees</option>
-              <option value="201–1,000 employees" data-i18n="intake.size.s3">201–1,000 employees</option>
-              <option value="1,000+ employees" data-i18n="intake.size.s4">1,000+ employees</option>
-              <option value="Other" data-i18n="intake.size.otherOpt">Other</option>
+              <option value="Startup / Pilot" data-i18n="intake.size.startup">Startup / Pilot</option>
+              <option value="Small (regional, single market)" data-i18n="intake.size.small">Small (regional, single market)</option>
+              <option value="Medium (multi-market, national)" data-i18n="intake.size.medium">Medium (multi-market, national)</option>
+              <option value="Large (national / multinational carrier)" data-i18n="intake.size.large">Large (national / multinational carrier)</option>
             </select>
             <span class="f-field-error" id="iq-size-error" role="alert"></span>
-          </div>
-          <div class="f-field full" id="iq-size-other-wrap" hidden>
-            <label for="iq-size-other"><span data-i18n="intake.size.otherLabel">Please specify company size</span><span class="req" aria-hidden="true">*</span></label>
-            <input class="f-input" id="iq-size-other" name="size_other" type="text" maxlength="80" autocomplete="off" aria-describedby="iq-size-other-error" />
-            <span class="f-field-error" id="iq-size-other-error" role="alert"></span>
           </div>
           <div class="f-field full">
             <label for="iq-issue" data-i18n="intake.issue">Biggest operational issue today</label>
             <select class="f-select" id="iq-issue" name="issue" aria-describedby="iq-issue-error">
               <option value="" disabled selected data-i18n="intake.select">Select one…</option>
-              <option value="Manual, slow service delivery" data-i18n="intake.issue.manual">Manual, slow service delivery</option>
-              <option value="Alarm noise / NOC overload" data-i18n="intake.issue.noc">Alarm noise / NOC overload</option>
-              <option value="Unclear AI readiness" data-i18n="intake.issue.ai">Unclear AI readiness</option>
-              <option value="Data quality / accessibility for AI" data-i18n="intake.issue.data">Data quality / accessibility for AI</option>
               <option value="No clear AI roadmap" data-i18n="intake.issue.roadmap">No clear AI roadmap</option>
+              <option value="Alarm noise / NOC overload" data-i18n="intake.issue.noc">Alarm noise / NOC overload</option>
+              <option value="Slow / manual service delivery" data-i18n="intake.issue.manual">Slow / manual service delivery</option>
+              <option value="Data quality" data-i18n="intake.issue.data">Data quality</option>
+              <option value="System integration issues" data-i18n="intake.issue.integration">System integration issues</option>
+              <option value="Order-to-activation delays" data-i18n="intake.issue.activation">Order-to-activation delays</option>
               <option value="Other" data-i18n="intake.issue.other">Other</option>
             </select>
             <span class="f-field-error" id="iq-issue-error" role="alert"></span>
@@ -1237,7 +1231,6 @@ if(intakeForm){
     toggleOtherField(selectId, wrapId, inputId, requiredWhenShown);
   }
   wireOther('iq-segment', 'iq-segment-other-wrap', 'iq-segment-other', true);
-  wireOther('iq-size', 'iq-size-other-wrap', 'iq-size-other', true);
   wireOther('iq-issue', 'iq-issue-other-wrap', 'iq-issue-other', false);
 
   function syncCheckVisual(label){
@@ -1345,12 +1338,10 @@ if(intakeForm){
       const segment = document.getElementById('iq-segment').value;
       const size = document.getElementById('iq-size').value;
       const segOther = (document.getElementById('iq-segment-other').value || '').trim();
-      const sizeOther = (document.getElementById('iq-size-other').value || '').trim();
       const issue = document.getElementById('iq-issue').value;
       const issueOther = (document.getElementById('iq-issue-other').value || '').trim();
       if(!company || !segment || !size) return false;
       if(segment === 'Other' && !segOther) return false;
-      if(size === 'Other' && !sizeOther) return false;
       if(issue === 'Other' && !issueOther) return false;
       return true;
     }
@@ -1480,9 +1471,6 @@ if(intakeForm){
     if(fd.get('segment') === 'Other' && !String(fd.get('segment_other') || '').trim()){
       markError('iq-segment-other', i18nT('intake.js.specSegment'));
     }
-    if(fd.get('size') === 'Other' && !String(fd.get('size_other') || '').trim()){
-      markError('iq-size-other', i18nT('intake.js.specSize'));
-    }
     if(fd.get('issue') === 'Other' && !String(fd.get('issue_other') || '').trim()){
       markError('iq-issue-other', i18nT('intake.js.specIssue'));
     }
@@ -1514,7 +1502,7 @@ if(intakeForm){
     }
 
     const segment = resolveChoice(fd.get('segment'), fd.get('segment_other'));
-    const size = resolveChoice(fd.get('size'), fd.get('size_other'));
+    const size = fd.get('size');
     const issueRaw = fd.get('issue');
     const issue = issueRaw ? resolveChoice(issueRaw, fd.get('issue_other')) : '(not specified)';
     fd.set('segment', segment);
@@ -1553,7 +1541,6 @@ if(intakeForm){
       clearIntakeErrors();
       syncAllChecks();
       toggleOtherField('iq-segment', 'iq-segment-other-wrap', 'iq-segment-other', true);
-      toggleOtherField('iq-size', 'iq-size-other-wrap', 'iq-size-other', true);
       toggleOtherField('iq-issue', 'iq-issue-other-wrap', 'iq-issue-other', false);
       if(window.hcaptcha && typeof window.hcaptcha.reset === 'function'){
         try{ window.hcaptcha.reset(); }catch(_){}
