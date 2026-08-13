@@ -436,6 +436,36 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   .intake-status{font-size:16px}
   .intake-aside{font-size:14.5px}
 }
+
+.req{color:var(--cyan);margin-left:2px;font-weight:700}
+.intake-progress{display:flex;gap:8px;margin-bottom:28px}
+.intake-progress .bar{flex:1;height:4px;border-radius:99px;background:rgba(148,163,184,.15);transition:background .25s}
+.intake-progress .bar.active{background:var(--cyan);box-shadow:0 0 12px rgba(79,169,232,.45)}
+.intake-step{display:none}
+.intake-step.active{display:block}
+.intake-step-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:680px){.intake-step-grid{grid-template-columns:1fr}}
+.intake-step-grid .f-field.full{grid-column:1 / -1}
+.intake-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:28px;flex-wrap:wrap}
+.intake-back{background:none;border:none;color:#64748b;font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;padding:10px 4px;transition:color .2s}
+.intake-back:hover{color:#EDEFF2}
+.intake-back[hidden]{display:none !important}
+.btn:disabled,.btn[disabled]{opacity:.4;cursor:not-allowed;transform:none !important;box-shadow:none !important}
+.f-check{position:relative}
+.f-check input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.f-check .box{width:18px;height:18px;border-radius:5px;border:1.5px solid rgba(148,163,184,.4);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;background:transparent}
+.f-check .box svg{width:12px;height:12px;opacity:0;stroke:var(--ink);stroke-width:3;fill:none}
+.f-check.is-on{border-color:var(--cyan);background:rgba(79,169,232,.12)}
+.f-check.is-on .box{background:var(--cyan);border-color:var(--cyan)}
+.f-check.is-on .box svg{opacity:1}
+.f-check.is-on span.label{color:var(--cyan)}
+.intake-success{display:none;text-align:center;padding:36px 12px}
+.intake-success.show{display:block}
+.intake-success .ok-ic{width:52px;height:52px;border-radius:50%;background:rgba(79,169,232,.12);border:1px solid rgba(79,169,232,.35);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:var(--cyan)}
+.intake-success h3{margin:0 0 8px;font-size:22px;color:#EDEFF2}
+.intake-success p{margin:0;font-size:16px;color:#94a3b8}
+.email-hint{display:none;font-size:13px;color:#fca5a5;margin:0}
+.email-hint.show{display:block}
 .intake-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 @media(max-width:680px){.intake-grid{grid-template-columns:1fr}}
 .f-field{display:flex;flex-direction:column;gap:7px}
@@ -763,108 +793,132 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
     <input type="hidden" name="subject" value="New AI Assessment Request — Monkyfi Connect">
     <input type="hidden" name="from_name" value="Monkyfi Website Intake">
     <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <div class="intake-grid">
-      <div class="f-field">
-        <label for="iq-name" data-i18n="intake.name">Name</label>
-        <input class="f-input" id="iq-name" name="name" type="text" autocomplete="name" required aria-describedby="iq-name-error" />
-        <span class="f-field-error" id="iq-name-error" role="alert"></span>
+
+    <div class="intake-progress" id="intakeProgress" aria-hidden="true">
+      <div class="bar active" data-step="0"></div>
+      <div class="bar" data-step="1"></div>
+      <div class="bar" data-step="2"></div>
+    </div>
+
+    <div class="intake-success" id="intakeSuccess" hidden>
+      <div class="ok-ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
-      <div class="f-field">
-        <label for="iq-email" data-i18n="intake.email">Work email</label>
-        <input class="f-input" id="iq-email" name="email" type="email" autocomplete="email" required aria-describedby="iq-email-error" />
-        <span class="f-field-error" id="iq-email-error" role="alert"></span>
-      </div>
-      <div class="f-field">
-        <label for="iq-company" data-i18n="intake.company">Company</label>
-        <input class="f-input" id="iq-company" name="company" type="text" autocomplete="organization" required aria-describedby="iq-company-error" />
-        <span class="f-field-error" id="iq-company-error" role="alert"></span>
-      </div>
-      <div class="f-field">
-        <label for="iq-segment" data-i18n="intake.segment">Type of operation</label>
-        <select class="f-select" id="iq-segment" name="segment" required aria-describedby="iq-segment-error">
-          <option value="" disabled selected data-i18n="intake.select">Select one…</option>
-          <option value="Fiber / ISP" data-i18n="intake.seg.fiber">Fiber / ISP</option>
-          <option value="Mobile / MVNO" data-i18n="intake.seg.mobile">Mobile / MVNO</option>
-          <option value="Subsea / Wholesale" data-i18n="intake.seg.subsea">Subsea / Wholesale</option>
-          <option value="Data Center / Infrastructure" data-i18n="intake.seg.dc">Data Center / Infrastructure</option>
-          <option value="Managed Service Provider" data-i18n="intake.seg.msp">Managed Service Provider</option>
-          <option value="Enterprise IT" data-i18n="intake.seg.ent">Enterprise IT</option>
-          <option value="Other" data-i18n="intake.seg.other">Other</option>
-        </select>
-        <span class="f-field-error" id="iq-segment-error" role="alert"></span>
-      </div>
-      <div class="f-field full" id="iq-segment-other-wrap" hidden>
-        <label for="iq-segment-other" data-i18n="intake.seg.otherLabel">Other — Please specify operation type</label>
-        <input class="f-input" id="iq-segment-other" name="segment_other" type="text" maxlength="120" autocomplete="off" aria-describedby="iq-segment-other-error" />
-        <span class="f-field-error" id="iq-segment-other-error" role="alert"></span>
-      </div>
-      <div class="f-field">
-        <label for="iq-size" data-i18n="intake.size">Company size</label>
-        <select class="f-select" id="iq-size" name="size" required aria-describedby="iq-size-error">
-          <option value="" disabled selected data-i18n="intake.select">Select one…</option>
-          <option value="Startup" data-i18n="intake.size.startup">Startup</option>
-          <option value="Small" data-i18n="intake.size.small">Small</option>
-          <option value="Medium" data-i18n="intake.size.medium">Medium</option>
-          <option value="Large" data-i18n="intake.size.large">Large</option>
-          <option value="Wholesale" data-i18n="intake.size.wholesale">Wholesale</option>
-          <option value="Hyperscaler" data-i18n="intake.size.hyper">Hyperscaler</option>
-          <option value="Other" data-i18n="intake.size.otherOpt">Other — Please specify company size</option>
-        </select>
-        <span class="f-field-error" id="iq-size-error" role="alert"></span>
-      </div>
-      <div class="f-field" id="iq-size-other-wrap" hidden>
-        <label for="iq-size-other" data-i18n="intake.size.otherLabel">Other — Please specify company size</label>
-        <input class="f-input" id="iq-size-other" name="size_other" type="text" maxlength="80" autocomplete="off" aria-describedby="iq-size-other-error" />
-        <span class="f-field-error" id="iq-size-other-error" role="alert"></span>
-      </div>
-      <div class="f-field">
-        <label for="iq-issue" data-i18n="intake.issue">Biggest operational issue today</label>
-        <select class="f-select" id="iq-issue" name="issue" required aria-describedby="iq-issue-error">
-          <option value="" disabled selected data-i18n="intake.select">Select one…</option>
-          <option value="We don't know where to start with AI" data-i18n="intake.issue.ai">We don't know where to start with AI</option>
-          <option value="High operating costs" data-i18n="intake.issue.cost">High operating costs</option>
-          <option value="Churn / customer experience" data-i18n="intake.issue.churn">Churn / customer experience</option>
-          <option value="NOC alarm fatigue / manual triage" data-i18n="intake.issue.noc">NOC alarm fatigue / manual triage</option>
-          <option value="Slow provisioning / activation" data-i18n="intake.issue.prov">Slow provisioning / activation</option>
-          <option value="Other" data-i18n="intake.issue.other">Other</option>
-        </select>
-        <span class="f-field-error" id="iq-issue-error" role="alert"></span>
-      </div>
-      <div class="f-field full" id="iq-issue-other-wrap" hidden>
-        <label for="iq-issue-other" data-i18n="intake.issue.otherLabel">Other — Please describe the issue</label>
-        <input class="f-input" id="iq-issue-other" name="issue_other" type="text" maxlength="200" autocomplete="off" aria-describedby="iq-issue-other-error" />
-        <span class="f-field-error" id="iq-issue-other-error" role="alert"></span>
-      </div>
-      <div class="f-field full">
-        <label data-i18n="intake.explore">What would you like to explore? <small class="select-hint">(select any)</small></label>
-        <div class="f-checks">
-          <label class="f-check"><input type="checkbox" name="interest" value="AI Readiness Assessment" /><span data-i18n="intake.int1">AI Readiness Assessment</span></label>
-          <label class="f-check"><input type="checkbox" name="interest" value="Telecom Digital Transformation" /><span data-i18n="intake.int2">Telecom Digital Transformation</span></label>
-          <label class="f-check"><input type="checkbox" name="interest" value="Service Delivery Optimization" /><span data-i18n="intake.int3">Service Delivery Optimization</span></label>
-          <label class="f-check"><input type="checkbox" name="interest" value="Network Operations Automation" /><span data-i18n="intake.int4">Network Operations Automation</span></label>
-          <label class="f-check"><input type="checkbox" name="interest" value="Data Readiness for AI" /><span data-i18n="intake.int5">Data Readiness for AI</span></label>
-          <label class="f-check"><input type="checkbox" name="interest" value="AI Strategy & Advisory" /><span data-i18n="intake.int6">AI Strategy &amp; Advisory</span></label>
+      <h3 id="intakeThanksTitle">Thanks!</h3>
+      <p id="intakeThanksBody" data-i18n="intake.thanks.body">We received your request. Our team will reach out shortly.</p>
+    </div>
+
+    <div id="intakeSteps">
+      <div class="intake-step active" data-step="0" id="intakeStep0">
+        <div class="intake-step-grid">
+          <div class="f-field full">
+            <label for="iq-name"><span data-i18n="intake.name">Name</span><span class="req" aria-hidden="true">*</span></label>
+            <input class="f-input" id="iq-name" name="name" type="text" autocomplete="name" placeholder="Jane Doe" data-i18n-placeholder="intake.ph.name" required aria-describedby="iq-name-error" />
+            <span class="f-field-error" id="iq-name-error" role="alert"></span>
+          </div>
+          <div class="f-field full">
+            <label for="iq-email"><span data-i18n="intake.email">Work email</span><span class="req" aria-hidden="true">*</span></label>
+            <input class="f-input" id="iq-email" name="email" type="email" autocomplete="email" placeholder="jane@company.com" data-i18n-placeholder="intake.ph.email" required aria-describedby="iq-email-error iq-email-hint" />
+            <span class="email-hint" id="iq-email-hint" data-i18n="intake.js.badEmail">Enter a valid email address.</span>
+            <span class="f-field-error" id="iq-email-error" role="alert"></span>
+          </div>
         </div>
       </div>
-      <div class="f-field full">
-        <label for="iq-notes" data-i18n="intake.notes">Briefly, what's going on? <small>(optional, max 500 characters)</small></label>
-        <textarea class="f-textarea" id="iq-notes" name="notes" maxlength="500" data-i18n-placeholder="intake.notesPh" placeholder="e.g. Our NOC handles thousands of alarms a day and our install times keep slipping…" aria-describedby="iq-notes-count"></textarea>
-        <div class="f-char-count" id="iq-notes-count" aria-live="polite">0 / 500</div>
+
+      <div class="intake-step" data-step="1" id="intakeStep1" hidden>
+        <div class="intake-step-grid">
+          <div class="f-field full">
+            <label for="iq-company"><span data-i18n="intake.company">Company</span><span class="req" aria-hidden="true">*</span></label>
+            <input class="f-input" id="iq-company" name="company" type="text" autocomplete="organization" placeholder="Company name" data-i18n-placeholder="intake.ph.company" required aria-describedby="iq-company-error" />
+            <span class="f-field-error" id="iq-company-error" role="alert"></span>
+          </div>
+          <div class="f-field full">
+            <label for="iq-segment"><span data-i18n="intake.segment">Type of operation</span><span class="req" aria-hidden="true">*</span></label>
+            <select class="f-select" id="iq-segment" name="segment" required aria-describedby="iq-segment-error">
+              <option value="" disabled selected data-i18n="intake.select">Select one…</option>
+              <option value="Mobile Network Operator" data-i18n="intake.seg.mno">Mobile Network Operator</option>
+              <option value="Fixed / Broadband Operator" data-i18n="intake.seg.fixed">Fixed / Broadband Operator</option>
+              <option value="Subsea / Backbone Infrastructure" data-i18n="intake.seg.subsea">Subsea / Backbone Infrastructure</option>
+              <option value="MVNO" data-i18n="intake.seg.mvno">MVNO</option>
+              <option value="Tower / Infrastructure Company" data-i18n="intake.seg.tower">Tower / Infrastructure Company</option>
+              <option value="Other" data-i18n="intake.seg.other">Other</option>
+            </select>
+            <span class="f-field-error" id="iq-segment-error" role="alert"></span>
+          </div>
+          <div class="f-field full" id="iq-segment-other-wrap" hidden>
+            <label for="iq-segment-other"><span data-i18n="intake.seg.otherLabel">Please specify operation type</span><span class="req" aria-hidden="true">*</span></label>
+            <input class="f-input" id="iq-segment-other" name="segment_other" type="text" maxlength="120" autocomplete="off" aria-describedby="iq-segment-other-error" />
+            <span class="f-field-error" id="iq-segment-other-error" role="alert"></span>
+          </div>
+          <div class="f-field full">
+            <label for="iq-size"><span data-i18n="intake.size">Company size</span><span class="req" aria-hidden="true">*</span></label>
+            <select class="f-select" id="iq-size" name="size" required aria-describedby="iq-size-error">
+              <option value="" disabled selected data-i18n="intake.select">Select one…</option>
+              <option value="1–50 employees" data-i18n="intake.size.s1">1–50 employees</option>
+              <option value="51–200 employees" data-i18n="intake.size.s2">51–200 employees</option>
+              <option value="201–1,000 employees" data-i18n="intake.size.s3">201–1,000 employees</option>
+              <option value="1,000+ employees" data-i18n="intake.size.s4">1,000+ employees</option>
+              <option value="Other" data-i18n="intake.size.otherOpt">Other</option>
+            </select>
+            <span class="f-field-error" id="iq-size-error" role="alert"></span>
+          </div>
+          <div class="f-field full" id="iq-size-other-wrap" hidden>
+            <label for="iq-size-other"><span data-i18n="intake.size.otherLabel">Please specify company size</span><span class="req" aria-hidden="true">*</span></label>
+            <input class="f-input" id="iq-size-other" name="size_other" type="text" maxlength="80" autocomplete="off" aria-describedby="iq-size-other-error" />
+            <span class="f-field-error" id="iq-size-other-error" role="alert"></span>
+          </div>
+          <div class="f-field full">
+            <label for="iq-issue" data-i18n="intake.issue">Biggest operational issue today</label>
+            <select class="f-select" id="iq-issue" name="issue" aria-describedby="iq-issue-error">
+              <option value="" disabled selected data-i18n="intake.select">Select one…</option>
+              <option value="Manual, slow service delivery" data-i18n="intake.issue.manual">Manual, slow service delivery</option>
+              <option value="Alarm noise / NOC overload" data-i18n="intake.issue.noc">Alarm noise / NOC overload</option>
+              <option value="Unclear AI readiness" data-i18n="intake.issue.ai">Unclear AI readiness</option>
+              <option value="Data quality / accessibility for AI" data-i18n="intake.issue.data">Data quality / accessibility for AI</option>
+              <option value="No clear AI roadmap" data-i18n="intake.issue.roadmap">No clear AI roadmap</option>
+              <option value="Other" data-i18n="intake.issue.other">Other</option>
+            </select>
+            <span class="f-field-error" id="iq-issue-error" role="alert"></span>
+          </div>
+          <div class="f-field full" id="iq-issue-other-wrap" hidden>
+            <label for="iq-issue-other" data-i18n="intake.issue.otherLabel">Please describe the issue</label>
+            <input class="f-input" id="iq-issue-other" name="issue_other" type="text" maxlength="200" autocomplete="off" aria-describedby="iq-issue-other-error" />
+            <span class="f-field-error" id="iq-issue-other-error" role="alert"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="intake-step" data-step="2" id="intakeStep2" hidden>
+        <div class="f-field full">
+          <label><span data-i18n="intake.exploreLabel">What would you like to explore?</span><span class="req" aria-hidden="true">*</span> <small class="select-hint" data-i18n="intake.exploreHint">(select any)</small></label>
+          <div class="f-checks" id="iq-explore">
+            <label class="f-check"><input type="checkbox" name="interest" value="AI Readiness Assessment" /><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="label" data-i18n="intake.int1">AI Readiness Assessment</span></label>
+            <label class="f-check"><input type="checkbox" name="interest" value="Telecom Digital Transformation" /><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="label" data-i18n="intake.int2">Telecom Digital Transformation</span></label>
+            <label class="f-check"><input type="checkbox" name="interest" value="Service Delivery Optimization" /><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="label" data-i18n="intake.int3">Service Delivery Optimization</span></label>
+            <label class="f-check"><input type="checkbox" name="interest" value="Network Operations Automation" /><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="label" data-i18n="intake.int4">Network Operations Automation</span></label>
+            <label class="f-check"><input type="checkbox" name="interest" value="Data Readiness for AI" /><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="label" data-i18n="intake.int5">Data Readiness for AI</span></label>
+            <label class="f-check"><input type="checkbox" name="interest" value="AI Strategy & Advisory" /><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="label" data-i18n="intake.int6">AI Strategy &amp; Advisory</span></label>
+          </div>
+          <span class="f-field-error" id="iq-explore-error" role="alert"></span>
+        </div>
+        <div class="f-field full" id="captchaField" style="margin-top:20px">
+          <label for="iq-captcha"><span data-i18n="intake.verify">Verification</span><span class="req" aria-hidden="true">*</span></label>
+          <div class="captcha-wrap">
+            <div class="h-captcha" id="iq-captcha" data-captcha="true" data-theme="dark"></div>
+          </div>
+          <span class="f-field-error" id="iq-captcha-error" role="alert"></span>
+        </div>
       </div>
     </div>
-    <div class="f-field full" id="captchaField" style="margin-top:20px">
-      <label for="iq-captcha" data-i18n="intake.verify">Verification</label>
-      <div class="captcha-wrap">
-        <div class="h-captcha" id="iq-captcha" data-captcha="true" data-theme="dark"></div>
-      </div>
-      <span class="f-field-error" id="iq-captcha-error" role="alert"></span>
-    </div>
-    <div style="display:flex;align-items:center;gap:16px;margin-top:20px;flex-wrap:wrap">
-      <button type="submit" class="btn btn-primary" id="intakeSubmit"><span data-i18n="intake.submit">Request My Assessment</span> <span class="arr">&#8594;</span></button>
-      <span class="intake-aside" data-i18n="intake.aside">No spam. One reply, from a human.</span>
+
+    <div class="intake-nav" id="intakeNav">
+      <button type="button" class="intake-back" id="intakeBack" hidden data-i18n="intake.back">Back</button>
+      <span class="intake-aside" id="intakeAside" data-i18n="intake.aside">No spam. One reply, from a human.</span>
+      <button type="button" class="btn btn-primary" id="intakeContinue" disabled><span data-i18n="intake.continue">Continue</span> <span class="arr">&#8594;</span></button>
+      <button type="submit" class="btn btn-primary" id="intakeSubmit" hidden disabled><span data-i18n="intake.submit">Submit</span> <span class="arr">&#8594;</span></button>
     </div>
     <div class="intake-status" id="intakeStatus" role="status" aria-live="polite" tabindex="-1"></div>
-    <p class="intake-note" data-i18n="intake.note">Please don't include customer personal data or credentials — company-level information is all we need at this stage.</p>
+    <p class="intake-note" id="intakeNote" data-i18n="intake.note">Please don't include customer personal data or credentials — company-level information is all we need at this stage.</p>
   </form>
 </section>
 
@@ -1147,41 +1201,60 @@ input.addEventListener('keydown', (e)=>{ if(e.key==='Enter' && !e.shiftKey){ e.p
 
 const intakeForm = document.getElementById('intakeForm');
 if(intakeForm){
-  const INTAKE_BTN_HTML = intakeSubmitHtml();
   let intakeSubmitting = false;
-  function toggleOtherField(selectId, wrapId, inputId){
+  let currentStep = 0;
+  const TOTAL_STEPS = 3;
+
+  function toggleOtherField(selectId, wrapId, inputId, requiredWhenShown){
     const sel = document.getElementById(selectId);
     const wrap = document.getElementById(wrapId);
     const input = document.getElementById(inputId);
     if(!sel || !wrap || !input) return;
     const show = sel.value === 'Other';
     wrap.hidden = !show;
-    input.required = show;
+    input.required = !!(show && requiredWhenShown);
     if(!show) input.value = '';
   }
-  function wireOther(selectId, wrapId, inputId){
+  function wireOther(selectId, wrapId, inputId, requiredWhenShown){
     const sel = document.getElementById(selectId);
     if(!sel) return;
-    sel.addEventListener('change', () => toggleOtherField(selectId, wrapId, inputId));
-    toggleOtherField(selectId, wrapId, inputId);
+    sel.addEventListener('change', function(){
+      toggleOtherField(selectId, wrapId, inputId, requiredWhenShown);
+      updateStepValidity();
+    });
+    toggleOtherField(selectId, wrapId, inputId, requiredWhenShown);
   }
-  wireOther('iq-segment', 'iq-segment-other-wrap', 'iq-segment-other');
-  wireOther('iq-size', 'iq-size-other-wrap', 'iq-size-other');
-  wireOther('iq-issue', 'iq-issue-other-wrap', 'iq-issue-other');
+  wireOther('iq-segment', 'iq-segment-other-wrap', 'iq-segment-other', true);
+  wireOther('iq-size', 'iq-size-other-wrap', 'iq-size-other', true);
+  wireOther('iq-issue', 'iq-issue-other-wrap', 'iq-issue-other', false);
 
-  const notesInput = document.getElementById('iq-notes');
-  const notesCount = document.getElementById('iq-notes-count');
-  const NOTES_MAX = 500;
-  function updateNotesCount(){
-    if(!notesInput || !notesCount) return;
-    const len = notesInput.value.length;
-    notesCount.textContent = len + ' / ' + NOTES_MAX;
-    notesCount.classList.toggle('is-near', len >= NOTES_MAX - 50 && len < NOTES_MAX);
-    notesCount.classList.toggle('is-max', len >= NOTES_MAX);
+  function syncCheckVisual(label){
+    const input = label.querySelector('input[type="checkbox"]');
+    if(!input) return;
+    label.classList.toggle('is-on', !!input.checked);
   }
-  if(notesInput){
-    notesInput.addEventListener('input', updateNotesCount);
-    updateNotesCount();
+  function syncAllChecks(){
+    intakeForm.querySelectorAll('.f-check').forEach(syncCheckVisual);
+  }
+  intakeForm.querySelectorAll('.f-check input[type="checkbox"]').forEach(function(cb){
+    cb.addEventListener('change', function(){
+      syncCheckVisual(cb.closest('.f-check'));
+      updateStepValidity();
+    });
+  });
+  syncAllChecks();
+
+  const emailInput = document.getElementById('iq-email');
+  const emailHint = document.getElementById('iq-email-hint');
+  function emailOk(val){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(val || '').trim());
+  }
+  if(emailInput){
+    emailInput.addEventListener('input', function(){
+      const v = emailInput.value.trim();
+      if(emailHint) emailHint.classList.toggle('show', v.length > 0 && !emailOk(v));
+      updateStepValidity();
+    });
   }
 
   function clearIntakeErrors(){
@@ -1196,7 +1269,20 @@ if(intakeForm){
   }
   function setFieldError(inputId, message){
     var input = document.getElementById(inputId);
-    if(!input) return null;
+    if(!input){
+      // explore field has no single input
+      if(inputId === 'iq-explore'){
+        var explore = document.getElementById('iq-explore');
+        var field = explore && explore.closest('.f-field');
+        if(field){
+          field.classList.add('is-error');
+          var err = document.getElementById('iq-explore-error');
+          if(err) err.textContent = message;
+        }
+        return explore;
+      }
+      return null;
+    }
     var field = input.closest('.f-field');
     if(!field) return null;
     field.classList.add('is-error');
@@ -1205,25 +1291,95 @@ if(intakeForm){
     if(err) err.textContent = message;
     return input;
   }
+
   intakeForm.addEventListener('input', function(e){
     var field = e.target.closest('.f-field');
-    if(!field || !field.classList.contains('is-error')) return;
-    if(e.target.matches('.f-input,.f-select,.f-textarea')){
+    if(field && field.classList.contains('is-error') && e.target.matches('.f-input,.f-select,.f-textarea')){
       field.classList.remove('is-error');
       e.target.removeAttribute('aria-invalid');
       var err = field.querySelector('.f-field-error');
       if(err) err.textContent = '';
     }
+    updateStepValidity();
   });
   intakeForm.addEventListener('change', function(e){
-    if(!e.target.matches('.f-select')) return;
-    var field = e.target.closest('.f-field');
-    if(field && field.classList.contains('is-error')){
-      field.classList.remove('is-error');
-      e.target.removeAttribute('aria-invalid');
-      var err = field.querySelector('.f-field-error');
-      if(err) err.textContent = '';
+    if(e.target.matches('.f-select')){
+      var field = e.target.closest('.f-field');
+      if(field && field.classList.contains('is-error')){
+        field.classList.remove('is-error');
+        e.target.removeAttribute('aria-invalid');
+        var err = field.querySelector('.f-field-error');
+        if(err) err.textContent = '';
+      }
     }
+    updateStepValidity();
+  });
+
+  function isStepValid(step){
+    if(step === 0){
+      const name = (document.getElementById('iq-name').value || '').trim();
+      const email = (document.getElementById('iq-email').value || '').trim();
+      return name.length > 0 && emailOk(email);
+    }
+    if(step === 1){
+      const company = (document.getElementById('iq-company').value || '').trim();
+      const segment = document.getElementById('iq-segment').value;
+      const size = document.getElementById('iq-size').value;
+      const segOther = (document.getElementById('iq-segment-other').value || '').trim();
+      const sizeOther = (document.getElementById('iq-size-other').value || '').trim();
+      const issue = document.getElementById('iq-issue').value;
+      const issueOther = (document.getElementById('iq-issue-other').value || '').trim();
+      if(!company || !segment || !size) return false;
+      if(segment === 'Other' && !segOther) return false;
+      if(size === 'Other' && !sizeOther) return false;
+      if(issue === 'Other' && !issueOther) return false;
+      return true;
+    }
+    if(step === 2){
+      const interests = intakeForm.querySelectorAll('input[name="interest"]:checked');
+      return interests.length > 0;
+    }
+    return false;
+  }
+
+  function updateStepValidity(){
+    const valid = isStepValid(currentStep);
+    const cont = document.getElementById('intakeContinue');
+    const sub = document.getElementById('intakeSubmit');
+    if(cont) cont.disabled = !valid || currentStep >= TOTAL_STEPS - 1;
+    if(sub){
+      // captcha checked on submit; enable when explore valid
+      sub.disabled = !isStepValid(2);
+    }
+  }
+
+  function showStep(step){
+    currentStep = step;
+    intakeForm.querySelectorAll('.intake-step').forEach(function(el){
+      const n = Number(el.getAttribute('data-step'));
+      const on = n === step;
+      el.classList.toggle('active', on);
+      el.hidden = !on;
+    });
+    intakeForm.querySelectorAll('.intake-progress .bar').forEach(function(bar){
+      const n = Number(bar.getAttribute('data-step'));
+      bar.classList.toggle('active', n <= step);
+    });
+    const back = document.getElementById('intakeBack');
+    const cont = document.getElementById('intakeContinue');
+    const sub = document.getElementById('intakeSubmit');
+    if(back) back.hidden = step === 0;
+    if(cont) cont.hidden = step >= TOTAL_STEPS - 1;
+    if(sub) sub.hidden = step < TOTAL_STEPS - 1;
+    updateStepValidity();
+  }
+
+  document.getElementById('intakeBack').addEventListener('click', function(){
+    if(currentStep > 0) showStep(currentStep - 1);
+  });
+  document.getElementById('intakeContinue').addEventListener('click', function(){
+    if(!isStepValid(currentStep)) return;
+    if(currentStep < TOTAL_STEPS - 1) showStep(currentStep + 1);
   });
 
   function resolveChoice(value, otherValue){
@@ -1248,10 +1404,40 @@ if(intakeForm){
       }
     }catch(_){}
   }
+  function showSuccess(name, email){
+    const steps = document.getElementById('intakeSteps');
+    const nav = document.getElementById('intakeNav');
+    const note = document.getElementById('intakeNote');
+    const progress = document.getElementById('intakeProgress');
+    const success = document.getElementById('intakeSuccess');
+    const title = document.getElementById('intakeThanksTitle');
+    const body = document.getElementById('intakeThanksBody');
+    if(steps) steps.hidden = true;
+    if(nav) nav.hidden = true;
+    if(note) note.hidden = true;
+    if(progress) progress.hidden = true;
+    if(success){
+      success.hidden = false;
+      success.classList.add('show');
+    }
+    const first = (name || '').trim().split(/\s+/)[0] || '';
+    if(title){
+      title.textContent = first
+        ? i18nT('intake.thanks.title').replace('{name}', first)
+        : i18nT('intake.thanks.titleGeneric');
+    }
+    if(body){
+      body.textContent = i18nT('intake.thanks.body').replace('{email}', email || '');
+    }
+  }
 
   intakeForm.addEventListener('submit', async function(e){
     e.preventDefault();
     if(intakeSubmitting) return;
+    if(currentStep !== TOTAL_STEPS - 1){
+      if(isStepValid(currentStep)) showStep(Math.min(currentStep + 1, TOTAL_STEPS - 1));
+      return;
+    }
     const status = document.getElementById('intakeStatus');
     const btn = document.getElementById('intakeSubmit');
     if(intakeForm.botcheck && intakeForm.botcheck.checked) return;
@@ -1263,21 +1449,15 @@ if(intakeForm){
       var el = setFieldError(inputId, message);
       if(el && !firstErrorInput) firstErrorInput = el;
     }
-    const required = [
-      ['name', 'iq-name', i18nT('intake.js.reqName')],
-      ['email', 'iq-email', i18nT('intake.js.reqEmail')],
-      ['company', 'iq-company', i18nT('intake.js.reqCompany')],
-      ['segment', 'iq-segment', i18nT('intake.js.reqSegment')],
-      ['size', 'iq-size', i18nT('intake.js.reqSize')],
-      ['issue', 'iq-issue', i18nT('intake.js.reqIssue')]
-    ];
-    for(const r of required){
-      if(!fd.get(r[0]) || !String(fd.get(r[0])).trim()) markError(r[1], r[2]);
-    }
+
+    // Full validation across all steps
+    if(!(fd.get('name') || '').toString().trim()) markError('iq-name', i18nT('intake.js.reqName'));
     const emailVal = String(fd.get('email') || '').trim();
-    if(emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)){
-      markError('iq-email', i18nT('intake.js.badEmail'));
-    }
+    if(!emailVal) markError('iq-email', i18nT('intake.js.reqEmail'));
+    else if(!emailOk(emailVal)) markError('iq-email', i18nT('intake.js.badEmail'));
+    if(!(fd.get('company') || '').toString().trim()) markError('iq-company', i18nT('intake.js.reqCompany'));
+    if(!fd.get('segment')) markError('iq-segment', i18nT('intake.js.reqSegment'));
+    if(!fd.get('size')) markError('iq-size', i18nT('intake.js.reqSize'));
     if(fd.get('segment') === 'Other' && !String(fd.get('segment_other') || '').trim()){
       markError('iq-segment-other', i18nT('intake.js.specSegment'));
     }
@@ -1287,6 +1467,8 @@ if(intakeForm){
     if(fd.get('issue') === 'Other' && !String(fd.get('issue_other') || '').trim()){
       markError('iq-issue-other', i18nT('intake.js.specIssue'));
     }
+    if(!interests.length) markError('iq-explore', i18nT('intake.js.reqExplore'));
+
     const captchaToken = (fd.get('h-captcha-response') || '').toString().trim();
     if(!captchaToken){
       var captchaField = document.getElementById('captchaField');
@@ -1296,7 +1478,13 @@ if(intakeForm){
         if(captchaErr) captchaErr.textContent = i18nT('intake.js.captcha');
       }
     }
+
     if(firstErrorInput || !captchaToken){
+      // jump to first invalid step
+      if(firstErrorInput){
+        const stepEl = firstErrorInput.closest('.intake-step');
+        if(stepEl) showStep(Number(stepEl.getAttribute('data-step')) || 0);
+      }
       showIntakeStatus(status,'err', firstErrorInput ? i18nT('intake.js.fixErrors') : i18nT('intake.js.captcha'));
       var scrollTarget = firstErrorInput || document.getElementById('captchaField');
       if(scrollTarget){
@@ -1305,9 +1493,11 @@ if(intakeForm){
       }
       return;
     }
+
     const segment = resolveChoice(fd.get('segment'), fd.get('segment_other'));
     const size = resolveChoice(fd.get('size'), fd.get('size_other'));
-    const issue = resolveChoice(fd.get('issue'), fd.get('issue_other'));
+    const issueRaw = fd.get('issue');
+    const issue = issueRaw ? resolveChoice(issueRaw, fd.get('issue_other')) : '(not specified)';
     fd.set('segment', segment);
     fd.set('size', size);
     fd.set('issue', issue);
@@ -1316,8 +1506,7 @@ if(intakeForm){
       'New AI Assessment request from monkyfi.com',
       '', 'Company: ' + fd.get('company'), 'Operation type: ' + segment,
       'Company size: ' + size, 'Biggest issue: ' + issue,
-      'Interested in: ' + (interests.join(', ') || '(none selected)'),
-      '', 'Notes:', fd.get('notes') || '(none)'
+      'Interested in: ' + (interests.join(', ') || '(none selected)')
     ].join('\n'));
     intakeSubmitting = true;
     btn.disabled = true;
@@ -1338,14 +1527,15 @@ if(intakeForm){
       clearTimeout(timeout);
       const data = await res.json().catch(() => ({}));
       if(!res.ok || !data.success) throw new Error(data.message || ('API ' + res.status));
-      showIntakeStatus(status,'ok', i18nT('intake.js.ok'));
       trackEvent('Intake Submit Success');
+      showSuccess(String(fd.get('name') || ''), emailVal);
+      showIntakeStatus(status,'ok', i18nT('intake.js.ok'));
       intakeForm.reset();
       clearIntakeErrors();
-      updateNotesCount();
-      toggleOtherField('iq-segment', 'iq-segment-other-wrap', 'iq-segment-other');
-      toggleOtherField('iq-size', 'iq-size-other-wrap', 'iq-size-other');
-      toggleOtherField('iq-issue', 'iq-issue-other-wrap', 'iq-issue-other');
+      syncAllChecks();
+      toggleOtherField('iq-segment', 'iq-segment-other-wrap', 'iq-segment-other', true);
+      toggleOtherField('iq-size', 'iq-size-other-wrap', 'iq-size-other', true);
+      toggleOtherField('iq-issue', 'iq-issue-other-wrap', 'iq-issue-other', false);
       if(window.hcaptcha && typeof window.hcaptcha.reset === 'function'){
         try{ window.hcaptcha.reset(); }catch(_){}
       }
@@ -1364,17 +1554,29 @@ if(intakeForm){
         const bodyLines = [
           'Name: ' + fd.get('name'), 'Email: ' + fd.get('email'), 'Company: ' + fd.get('company'),
           'Operation: ' + segment, 'Size: ' + size, 'Biggest issue: ' + issue,
-          'Interested in: ' + (interests.join(', ') || '(none selected)'), '', 'Notes:', fd.get('notes') || '(none)'
+          'Interested in: ' + (interests.join(', ') || '(none selected)')
         ].join('\n');
         const mail = 'mailto:hello@monkyfi.com?subject=' + encodeURIComponent('AI Assessment Request — ' + fd.get('company')) + '&body=' + encodeURIComponent(bodyLines);
         window.location.href = mail;
         showIntakeStatus(status,'ok', i18nT('intake.js.mailOpened'));
       }
+      intakeSubmitting = false;
+      btn.disabled = false;
+      btn.innerHTML = intakeSubmitHtml();
+      return;
     }
     intakeSubmitting = false;
-    btn.disabled = false;
-    btn.innerHTML = intakeSubmitHtml();
   });
+
+  showStep(0);
+  document.addEventListener('monkyfi:langchange', function(){
+    const cont = document.getElementById('intakeContinue');
+    const sub = document.getElementById('intakeSubmit');
+    if(cont && !cont.hidden) cont.innerHTML = '<span data-i18n="intake.continue">' + i18nT('intake.continue') + '</span> <span class="arr">&#8594;</span>';
+    if(sub && !sub.hidden && !intakeSubmitting) sub.innerHTML = intakeSubmitHtml();
+  });
+}
+
 }
 </script>
 <script>
