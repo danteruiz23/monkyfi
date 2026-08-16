@@ -369,7 +369,17 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .chat-send:disabled{opacity:.4;cursor:not-allowed}
 .chat-send svg{width:18px;height:18px}
 
-.intake-card{margin-top:44px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg, rgba(14,27,51,.7), rgba(10,20,38,.55));padding:40px 36px;max-width:860px;margin-left:auto;margin-right:auto}
+.voice-intake{margin-top:44px;margin-bottom:18px;max-width:860px;margin-left:auto;margin-right:auto;display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:22px 24px;border-radius:18px;border:1px solid rgba(79,169,232,.35);background:linear-gradient(135deg, rgba(79,169,232,.14), rgba(242,201,139,.08))}
+.voice-intake-orb{width:48px;height:48px;border-radius:50%;flex-shrink:0;background:radial-gradient(circle at 30% 30%, #4FA9E8, #F2C98B 72%);box-shadow:0 0 22px rgba(79,169,232,.4)}
+.voice-intake-copy{flex:1;min-width:220px}
+.voice-intake-copy b{display:block;color:#EDEFF2;font-size:17px;margin-bottom:4px}
+.voice-intake-copy p{margin:0;font-size:15px;color:#94a3b8;line-height:1.5}
+.voice-intake .btn{flex-shrink:0}
+@media(max-width:600px){
+  .voice-intake{padding:18px 16px;gap:14px}
+  .voice-intake .btn{width:100%}
+}
+.intake-card{margin-top:0;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg, rgba(14,27,51,.7), rgba(10,20,38,.55));padding:40px 36px;max-width:860px;margin-left:auto;margin-right:auto}
 @media(max-width:600px){
   .intake-card{padding:28px 20px;overflow:hidden}
   .f-input,.f-select,.f-textarea{font-size:16px;min-height:48px}
@@ -797,6 +807,14 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
     <span class="eyebrow"><span class="dot"></span><span data-i18n="intake.eyebrow">Start Here</span></span>
     <h2 style="margin-top:18px" data-i18n="intake.h2">Book Your AI Assessment</h2>
     <p data-i18n="intake.lead">Tell us a little about your operation — it takes 2 minutes. We'll review it and reply within 24 hours with a recommended starting point.</p>
+  </div>
+  <div class="voice-intake reveal" id="voiceIntake">
+    <div class="voice-intake-orb" aria-hidden="true"></div>
+    <div class="voice-intake-copy">
+      <b data-i18n="voice.title">Talk with Intake Monkyfi</b>
+      <p data-i18n="voice.lead">Prefer voice? Our intake agent can take your AI Assessment over a live conversation.</p>
+    </div>
+    <button type="button" class="btn btn-primary" id="voiceIntakeStart" data-i18n="voice.cta">Start voice intake</button>
   </div>
   <form class="intake-card reveal" id="intakeForm" novalidate>
     <input type="hidden" name="access_key" value="645f7dca-b0f1-4469-9541-83dc7a825ec7">
@@ -1605,6 +1623,136 @@ if(intakeForm){
   } else {
     window.addEventListener('load', loadCaptcha, { once:true });
   }
+})();
+</script>
+
+<elevenlabs-convai
+  id="elevenlabsIntake"
+  agent-id="agent_8801m05ndkpyfanva562vsc3ss9j"
+  variant="compact"
+  placement="bottom-left"
+  dismissible="true"
+  avatar-orb-color-1="#4FA9E8"
+  avatar-orb-color-2="#F2C98B"
+  markdown-link-allowed-hosts="monkyfi.com www.monkyfi.com monkyfi.ai www.monkyfi.ai"
+></elevenlabs-convai>
+<script src="https://unpkg.com/@elevenlabs/convai-widget-embed@0.15.1/dist/index.js" async type="text/javascript"></script>
+<script>
+(function(){
+  const AGENT_ID = 'agent_8801m05ndkpyfanva562vsc3ss9j';
+  const widget = document.getElementById('elevenlabsIntake');
+  const startBtn = document.getElementById('voiceIntakeStart');
+  if(!widget) return;
+
+  const langMap = { EN: 'en', ES: 'es', PT: 'pt' };
+  const allowedHosts = {
+    'monkyfi.com': true,
+    'www.monkyfi.com': true,
+    'monkyfi.ai': true,
+    'www.monkyfi.ai': true
+  };
+
+  function currentLang(){
+    try{
+      if(window.MonkyfiI18n && typeof window.MonkyfiI18n.getLang === 'function') return window.MonkyfiI18n.getLang();
+    }catch(_){}
+    return 'EN';
+  }
+
+  function applyWidgetCopy(){
+    const code = langMap[currentLang()] || 'en';
+    widget.setAttribute('override-language', code);
+    widget.setAttribute('action-text', i18nT('voice.action'));
+    widget.setAttribute('start-call-text', i18nT('voice.start'));
+    widget.setAttribute('end-call-text', i18nT('voice.end'));
+    widget.setAttribute('expand-text', i18nT('voice.expand'));
+    widget.setAttribute('listening-text', i18nT('voice.listening'));
+    widget.setAttribute('speaking-text', i18nT('voice.speaking'));
+    widget.setAttribute('dynamic-variables', JSON.stringify({
+      page: 'intake',
+      site: 'monkyfi.com',
+      language: code,
+      agent_name: 'Intake Monkyfi'
+    }));
+  }
+
+  function withTimeout(promise, ms){
+    return Promise.race([
+      promise,
+      new Promise(function(_, reject){ setTimeout(function(){ reject(new Error('timeout')); }, ms); })
+    ]);
+  }
+
+  async function getSignedUrl(){
+    try{
+      const ctrl = new AbortController();
+      const timer = setTimeout(function(){ ctrl.abort(); }, 6000);
+      const res = await fetch('/api/elevenlabs-token', { signal: ctrl.signal });
+      clearTimeout(timer);
+      if(!res.ok) return null;
+      const data = await res.json();
+      return data && data.signedUrl ? data.signedUrl : null;
+    }catch(_){
+      return null;
+    }
+  }
+
+  async function startVoiceIntake(){
+    if(startBtn){
+      startBtn.disabled = true;
+      startBtn.textContent = i18nT('voice.connecting');
+    }
+    try{
+      await withTimeout(customElements.whenDefined('elevenlabs-convai'), 12000);
+      const signed = await getSignedUrl();
+      if(signed) widget.setAttribute('signed-url', signed);
+      else widget.setAttribute('agent-id', AGENT_ID);
+      applyWidgetCopy();
+      if(typeof widget.startConversation === 'function') widget.startConversation();
+      const intake = document.getElementById('intake');
+      if(intake) intake.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }catch(err){
+      console.error('voice intake error:', err);
+    }
+    if(startBtn){
+      startBtn.disabled = false;
+      startBtn.textContent = i18nT('voice.cta');
+    }
+  }
+
+  widget.addEventListener('elevenlabs-convai:call', function(event){
+    if(!event.detail || !event.detail.config) return;
+    event.detail.config.clientTools = {
+      redirectToExternalURL: function(params){
+        const url = params && params.url;
+        if(!url) return;
+        try{
+          const parsed = new URL(url, window.location.origin);
+          if(parsed.origin === window.location.origin || allowedHosts[parsed.hostname]){
+            window.location.assign(parsed.href);
+          }
+        }catch(_){}
+      },
+      navigateToIntake: function(){
+        const el = document.getElementById('intake');
+        if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      },
+      openContactEmail: function(){
+        window.location.href = 'mailto:hello@monkyfi.com';
+      },
+      scrollToSection: function(params){
+        const raw = params && (params.id || params.section || '');
+        const id = String(raw).replace(/^#/, '');
+        if(!/^[a-zA-Z][\w-]*$/.test(id)) return;
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+  });
+
+  document.addEventListener('monkyfi:langchange', applyWidgetCopy);
+  applyWidgetCopy();
+  if(startBtn) startBtn.addEventListener('click', startVoiceIntake);
 })();
 </script>
 
