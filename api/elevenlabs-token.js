@@ -38,32 +38,88 @@ function isRateLimited(ip) {
 
 let promptSynced = false;
 
-async function syncAgentPrompt(apiKey) {
-  if (promptSynced) return true;
+async function patchAgent(apiKey, body) {
   const res = await fetch(`https://api.elevenlabs.io/v1/convai/agents/${AGENT_ID}`, {
     method: 'PATCH',
     headers: {
       'xi-api-key': apiKey,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const errText = await res.text();
+    console.error('ElevenLabs agent PATCH error:', res.status, errText);
+    return false;
+  }
+  return true;
+}
+
+async function syncAgentPrompt(apiKey) {
+  if (promptSynced) return true;
+
+  const promptBodies = [
+    {
       name: 'Intake Monkyfi',
       conversation_config: {
         agent: {
           first_message: INTAKE_FIRST_MESSAGE.ES,
-          prompt: {
-            prompt: INTAKE_PROMPT,
-            temperature: 0.2,
-          },
+          prompt: { prompt: INTAKE_PROMPT, temperature: 0.1, knowledge_base: [] },
         },
       },
-    }),
-  });
-  if (!res.ok) {
-    const errText = await res.text();
-    console.error('ElevenLabs agent prompt sync error:', res.status, errText);
-    return false;
+    },
+    {
+      name: 'Intake Monkyfi',
+      conversation_config: {
+        agent: {
+          first_message: INTAKE_FIRST_MESSAGE.ES,
+          prompt: { prompt: INTAKE_PROMPT, temperature: 0.1 },
+        },
+      },
+    },
+    {
+      conversation_config: {
+        agent: {
+          first_message: INTAKE_FIRST_MESSAGE.ES,
+          prompt: { prompt: INTAKE_PROMPT },
+        },
+      },
+    },
+  ];
+
+  let promptOk = false;
+  for (const body of promptBodies) {
+    if (await patchAgent(apiKey, body)) {
+      promptOk = true;
+      break;
+    }
   }
+  if (!promptOk) return false;
+
+  const guardrailBodies = [
+    {
+      platform_settings: {
+        guardrails: {
+          version: '1',
+          focus: { is_enabled: true },
+          prompt_injection: { is_enabled: true },
+        },
+      },
+    },
+    {
+      platform_settings: {
+        guardrails: {
+          version: '1',
+          focus: { isEnabled: true },
+          prompt_injection: { isEnabled: true },
+        },
+      },
+    },
+  ];
+  for (const body of guardrailBodies) {
+    if (await patchAgent(apiKey, body)) break;
+  }
+
   promptSynced = true;
   return true;
 }
