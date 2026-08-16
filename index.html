@@ -1709,7 +1709,7 @@ if(intakeForm){
   async function getSignedUrl(){
     try{
       const ctrl = new AbortController();
-      const timer = setTimeout(function(){ ctrl.abort(); }, 6000);
+      const timer = setTimeout(function(){ ctrl.abort(); }, 8000);
       const res = await fetch('/api/elevenlabs-token', { signal: ctrl.signal });
       clearTimeout(timer);
       if(!res.ok) return null;
@@ -1726,12 +1726,12 @@ if(intakeForm){
       startBtn.textContent = i18nT('voice.connecting');
     }
     try{
+      const signed = await getSignedUrl();
       await withTimeout(loadWidgetScript(), 12000);
       await withTimeout(customElements.whenDefined('elevenlabs-convai'), 12000);
-      const signed = await getSignedUrl();
+      applyWidgetCopy();
       if(signed) widget.setAttribute('signed-url', signed);
       else widget.setAttribute('agent-id', AGENT_ID);
-      applyWidgetCopy();
       if(typeof widget.startConversation === 'function') widget.startConversation();
       const intake = document.getElementById('intake');
       if(intake) intake.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1784,6 +1784,7 @@ if(intakeForm){
   applyWidgetCopy();
   if(startBtn) startBtn.addEventListener('click', startVoiceIntake);
   function idleLoadWidget(){
+    getSignedUrl().catch(function(){});
     loadWidgetScript().catch(function(){});
   }
   if(document.readyState === 'complete'){
