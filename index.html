@@ -1666,6 +1666,7 @@ if(intakeForm){
     const code = langMap[currentLang()] || 'en';
     widget.removeAttribute('override-prompt');
     widget.removeAttribute('override-first-message');
+    widget.removeAttribute('override-voice-id');
     widget.setAttribute('override-language', code);
     widget.setAttribute('action-text', i18nT('voice.action'));
     widget.setAttribute('start-call-text', i18nT('voice.start'));
@@ -1749,11 +1750,8 @@ if(intakeForm){
       rawAudioProcessor: '/assets/elevenlabs/rawAudioProcessor.js',
       audioConcatProcessor: '/assets/elevenlabs/audioConcatProcessor.js'
     };
-    if(event.detail.config.overrides && event.detail.config.overrides.agent){
-      delete event.detail.config.overrides.agent.prompt;
-      delete event.detail.config.overrides.agent.firstMessage;
-      delete event.detail.config.overrides.agent.first_message;
-    }
+    // The agent security config rejects prompt/first_message overrides.
+    delete event.detail.config.overrides;
     event.detail.config.clientTools = {
       redirectToExternalURL: function(params){
         const url = params && params.url;

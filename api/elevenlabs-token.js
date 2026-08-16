@@ -59,16 +59,6 @@ async function syncAgentPrompt(apiKey) {
             first_message: (intakeAgent.firstMessage && intakeAgent.firstMessage.EN) || '',
           },
         },
-        platform_settings: {
-          overrides: {
-            conversation_config_override: {
-              agent: {
-                language: true,
-                prompt: { prompt: true },
-              },
-            },
-          },
-        },
       }),
     });
     if (!res.ok) {
