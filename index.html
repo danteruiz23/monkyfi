@@ -1665,12 +1665,9 @@ if(intakeForm){
   function applyWidgetCopy(){
     const code = langMap[currentLang()] || 'en';
     const intake = window.MonkyfiIntakeAgent;
-    const first = intake && intake.firstMessage
-      ? (intake.firstMessage[currentLang()] || intake.firstMessage.EN)
-      : '';
     widget.setAttribute('override-language', code);
     if(intake && intake.prompt) widget.setAttribute('override-prompt', intake.prompt);
-    if(first) widget.setAttribute('override-first-message', first);
+    widget.removeAttribute('override-first-message');
     widget.setAttribute('action-text', i18nT('voice.action'));
     widget.setAttribute('start-call-text', i18nT('voice.start'));
     widget.setAttribute('end-call-text', i18nT('voice.end'));
@@ -1733,20 +1730,19 @@ if(intakeForm){
     if(!event.detail || !event.detail.config) return;
     const code = langMap[currentLang()] || 'en';
     const intake = window.MonkyfiIntakeAgent;
-    const first = intake && intake.firstMessage
-      ? (intake.firstMessage[currentLang()] || intake.firstMessage.EN)
-      : '';
     event.detail.config.workletPaths = {
       rawAudioProcessor: '/assets/elevenlabs/rawAudioProcessor.js',
       audioConcatProcessor: '/assets/elevenlabs/audioConcatProcessor.js'
     };
     if(intake && intake.prompt){
+      const agentOverride = Object.assign({}, (event.detail.config.overrides && event.detail.config.overrides.agent) || {}, {
+        prompt: { prompt: intake.prompt },
+        language: code
+      });
+      delete agentOverride.firstMessage;
+      delete agentOverride.first_message;
       event.detail.config.overrides = Object.assign({}, event.detail.config.overrides, {
-        agent: Object.assign({}, (event.detail.config.overrides && event.detail.config.overrides.agent) || {}, {
-          prompt: { prompt: intake.prompt },
-          firstMessage: first,
-          language: code
-        })
+        agent: agentOverride
       });
     }
     event.detail.config.clientTools = {
