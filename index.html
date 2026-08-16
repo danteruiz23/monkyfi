@@ -1634,6 +1634,8 @@ if(intakeForm){
   dismissible="true"
   avatar-orb-color-1="#4FA9E8"
   avatar-orb-color-2="#F2C98B"
+  worklet-path-raw-audio-processor="/assets/elevenlabs/rawAudioProcessor.js"
+  worklet-path-audio-concat-processor="/assets/elevenlabs/audioConcatProcessor.js"
   markdown-link-allowed-hosts="monkyfi.com www.monkyfi.com monkyfi.ai www.monkyfi.ai"
 ></elevenlabs-convai>
 <script src="https://unpkg.com/@elevenlabs/convai-widget-embed@0.15.1/dist/index.js" async type="text/javascript"></script>
@@ -1722,6 +1724,10 @@ if(intakeForm){
 
   widget.addEventListener('elevenlabs-convai:call', function(event){
     if(!event.detail || !event.detail.config) return;
+    event.detail.config.workletPaths = {
+      rawAudioProcessor: '/assets/elevenlabs/rawAudioProcessor.js',
+      audioConcatProcessor: '/assets/elevenlabs/audioConcatProcessor.js'
+    };
     event.detail.config.clientTools = {
       redirectToExternalURL: function(params){
         const url = params && params.url;
