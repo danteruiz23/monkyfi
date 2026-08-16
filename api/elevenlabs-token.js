@@ -63,7 +63,6 @@ async function syncAgentPrompt(apiKey) {
           overrides: {
             conversation_config_override: {
               agent: {
-                first_message: true,
                 language: true,
                 prompt: { prompt: true },
               },
