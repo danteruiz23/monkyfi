@@ -1028,7 +1028,6 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 </div>
 
 <script src="assets/i18n.js"></script>
-<script src="assets/intake-agent-prompt.js"></script>
 <script>
 (function(){
   const c = document.getElementById('circuitCanvas');
@@ -1639,10 +1638,10 @@ if(intakeForm){
   worklet-path-audio-concat-processor="/assets/elevenlabs/audioConcatProcessor.js"
   markdown-link-allowed-hosts="monkyfi.com www.monkyfi.com monkyfi.ai www.monkyfi.ai"
 ></elevenlabs-convai>
-<script src="https://unpkg.com/@elevenlabs/convai-widget-embed@0.15.1/dist/index.js" async type="text/javascript"></script>
 <script>
 (function(){
   const AGENT_ID = 'agent_8801m05ndkpyfanva562vsc3ss9j';
+  const WIDGET_SRC = 'https://unpkg.com/@elevenlabs/convai-widget-embed@0.15.1/dist/index.js';
   const widget = document.getElementById('elevenlabsIntake');
   const startBtn = document.getElementById('voiceIntakeStart');
   if(!widget) return;
@@ -1654,6 +1653,7 @@ if(intakeForm){
     'monkyfi.ai': true,
     'www.monkyfi.ai': true
   };
+  let widgetScriptPromise = null;
 
   function currentLang(){
     try{
@@ -1664,10 +1664,9 @@ if(intakeForm){
 
   function applyWidgetCopy(){
     const code = langMap[currentLang()] || 'en';
-    const intake = window.MonkyfiIntakeAgent;
-    widget.setAttribute('override-language', code);
-    if(intake && intake.prompt) widget.setAttribute('override-prompt', intake.prompt);
+    widget.removeAttribute('override-prompt');
     widget.removeAttribute('override-first-message');
+    widget.setAttribute('override-language', code);
     widget.setAttribute('action-text', i18nT('voice.action'));
     widget.setAttribute('start-call-text', i18nT('voice.start'));
     widget.setAttribute('end-call-text', i18nT('voice.end'));
@@ -1687,6 +1686,23 @@ if(intakeForm){
       promise,
       new Promise(function(_, reject){ setTimeout(function(){ reject(new Error('timeout')); }, ms); })
     ]);
+  }
+
+  function loadWidgetScript(){
+    if(customElements.get('elevenlabs-convai')) return Promise.resolve();
+    if(widgetScriptPromise) return widgetScriptPromise;
+    widgetScriptPromise = new Promise(function(resolve, reject){
+      const s = document.createElement('script');
+      s.src = WIDGET_SRC;
+      s.async = true;
+      s.onload = resolve;
+      s.onerror = function(){
+        widgetScriptPromise = null;
+        reject(new Error('widget script failed'));
+      };
+      document.body.appendChild(s);
+    });
+    return widgetScriptPromise;
   }
 
   async function getSignedUrl(){
@@ -1709,6 +1725,7 @@ if(intakeForm){
       startBtn.textContent = i18nT('voice.connecting');
     }
     try{
+      await withTimeout(loadWidgetScript(), 12000);
       await withTimeout(customElements.whenDefined('elevenlabs-convai'), 12000);
       const signed = await getSignedUrl();
       if(signed) widget.setAttribute('signed-url', signed);
@@ -1728,22 +1745,14 @@ if(intakeForm){
 
   widget.addEventListener('elevenlabs-convai:call', function(event){
     if(!event.detail || !event.detail.config) return;
-    const code = langMap[currentLang()] || 'en';
-    const intake = window.MonkyfiIntakeAgent;
     event.detail.config.workletPaths = {
       rawAudioProcessor: '/assets/elevenlabs/rawAudioProcessor.js',
       audioConcatProcessor: '/assets/elevenlabs/audioConcatProcessor.js'
     };
-    if(intake && intake.prompt){
-      const agentOverride = Object.assign({}, (event.detail.config.overrides && event.detail.config.overrides.agent) || {}, {
-        prompt: { prompt: intake.prompt },
-        language: code
-      });
-      delete agentOverride.firstMessage;
-      delete agentOverride.first_message;
-      event.detail.config.overrides = Object.assign({}, event.detail.config.overrides, {
-        agent: agentOverride
-      });
+    if(event.detail.config.overrides && event.detail.config.overrides.agent){
+      delete event.detail.config.overrides.agent.prompt;
+      delete event.detail.config.overrides.agent.firstMessage;
+      delete event.detail.config.overrides.agent.first_message;
     }
     event.detail.config.clientTools = {
       redirectToExternalURL: function(params){
@@ -1776,6 +1785,14 @@ if(intakeForm){
   document.addEventListener('monkyfi:langchange', applyWidgetCopy);
   applyWidgetCopy();
   if(startBtn) startBtn.addEventListener('click', startVoiceIntake);
+  function idleLoadWidget(){
+    loadWidgetScript().catch(function(){});
+  }
+  if(document.readyState === 'complete'){
+    setTimeout(idleLoadWidget, 1500);
+  } else {
+    window.addEventListener('load', function(){ setTimeout(idleLoadWidget, 1500); }, { once: true });
+  }
 })();
 </script>
 
