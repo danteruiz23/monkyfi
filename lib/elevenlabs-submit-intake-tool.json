@@ -1,0 +1,55 @@
+{
+  "type": "webhook",
+  "name": "submit_intake",
+  "description": "Submit the completed Monkyfi Connect intake so Dante can follow up. Call once you have at least name, work email, and company. Never send date of birth, age, home address, national ID, passwords, or end-customer PII.",
+  "api_schema": {
+    "url": "https://monkyfi.com/api/intake",
+    "method": "POST",
+    "request_headers": {
+      "Content-Type": "application/json"
+    },
+    "request_body_schema": {
+      "type": "object",
+      "description": "Connect short-qualification fields collected on the call",
+      "required": ["name", "email", "company"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Visitor first and last name"
+        },
+        "email": {
+          "type": "string",
+          "description": "Work email address"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Optional phone or WhatsApp number. Empty string if they skipped it."
+        },
+        "company": {
+          "type": "string",
+          "description": "Company or operator name"
+        },
+        "operation_type": {
+          "type": "string",
+          "description": "Fibra/ISP, Mobile/MVNO, Subsea, Data Center, MSP, Enterprise IT, or Other"
+        },
+        "company_size": {
+          "type": "string",
+          "description": "Startup/Pilot, Small, Medium, or Large"
+        },
+        "operational_pain": {
+          "type": "string",
+          "description": "Biggest operational pain they described"
+        },
+        "services": {
+          "type": "string",
+          "description": "Monkyfi Connect services of interest, comma-separated"
+        },
+        "situation": {
+          "type": "string",
+          "description": "Optional short description of their situation"
+        }
+      }
+    }
+  }
+}
