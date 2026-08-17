@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "api/elevenlabs-token.js": {
+      "includeFiles": "lib/intake-prompt.js"
+    }
+  },
   "headers": [
     {
       "source": "/assets/monkyfi-brochure.pdf",

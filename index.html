@@ -375,6 +375,8 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .voice-intake-copy b{display:block;color:#EDEFF2;font-size:17px;margin-bottom:4px}
 .voice-intake-copy p{margin:0;font-size:15px;color:#94a3b8;line-height:1.5}
 .voice-intake .btn{flex-shrink:0}
+.voice-intake-status{flex-basis:100%;margin:0;font-size:14px;color:#F2C98B;line-height:1.45}
+.voice-intake-status[hidden]{display:none}
 @media(max-width:600px){
   .voice-intake{padding:18px 16px;gap:14px}
   .voice-intake .btn{width:100%}
@@ -815,6 +817,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
       <p data-i18n="voice.lead">Prefer voice? Our intake agent can take your AI Assessment over a live conversation.</p>
     </div>
     <button type="button" class="btn btn-primary" id="voiceIntakeStart" data-i18n="voice.cta">Start voice intake</button>
+    <p class="voice-intake-status" id="voiceIntakeStatus" hidden role="status"></p>
   </div>
   <form class="intake-card reveal" id="intakeForm" novalidate>
     <input type="hidden" name="access_key" value="645f7dca-b0f1-4469-9541-83dc7a825ec7">
@@ -1644,6 +1647,7 @@ if(intakeForm){
   const WIDGET_SRC = 'https://unpkg.com/@elevenlabs/convai-widget-embed@0.15.1/dist/index.js';
   const widget = document.getElementById('elevenlabsIntake');
   const startBtn = document.getElementById('voiceIntakeStart');
+  const statusEl = document.getElementById('voiceIntakeStatus');
   if(!widget) return;
 
   const langMap = { EN: 'en', ES: 'es', PT: 'pt' };
@@ -1706,18 +1710,30 @@ if(intakeForm){
     return widgetScriptPromise;
   }
 
-  async function getSignedUrl(){
+  async function getToken(){
     try{
       const ctrl = new AbortController();
-      const timer = setTimeout(function(){ ctrl.abort(); }, 6000);
+      const timer = setTimeout(function(){ ctrl.abort(); }, 8000);
       const res = await fetch('/api/elevenlabs-token', { signal: ctrl.signal });
       clearTimeout(timer);
-      if(!res.ok) return null;
-      const data = await res.json();
-      return data && data.signedUrl ? data.signedUrl : null;
+      const data = await res.json().catch(function(){ return {}; });
+      if(res.status === 501) return { ok: false, missingKey: true };
+      if(!res.ok || !data || !data.signedUrl) return { ok: false };
+      return { ok: true, signedUrl: data.signedUrl, promptSynced: !!data.promptSynced };
     }catch(_){
-      return null;
+      return { ok: false };
     }
+  }
+
+  function showVoiceStatus(message){
+    if(!statusEl) return;
+    if(!message){
+      statusEl.hidden = true;
+      statusEl.textContent = '';
+      return;
+    }
+    statusEl.hidden = false;
+    statusEl.textContent = message;
   }
 
   async function startVoiceIntake(){
@@ -1725,18 +1741,26 @@ if(intakeForm){
       startBtn.disabled = true;
       startBtn.textContent = i18nT('voice.connecting');
     }
+    showVoiceStatus('');
     try{
+      const token = await getToken();
+      if(!token.ok){
+        if(token.missingKey){
+          console.error('Voice intake needs ELEVENLABS_API_KEY in Vercel (Production + Preview). Without it the widget uses the generic dashboard prompt.');
+        }
+        showVoiceStatus(i18nT('voice.tokenError'));
+        return;
+      }
       await withTimeout(loadWidgetScript(), 12000);
       await withTimeout(customElements.whenDefined('elevenlabs-convai'), 12000);
-      const signed = await getSignedUrl();
-      if(signed) widget.setAttribute('signed-url', signed);
-      else widget.setAttribute('agent-id', AGENT_ID);
       applyWidgetCopy();
+      widget.setAttribute('signed-url', token.signedUrl);
       if(typeof widget.startConversation === 'function') widget.startConversation();
       const intake = document.getElementById('intake');
       if(intake) intake.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }catch(err){
       console.error('voice intake error:', err);
+      showVoiceStatus(i18nT('voice.tokenError'));
     }
     if(startBtn){
       startBtn.disabled = false;
@@ -1784,6 +1808,7 @@ if(intakeForm){
   applyWidgetCopy();
   if(startBtn) startBtn.addEventListener('click', startVoiceIntake);
   function idleLoadWidget(){
+    getToken().catch(function(){});
     loadWidgetScript().catch(function(){});
   }
   if(document.readyState === 'complete'){
