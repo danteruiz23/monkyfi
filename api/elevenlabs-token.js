@@ -50,11 +50,12 @@ function classifyElevenLabsError(status, errText) {
   try {
     const parsed = JSON.parse(text);
     const detail = parsed && parsed.detail;
-    const nested = detail && typeof detail === 'object' ? detail.code : null;
+    const nested = detail && typeof detail === 'object' ? (detail.code || detail.status) : null;
     if (typeof nested === 'string' && nested.length < 64) code = nested;
   } catch (_) {
     /* keep status-based code */
   }
+  if (/quota|credits remaining/i.test(text)) code = 'quota_exceeded';
   if (/not (?:set up|configured) for authentication|does not require authorization/i.test(text)) {
     code = 'signed_url_not_required';
   }
@@ -139,6 +140,20 @@ async function syncAgentPrompt(apiKey) {
           focus: { isEnabled: true },
           prompt_injection: { isEnabled: true },
         },
+        data_collection: INTAKE_DATA_COLLECTION,
+      },
+    },
+    {
+      platform_settings: {
+        guardrails: {
+          version: '1',
+          focus: { is_enabled: true },
+          prompt_injection: { is_enabled: true },
+        },
+      },
+    },
+    {
+      platform_settings: {
         data_collection: INTAKE_DATA_COLLECTION,
       },
     },

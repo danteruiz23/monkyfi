@@ -1751,7 +1751,7 @@ if(intakeForm){
         } else {
           console.error('Voice intake token failed', token.code || 'unknown');
         }
-        showVoiceStatus(i18nT('voice.tokenError'));
+        showVoiceStatus(i18nT(token.code === 'quota_exceeded' ? 'voice.quotaError' : 'voice.tokenError'));
         return;
       }
       await withTimeout(loadWidgetScript(), 12000);
@@ -1812,11 +1812,16 @@ if(intakeForm){
     };
   });
 
+  widget.addEventListener('elevenlabs-convai:error', function(event){
+    const detail = event && event.detail;
+    const msg = String((detail && (detail.message || detail.error || detail.reason)) || '');
+    if(/quota/i.test(msg)) showVoiceStatus(i18nT('voice.quotaError'));
+  });
+
   document.addEventListener('monkyfi:langchange', applyWidgetCopy);
   applyWidgetCopy();
   if(startBtn) startBtn.addEventListener('click', startVoiceIntake);
   function idleLoadWidget(){
-    getToken().catch(function(){});
     loadWidgetScript().catch(function(){});
   }
   if(document.readyState === 'complete'){
