@@ -832,6 +832,11 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
             <span class="email-hint" id="iq-email-hint" data-i18n="intake.js.badEmail">Enter a valid email address.</span>
             <span class="f-field-error" id="iq-email-error" role="alert"></span>
           </div>
+          <div class="f-field full">
+            <label for="iq-phone"><span data-i18n="intake.phone">Phone</span> <small class="select-hint" data-i18n="intake.optional">(optional)</small></label>
+            <input class="f-input" id="iq-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="24" placeholder="+1 305 555 0100" data-i18n-placeholder="intake.ph.phone" aria-describedby="iq-phone-error" />
+            <span class="f-field-error" id="iq-phone-error" role="alert"></span>
+          </div>
         </div>
       </div>
 
@@ -1254,6 +1259,12 @@ if(intakeForm){
   function emailOk(val){
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(val || '').trim());
   }
+  function phoneOk(val){
+    const raw = String(val || '').trim();
+    if(!raw) return true;
+    const digits = raw.replace(/\D/g, '');
+    return digits.length >= 7 && digits.length <= 15 && /^[+()[\]\d.\-\s]+$/.test(raw);
+  }
   if(emailInput){
     emailInput.addEventListener('input', function(){
       const v = emailInput.value.trim();
@@ -1331,7 +1342,8 @@ if(intakeForm){
     if(step === 0){
       const name = (document.getElementById('iq-name').value || '').trim();
       const email = (document.getElementById('iq-email').value || '').trim();
-      return name.length > 0 && emailOk(email);
+      const phone = (document.getElementById('iq-phone').value || '').trim();
+      return name.length > 0 && emailOk(email) && phoneOk(phone);
     }
     if(step === 1){
       const company = (document.getElementById('iq-company').value || '').trim();
@@ -1465,6 +1477,8 @@ if(intakeForm){
     const emailVal = String(fd.get('email') || '').trim();
     if(!emailVal) markError('iq-email', i18nT('intake.js.reqEmail'));
     else if(!emailOk(emailVal)) markError('iq-email', i18nT('intake.js.badEmail'));
+    const phoneVal = String(fd.get('phone') || '').trim();
+    if(phoneVal && !phoneOk(phoneVal)) markError('iq-phone', i18nT('intake.js.badPhone'));
     if(!(fd.get('company') || '').toString().trim()) markError('iq-company', i18nT('intake.js.reqCompany'));
     if(!fd.get('segment')) markError('iq-segment', i18nT('intake.js.reqSegment'));
     if(!fd.get('size')) markError('iq-size', i18nT('intake.js.reqSize'));
@@ -1509,10 +1523,12 @@ if(intakeForm){
     fd.set('size', size);
     fd.set('issue', issue);
     fd.set('interests', interests.join(', ') || '(none selected)');
+    fd.set('phone', phoneVal || '(not provided)');
     fd.set('message', [
       'New AI Assessment request from monkyfi.com',
       '', 'Company: ' + fd.get('company'), 'Operation type: ' + segment,
       'Company size: ' + size, 'Biggest issue: ' + issue,
+      'Phone: ' + (phoneVal || '(not provided)'),
       'Interested in: ' + (interests.join(', ') || '(none selected)')
     ].join('\n'));
     intakeSubmitting = true;
@@ -1558,7 +1574,9 @@ if(intakeForm){
             : msg));
       } else {
         const bodyLines = [
-          'Name: ' + fd.get('name'), 'Email: ' + fd.get('email'), 'Company: ' + fd.get('company'),
+          'Name: ' + fd.get('name'), 'Email: ' + fd.get('email'),
+          'Phone: ' + (phoneVal || '(not provided)'),
+          'Company: ' + fd.get('company'),
           'Operation: ' + segment, 'Size: ' + size, 'Biggest issue: ' + issue,
           'Interested in: ' + (interests.join(', ') || '(none selected)')
         ].join('\n');
