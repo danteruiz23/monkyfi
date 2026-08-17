@@ -3,7 +3,7 @@
 // The ELEVENLABS_API_KEY is read from environment variables (set in Vercel dashboard).
 // Never put the key in this file or in the frontend.
 
-import { INTAKE_FIRST_MESSAGE, INTAKE_PROMPT } from '../lib/intake-prompt.js';
+import { INTAKE_DATA_COLLECTION, INTAKE_FIRST_MESSAGE, INTAKE_PROMPT } from '../lib/intake-prompt.js';
 
 const AGENT_ID = process.env.ELEVENLABS_AGENT_ID || 'agent_8801m05ndkpyfanva562vsc3ss9j';
 
@@ -129,6 +129,7 @@ async function syncAgentPrompt(apiKey) {
           focus: { is_enabled: true },
           prompt_injection: { is_enabled: true },
         },
+        data_collection: INTAKE_DATA_COLLECTION,
       },
     },
     {
@@ -138,6 +139,7 @@ async function syncAgentPrompt(apiKey) {
           focus: { isEnabled: true },
           prompt_injection: { isEnabled: true },
         },
+        data_collection: INTAKE_DATA_COLLECTION,
       },
     },
   ];
