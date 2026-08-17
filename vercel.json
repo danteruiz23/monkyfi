@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/elevenlabs-token.js": {
-      "includeFiles": "lib/intake-prompt.js"
-    }
-  },
   "headers": [
     {
       "source": "/assets/monkyfi-brochure.pdf",
@@ -19,10 +14,10 @@
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "X-Frame-Options", "value": "DENY" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(self), geolocation=()" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' blob: data: 'wasm-unsafe-eval' https://web3forms.com https://js.hcaptcha.com https://*.hcaptcha.com https://va.vercel-scripts.com https://unpkg.com https://elevenlabs.io https://*.elevenlabs.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.hcaptcha.com; font-src https://fonts.gstatic.com https://unpkg.com data:; img-src 'self' data: blob: https:; media-src 'self' blob: mediastream:; worker-src 'self' blob: data:; connect-src 'self' https://api.web3forms.com https://*.hcaptcha.com https://vitals.vercel-insights.com https://api.elevenlabs.io https://*.elevenlabs.io wss://api.elevenlabs.io wss://*.elevenlabs.io https://unpkg.com https://*.livekit.cloud wss://*.livekit.cloud; frame-src https://*.hcaptcha.com https://newassets.hcaptcha.com; frame-ancestors 'none'"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://web3forms.com https://js.hcaptcha.com https://*.hcaptcha.com https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.hcaptcha.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.web3forms.com https://*.hcaptcha.com https://vitals.vercel-insights.com; frame-src https://*.hcaptcha.com https://newassets.hcaptcha.com; frame-ancestors 'none'"
         }
       ]
     }
