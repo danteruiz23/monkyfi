@@ -1717,9 +1717,10 @@ if(intakeForm){
       const res = await fetch('/api/elevenlabs-token', { signal: ctrl.signal });
       clearTimeout(timer);
       const data = await res.json().catch(function(){ return {}; });
-      if(res.status === 501) return { ok: false, missingKey: true };
-      if(!res.ok || !data || !data.signedUrl) return { ok: false };
-      return { ok: true, signedUrl: data.signedUrl, promptSynced: !!data.promptSynced };
+      if(res.status === 501) return { ok: false, missingKey: true, code: data.code || 'missing_key' };
+      if(data && data.publicAgent && data.promptSynced) return { ok: true, publicAgent: true, promptSynced: true, code: data.code };
+      if(!res.ok || !data || !data.signedUrl) return { ok: false, code: data && data.code };
+      return { ok: true, signedUrl: data.signedUrl, promptSynced: !!data.promptSynced, code: data.code };
     }catch(_){
       return { ok: false };
     }
@@ -1746,7 +1747,9 @@ if(intakeForm){
       const token = await getToken();
       if(!token.ok){
         if(token.missingKey){
-          console.error('Voice intake needs ELEVENLABS_API_KEY in Vercel (Production + Preview). Without it the widget uses the generic dashboard prompt.');
+          console.error('Voice intake needs ELEVENLABS_API_KEY in Vercel (Production + Preview).');
+        } else {
+          console.error('Voice intake token failed', token.code || 'unknown');
         }
         showVoiceStatus(i18nT('voice.tokenError'));
         return;
@@ -1754,7 +1757,12 @@ if(intakeForm){
       await withTimeout(loadWidgetScript(), 12000);
       await withTimeout(customElements.whenDefined('elevenlabs-convai'), 12000);
       applyWidgetCopy();
-      widget.setAttribute('signed-url', token.signedUrl);
+      if(token.publicAgent){
+        widget.removeAttribute('signed-url');
+        widget.setAttribute('agent-id', AGENT_ID);
+      } else {
+        widget.setAttribute('signed-url', token.signedUrl);
+      }
       if(typeof widget.startConversation === 'function') widget.startConversation();
       const intake = document.getElementById('intake');
       if(intake) intake.scrollIntoView({ behavior: 'smooth', block: 'start' });

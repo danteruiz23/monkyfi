@@ -36,6 +36,31 @@ function isRateLimited(ip) {
   return entry.count > RATE_MAX;
 }
 
+function sanitizeKey(raw) {
+  if (!raw) return '';
+  return String(raw).replace(/^\uFEFF/, '').trim().replace(/^['"]+|['"]+$/g, '').trim();
+}
+
+function classifyElevenLabsError(status, errText) {
+  let code = 'elevenlabs_error';
+  if (status === 401) code = 'unauthorized';
+  else if (status === 403) code = 'forbidden';
+  else if (status === 404) code = 'agent_not_found';
+  const text = String(errText || '');
+  try {
+    const parsed = JSON.parse(text);
+    const detail = parsed && parsed.detail;
+    const nested = detail && typeof detail === 'object' ? detail.code : null;
+    if (typeof nested === 'string' && nested.length < 64) code = nested;
+  } catch (_) {
+    /* keep status-based code */
+  }
+  if (/not (?:set up|configured) for authentication|does not require authorization|signed url/i.test(text)) {
+    code = 'signed_url_not_required';
+  }
+  return { elevenlabsStatus: status, code };
+}
+
 let promptSynced = false;
 
 async function patchAgent(apiKey, body) {
@@ -124,6 +149,18 @@ async function syncAgentPrompt(apiKey) {
   return true;
 }
 
+async function probeAgent(apiKey) {
+  const res = await fetch(`https://api.elevenlabs.io/v1/convai/agents/${AGENT_ID}`, {
+    headers: { 'xi-api-key': apiKey },
+  });
+  if (!res.ok) {
+    const errText = await res.text();
+    console.error('ElevenLabs agent GET error:', res.status, errText);
+    return { ok: false, ...classifyElevenLabsError(res.status, errText) };
+  }
+  return { ok: true, elevenlabsStatus: 200, code: 'ok' };
+}
+
 export default async function handler(req, res) {
   const origin = getAllowedOrigin(req);
   if (origin) {
@@ -147,12 +184,22 @@ export default async function handler(req, res) {
     return res.status(429).json({ error: 'Too many requests. Please try again shortly.' });
   }
 
-  const apiKey = process.env.ELEVENLABS_API_KEY;
+  const apiKey = sanitizeKey(process.env.ELEVENLABS_API_KEY);
   if (!apiKey) {
-    return res.status(501).json({ error: 'Voice token service is not configured', public: true, promptSynced: false });
+    return res.status(501).json({ error: 'Voice token service is not configured', public: true, promptSynced: false, code: 'missing_key' });
   }
 
   try {
+    const probe = await probeAgent(apiKey);
+    if (!probe.ok) {
+      return res.status(502).json({
+        error: 'Voice service is temporarily unavailable',
+        promptSynced: false,
+        code: probe.code,
+        elevenlabsStatus: probe.elevenlabsStatus,
+      });
+    }
+
     const synced = await syncAgentPrompt(apiKey);
 
     const url = new URL('https://api.elevenlabs.io/v1/convai/conversation/get-signed-url');
@@ -165,18 +212,27 @@ export default async function handler(req, res) {
     if (!elevenRes.ok) {
       const errText = await elevenRes.text();
       console.error('ElevenLabs signed URL error:', elevenRes.status, errText);
-      return res.status(502).json({ error: 'Voice service is temporarily unavailable', promptSynced: synced });
+      const classified = classifyElevenLabsError(elevenRes.status, errText);
+      if (classified.code === 'signed_url_not_required' && synced) {
+        return res.status(200).json({ publicAgent: true, promptSynced: true, code: classified.code });
+      }
+      return res.status(502).json({
+        error: 'Voice service is temporarily unavailable',
+        promptSynced: synced,
+        code: classified.code,
+        elevenlabsStatus: classified.elevenlabsStatus,
+      });
     }
 
     const data = await elevenRes.json();
     const signedUrl = data.signed_url || data.signedUrl;
     if (!signedUrl) {
-      return res.status(502).json({ error: 'Voice service is temporarily unavailable', promptSynced: synced });
+      return res.status(502).json({ error: 'Voice service is temporarily unavailable', promptSynced: synced, code: 'missing_signed_url' });
     }
 
-    return res.status(200).json({ signedUrl, promptSynced: synced });
+    return res.status(200).json({ signedUrl, promptSynced: synced, code: synced ? 'ok' : 'prompt_sync_failed' });
   } catch (err) {
     console.error('ElevenLabs token handler error:', err);
-    return res.status(500).json({ error: 'Something went wrong. Please try again.' });
+    return res.status(500).json({ error: 'Something went wrong. Please try again.', code: 'handler_error' });
   }
 }
