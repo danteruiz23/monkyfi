@@ -55,7 +55,7 @@ function classifyElevenLabsError(status, errText) {
   } catch (_) {
     /* keep status-based code */
   }
-  if (/not (?:set up|configured) for authentication|does not require authorization|signed url/i.test(text)) {
+  if (/not (?:set up|configured) for authentication|does not require authorization/i.test(text)) {
     code = 'signed_url_not_required';
   }
   return { elevenlabsStatus: status, code };
