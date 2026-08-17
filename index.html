@@ -1745,23 +1745,21 @@ if(intakeForm){
     showVoiceStatus('');
     try{
       const token = await getToken();
-      if(!token.ok){
-        if(token.missingKey){
-          console.error('Voice intake needs ELEVENLABS_API_KEY in Vercel (Production + Preview).');
-        } else {
-          console.error('Voice intake token failed', token.code || 'unknown');
-        }
-        showVoiceStatus(i18nT(token.code === 'quota_exceeded' ? 'voice.quotaError' : 'voice.tokenError'));
+      if(token.code === 'quota_exceeded'){
+        showVoiceStatus(i18nT('voice.quotaError'));
         return;
       }
       await withTimeout(loadWidgetScript(), 12000);
       await withTimeout(customElements.whenDefined('elevenlabs-convai'), 12000);
       applyWidgetCopy();
-      if(token.publicAgent){
+      if(token.ok && token.signedUrl){
+        widget.setAttribute('signed-url', token.signedUrl);
+      } else {
         widget.removeAttribute('signed-url');
         widget.setAttribute('agent-id', AGENT_ID);
-      } else {
-        widget.setAttribute('signed-url', token.signedUrl);
+        if(!token.ok){
+          console.warn('Voice intake using public agent; token failed', token.code || 'unknown');
+        }
       }
       if(typeof widget.startConversation === 'function') widget.startConversation();
       const intake = document.getElementById('intake');
