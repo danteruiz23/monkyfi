@@ -57,7 +57,11 @@ export default async function handler(req, res) {
     }
   }
 
-  const body = req.body && typeof req.body === 'object' ? req.body : {};
+  let body = req.body;
+  if (typeof body === 'string') {
+    try { body = JSON.parse(body); } catch (_) { body = {}; }
+  }
+  if (!body || typeof body !== 'object') body = {};
   if (looksLikeIdentityDump(body)) {
     return res.status(400).json({
       ok: false,
