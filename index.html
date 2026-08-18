@@ -438,9 +438,15 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 }
 
 .req{color:var(--cyan);margin-left:2px;font-weight:700}
-.intake-progress{display:flex;gap:8px;margin-bottom:28px}
-.intake-progress .bar{flex:1;height:4px;border-radius:99px;background:rgba(148,163,184,.15);transition:background .25s}
+.intake-progress-wrap{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.intake-step-label{margin:0;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#64748b;white-space:nowrap}
+.intake-progress{display:flex;gap:8px;flex:1;min-width:0}
+.intake-progress .bar{flex:1;height:4px;border-radius:99px;background:rgba(148,163,184,.15);transition:background .25s, box-shadow .25s;border:0;padding:0;appearance:none;-webkit-appearance:none;cursor:default}
 .intake-progress .bar.active{background:var(--cyan);box-shadow:0 0 12px rgba(79,169,232,.45)}
+.intake-progress .bar.is-jump{cursor:pointer}
+.intake-progress .bar.is-jump:hover{background:rgba(79,169,232,.55)}
+.intake-progress .bar:disabled{opacity:1;cursor:default}
+.intake-progress .bar:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 .intake-step{display:none}
 .intake-step.active{display:block}
 .intake-step-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
@@ -462,8 +468,8 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 #intakeAside[hidden]{display:none !important}
 .intake-nav-actions{display:flex;align-items:center;gap:10px;margin-left:auto}
 .f-check{position:relative}
-.f-check input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
-.f-check .box{width:18px;height:18px;border-radius:5px;border:1.5px solid rgba(148,163,184,.4);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;background:transparent}
+.f-check input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;z-index:1}
+.f-check .box{width:18px;height:18px;border-radius:5px;border:1.5px solid rgba(148,163,184,.4);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;background:transparent;position:relative;z-index:0}
 .f-check .box svg{width:12px;height:12px;opacity:0;stroke:var(--ink);stroke-width:3;fill:none}
 .f-check.is-on{border-color:var(--cyan);background:rgba(79,169,232,.12)}
 .f-check.is-on .box{background:var(--cyan);border-color:var(--cyan)}
@@ -486,6 +492,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .f-input:focus,.f-select:focus,.f-textarea:focus{border-color:var(--cyan)}
 .f-input:focus-visible,.f-select:focus-visible,.f-textarea:focus-visible,.btn:focus-visible,.nav-links a:focus-visible,.nav-cta:focus-visible,.nav-brochure:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 .f-check:focus-within{outline:2px solid var(--cyan);outline-offset:2px;border-color:rgba(79,169,232,.4)}
+.hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0}
 .f-field.is-error label{color:#fca5a5}
 .f-field.is-error .f-input,.f-field.is-error .f-select,.f-field.is-error .f-textarea{border-color:rgba(248,113,113,.7);box-shadow:0 0 0 1px rgba(248,113,113,.2)}
 .f-field.is-error .f-check{border-color:rgba(248,113,113,.7);box-shadow:0 0 0 1px rgba(248,113,113,.2)}
@@ -500,9 +507,9 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 @media(max-width:680px){.f-checks{grid-template-columns:1fr}}
 .f-check{display:flex;align-items:center;gap:12px;padding:16px 18px;min-height:56px;border-radius:12px;background:rgba(7,11,20,.5);border:1px solid var(--line);cursor:pointer;transition:border-color .2s;font-size:16px;color:#cbd5e1;line-height:1.35}
 .f-check:hover{border-color:rgba(79,169,232,.4)}
-.f-check input{accent-color:var(--cyan);width:18px;height:18px;flex-shrink:0}
-.f-check input:checked + span{color:var(--cyan)}
 .f-field label small.select-hint{color:#EDEFF2;font-weight:400}
+.human-field{margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.human-field .f-check{max-width:320px}
 .intake-note{font-size:14px;color:#64748b;margin-top:16px}
 .intake-aside{font-size:14px;color:#64748b}
 .intake-status{display:none;margin-top:16px;padding:13px 16px;border-radius:10px;font-size:15.5px}
@@ -800,12 +807,15 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
     <input type="hidden" name="access_key" value="645f7dca-b0f1-4469-9541-83dc7a825ec7">
     <input type="hidden" name="subject" value="New AI Assessment Request — Monkyfi Connect">
     <input type="hidden" name="from_name" value="Monkyfi Website Intake">
-    <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-    <div class="intake-progress" id="intakeProgress" aria-hidden="true">
-      <div class="bar active" data-step="0"></div>
-      <div class="bar" data-step="1"></div>
-      <div class="bar" data-step="2"></div>
+    <div class="intake-progress-wrap" id="intakeProgress">
+      <p class="intake-step-label" id="intakeStepLabel" aria-live="polite">Step 1 of 3</p>
+      <div class="intake-progress" aria-hidden="true">
+        <button type="button" class="bar active" data-step="0" tabindex="-1"></button>
+        <button type="button" class="bar" data-step="1" tabindex="-1"></button>
+        <button type="button" class="bar" data-step="2" tabindex="-1"></button>
+      </div>
     </div>
 
     <div class="intake-success" id="intakeSuccess" hidden>
@@ -908,8 +918,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
           </div>
           <span class="f-field-error" id="iq-explore-error" role="alert"></span>
         </div>
-        <div class="f-field full" id="humanField" style="margin-top:20px">
-          <label for="iq-human"><span data-i18n="intake.verify">Verification</span><span class="req" aria-hidden="true">*</span></label>
+        <div class="f-field full human-field" id="humanField">
           <label class="f-check">
             <input type="checkbox" id="iq-human" name="human_check" value="1" />
             <span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
@@ -1215,6 +1224,7 @@ if(intakeForm){
   let intakeSubmitting = false;
   let currentStep = 0;
   const TOTAL_STEPS = 3;
+  const intakeOpenedAt = Date.now();
 
   function toggleOtherField(selectId, wrapId, inputId, requiredWhenShown){
     const sel = document.getElementById(selectId);
@@ -1375,7 +1385,25 @@ if(intakeForm){
     }
   }
 
-  function showStep(step){
+  function stepLabelText(step){
+    return i18nT('intake.stepOf')
+      .replace('{n}', String(step + 1))
+      .replace('{total}', String(TOTAL_STEPS));
+  }
+
+  function focusStepStart(step){
+    const pane = document.getElementById('intakeStep' + step);
+    if(!pane) return;
+    const target = pane.querySelector('input.f-input, select.f-select, textarea, input[type="checkbox"]');
+    try{
+      if(target) target.focus({ preventScroll: true });
+    }catch(_){}
+    try{
+      (target || pane).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }catch(_){}
+  }
+
+  function showStep(step, opts){
     currentStep = step;
     intakeForm.querySelectorAll('.intake-step').forEach(function(el){
       const n = Number(el.getAttribute('data-step'));
@@ -1386,7 +1414,12 @@ if(intakeForm){
     intakeForm.querySelectorAll('.intake-progress .bar').forEach(function(bar){
       const n = Number(bar.getAttribute('data-step'));
       bar.classList.toggle('active', n <= step);
+      bar.classList.toggle('is-jump', n < step);
+      bar.disabled = n >= step;
+      bar.tabIndex = n < step ? 0 : -1;
     });
+    const label = document.getElementById('intakeStepLabel');
+    if(label) label.textContent = stepLabelText(step);
     const back = document.getElementById('intakeBack');
     const cont = document.getElementById('intakeContinue');
     const sub = document.getElementById('intakeSubmit');
@@ -1394,14 +1427,22 @@ if(intakeForm){
     if(cont) cont.hidden = step >= TOTAL_STEPS - 1;
     if(sub) sub.hidden = step < TOTAL_STEPS - 1;
     updateStepValidity();
+    if(opts && opts.focus) focusStepStart(step);
   }
 
+  intakeForm.querySelectorAll('.intake-progress .bar').forEach(function(bar){
+    bar.addEventListener('click', function(){
+      const n = Number(bar.getAttribute('data-step'));
+      if(n < currentStep) showStep(n, { focus: true });
+    });
+  });
+
   document.getElementById('intakeBack').addEventListener('click', function(){
-    if(currentStep > 0) showStep(currentStep - 1);
+    if(currentStep > 0) showStep(currentStep - 1, { focus: true });
   });
   document.getElementById('intakeContinue').addEventListener('click', function(){
     if(!isStepValid(currentStep)) return;
-    if(currentStep < TOTAL_STEPS - 1) showStep(currentStep + 1);
+    if(currentStep < TOTAL_STEPS - 1) showStep(currentStep + 1, { focus: true });
   });
 
   function resolveChoice(value, otherValue){
@@ -1457,12 +1498,13 @@ if(intakeForm){
     e.preventDefault();
     if(intakeSubmitting) return;
     if(currentStep !== TOTAL_STEPS - 1){
-      if(isStepValid(currentStep)) showStep(Math.min(currentStep + 1, TOTAL_STEPS - 1));
+      if(isStepValid(currentStep)) showStep(Math.min(currentStep + 1, TOTAL_STEPS - 1), { focus: true });
       return;
     }
     const status = document.getElementById('intakeStatus');
     const btn = document.getElementById('intakeSubmit');
     if(intakeForm.botcheck && intakeForm.botcheck.checked) return;
+    if(Date.now() - intakeOpenedAt < 2000) return;
     const fd = new FormData(intakeForm);
     const interests = fd.getAll('interest');
     clearIntakeErrors();
@@ -1577,8 +1619,10 @@ if(intakeForm){
   document.addEventListener('monkyfi:langchange', function(){
     const cont = document.getElementById('intakeContinue');
     const sub = document.getElementById('intakeSubmit');
+    const label = document.getElementById('intakeStepLabel');
     if(cont && !cont.hidden) cont.innerHTML = '<span data-i18n="intake.continue">' + i18nT('intake.continue') + '</span> <span class="arr">&#8594;</span>';
     if(sub && !sub.hidden && !intakeSubmitting) sub.innerHTML = intakeSubmitHtml();
+    if(label) label.textContent = stepLabelText(currentStep);
   });
 }
 </script>
