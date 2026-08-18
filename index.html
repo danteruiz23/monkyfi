@@ -488,7 +488,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .f-check:focus-within{outline:2px solid var(--cyan);outline-offset:2px;border-color:rgba(79,169,232,.4)}
 .f-field.is-error label{color:#fca5a5}
 .f-field.is-error .f-input,.f-field.is-error .f-select,.f-field.is-error .f-textarea{border-color:rgba(248,113,113,.7);box-shadow:0 0 0 1px rgba(248,113,113,.2)}
-.f-field.is-error .captcha-wrap{border-color:rgba(248,113,113,.7);box-shadow:0 0 0 1px rgba(248,113,113,.2)}
+.f-field.is-error .f-check{border-color:rgba(248,113,113,.7);box-shadow:0 0 0 1px rgba(248,113,113,.2)}
 .f-field-error{display:none;font-size:13px;color:#fca5a5;margin:0;line-height:1.35}
 .f-field.is-error .f-field-error{display:block}
 .f-char-count{font-size:13px;color:#64748b;text-align:right;margin-top:4px}
@@ -503,8 +503,6 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .f-check input{accent-color:var(--cyan);width:18px;height:18px;flex-shrink:0}
 .f-check input:checked + span{color:var(--cyan)}
 .f-field label small.select-hint{color:#EDEFF2;font-weight:400}
-.captcha-wrap{display:flex;align-items:center;min-height:56px;padding:0 18px;border-radius:12px;background:rgba(7,11,20,.5);border:1px solid var(--line);overflow:hidden}
-.captcha-wrap .h-captcha{display:flex;align-items:center;transform:scale(0.72);transform-origin:left center;height:56px}
 .intake-note{font-size:14px;color:#64748b;margin-top:16px}
 .intake-aside{font-size:14px;color:#64748b}
 .intake-status{display:none;margin-top:16px;padding:13px 16px;border-radius:10px;font-size:15.5px}
@@ -910,12 +908,14 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
           </div>
           <span class="f-field-error" id="iq-explore-error" role="alert"></span>
         </div>
-        <div class="f-field full" id="captchaField" style="margin-top:20px">
-          <label for="iq-captcha"><span data-i18n="intake.verify">Verification</span><span class="req" aria-hidden="true">*</span></label>
-          <div class="captcha-wrap">
-            <div class="h-captcha" id="iq-captcha" data-captcha="true" data-theme="dark"></div>
-          </div>
-          <span class="f-field-error" id="iq-captcha-error" role="alert"></span>
+        <div class="f-field full" id="humanField" style="margin-top:20px">
+          <label for="iq-human"><span data-i18n="intake.verify">Verification</span><span class="req" aria-hidden="true">*</span></label>
+          <label class="f-check">
+            <input type="checkbox" id="iq-human" name="human_check" value="1" />
+            <span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span class="label" data-i18n="intake.human">I'm human</span>
+          </label>
+          <span class="f-field-error" id="iq-human-error" role="alert"></span>
         </div>
       </div>
     </div>
@@ -1326,7 +1326,7 @@ if(intakeForm){
     updateStepValidity();
   });
   intakeForm.addEventListener('change', function(e){
-    if(e.target.matches('.f-select')){
+    if(e.target.matches('.f-select, input[type="checkbox"]')){
       var field = e.target.closest('.f-field');
       if(field && field.classList.contains('is-error')){
         field.classList.remove('is-error');
@@ -1359,7 +1359,8 @@ if(intakeForm){
     }
     if(step === 2){
       const interests = intakeForm.querySelectorAll('input[name="interest"]:checked');
-      return interests.length > 0;
+      const human = document.getElementById('iq-human');
+      return interests.length > 0 && !!(human && human.checked);
     }
     return false;
   }
@@ -1370,7 +1371,6 @@ if(intakeForm){
     const sub = document.getElementById('intakeSubmit');
     if(cont) cont.disabled = !valid || currentStep >= TOTAL_STEPS - 1;
     if(sub){
-      // captcha checked on submit; enable when explore valid
       sub.disabled = !isStepValid(2);
     }
   }
@@ -1489,29 +1489,15 @@ if(intakeForm){
       markError('iq-issue-other', i18nT('intake.js.specIssue'));
     }
     if(!interests.length) markError('iq-explore', i18nT('intake.js.reqExplore'));
+    const humanOk = document.getElementById('iq-human') && document.getElementById('iq-human').checked;
+    if(!humanOk) markError('iq-human', i18nT('intake.js.captcha'));
 
-    const captchaToken = (fd.get('h-captcha-response') || '').toString().trim();
-    if(!captchaToken){
-      var captchaField = document.getElementById('captchaField');
-      if(captchaField){
-        captchaField.classList.add('is-error');
-        var captchaErr = document.getElementById('iq-captcha-error');
-        if(captchaErr) captchaErr.textContent = i18nT('intake.js.captcha');
-      }
-    }
-
-    if(firstErrorInput || !captchaToken){
-      // jump to first invalid step
-      if(firstErrorInput){
-        const stepEl = firstErrorInput.closest('.intake-step');
-        if(stepEl) showStep(Number(stepEl.getAttribute('data-step')) || 0);
-      }
-      showIntakeStatus(status,'err', firstErrorInput ? i18nT('intake.js.fixErrors') : i18nT('intake.js.captcha'));
-      var scrollTarget = firstErrorInput || document.getElementById('captchaField');
-      if(scrollTarget){
-        try{ scrollTarget.focus({ preventScroll: true }); }catch(_){}
-        try{ scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'center' }); }catch(_){}
-      }
+    if(firstErrorInput){
+      const stepEl = firstErrorInput.closest('.intake-step');
+      if(stepEl) showStep(Number(stepEl.getAttribute('data-step')) || 0);
+      showIntakeStatus(status,'err', i18nT('intake.js.fixErrors'));
+      try{ firstErrorInput.focus({ preventScroll: true }); }catch(_){}
+      try{ firstErrorInput.scrollIntoView({ behavior: 'smooth', block: 'center' }); }catch(_){}
       return;
     }
 
@@ -1537,7 +1523,9 @@ if(intakeForm){
     status.className = 'intake-status';
     status.textContent = '';
     const payload = Object.fromEntries(fd);
-    payload['h-captcha-response'] = captchaToken;
+    delete payload.human_check;
+    delete payload.botcheck;
+    delete payload['h-captcha-response'];
     try{
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 15000);
@@ -1555,23 +1543,16 @@ if(intakeForm){
       showIntakeStatus(status,'ok', i18nT('intake.js.ok'));
       intakeForm.reset();
       clearIntakeErrors();
-      syncAllChecks();
       toggleOtherField('iq-segment', 'iq-segment-other-wrap', 'iq-segment-other', true);
       toggleOtherField('iq-issue', 'iq-issue-other-wrap', 'iq-issue-other', false);
-      if(window.hcaptcha && typeof window.hcaptcha.reset === 'function'){
-        try{ window.hcaptcha.reset(); }catch(_){}
-      }
+      syncAllChecks();
     }catch(err){
       console.error('web3forms error:', err);
-      const msg = (err && err.name === 'AbortError')
-        ? i18nT('intake.js.timeout')
-        : ((err && err.message) ? String(err.message) : i18nT('intake.js.fail'));
-      if(/captcha|mandatory|invalid|spam|rate|too may|too many/i.test(msg)){
-        showIntakeStatus(status,'err', /captcha/i.test(msg)
-          ? i18nT('intake.js.captcha')
-          : (/rate|too may|too many/i.test(msg)
-            ? i18nT('intake.js.rate')
-            : msg));
+      const msg = (err && err.message) ? String(err.message) : i18nT('intake.js.fail');
+      if(err && err.name === 'AbortError'){
+        showIntakeStatus(status,'err', i18nT('intake.js.timeout'));
+      } else if(/rate|too may|too many/i.test(msg)){
+        showIntakeStatus(status,'err', i18nT('intake.js.rate'));
       } else {
         const bodyLines = [
           'Name: ' + fd.get('name'), 'Email: ' + fd.get('email'),
@@ -1600,30 +1581,6 @@ if(intakeForm){
     if(sub && !sub.hidden && !intakeSubmitting) sub.innerHTML = intakeSubmitHtml();
   });
 }
-</script>
-<script>
-(function(){
-  const intake = document.getElementById('intake');
-  if(!intake) return;
-  let loaded = false;
-  function loadCaptcha(){
-    if(loaded) return;
-    loaded = true;
-    const s = document.createElement('script');
-    s.src = 'https://web3forms.com/client/script.js';
-    s.async = true;
-    s.defer = true;
-    document.body.appendChild(s);
-  }
-  if('IntersectionObserver' in window){
-    const io = new IntersectionObserver((entries)=>{
-      if(entries.some(e => e.isIntersecting)){ loadCaptcha(); io.disconnect(); }
-    }, { rootMargin: '200px 0px' });
-    io.observe(intake);
-  } else {
-    window.addEventListener('load', loadCaptcha, { once:true });
-  }
-})();
 </script>
 
 </body>
