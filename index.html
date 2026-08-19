@@ -157,8 +157,10 @@ p{line-height:1.65;color:#94a3b8;margin:0;font-size:16px}
 .glow{color:var(--cyan);text-shadow:0 0 24px rgba(79,169,232,.45)}
 .section-head{max-width:760px;margin:0 auto 48px;text-align:center}
 .section-head p{font-size:17px;margin-top:14px}
-.intake-chat-alt{color:#94a3b8 !important;font-size:16px !important;margin-top:10px !important}
+.intake-gold{color:var(--cream) !important;font-size:clamp(20px,2.4vw,28px) !important;font-weight:700 !important;line-height:1.25 !important;margin-top:16px !important;text-shadow:0 0 24px rgba(242,201,139,.4);letter-spacing:-.02em}
 .intake-chat-path{margin-top:20px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn-gold{background:rgba(242,201,139,.14);color:var(--cream);border:1px solid rgba(242,201,139,.55);box-shadow:0 0 18px rgba(242,201,139,.12)}
+.btn-gold:hover{transform:translateY(-2px);background:rgba(242,201,139,.24);color:var(--cream);border-color:var(--cream);box-shadow:0 0 28px rgba(242,201,139,.28)}
 
 .hero{position:relative;min-height:100vh;padding-top:140px;padding-bottom:60px;display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
 @media(max-width:980px){.hero{grid-template-columns:1fr;min-height:auto;padding-top:120px}}
@@ -362,6 +364,8 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .chat-suggestions{padding:0 18px 12px;display:flex;flex-wrap:wrap;gap:6px}
 .chip{padding:8px 13px;border-radius:99px;font-size:13.5px;color:#cbd5e1;background:rgba(20,38,68,.7);border:1px solid var(--line);cursor:pointer;transition:all .2s}
 .chip:hover{border-color:var(--cyan);color:var(--cyan)}
+.chip-gold{color:var(--cream);background:rgba(242,201,139,.12);border-color:rgba(242,201,139,.55);font-weight:600;box-shadow:0 0 18px rgba(242,201,139,.14)}
+.chip-gold:hover{color:var(--cream);border-color:var(--cream);background:rgba(242,201,139,.22);box-shadow:0 0 28px rgba(242,201,139,.28)}
 .chat-input-wrap{padding:14px 16px 16px;border-top:1px solid var(--line);background:rgba(10,20,38,.5);display:flex;gap:8px}
 .chat-input{flex-grow:1;background:rgba(7,11,20,.6);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:#EDEFF2;font-family:inherit;font-size:16px;outline:none;transition:border-color .2s}
 .chat-input:focus{border-color:var(--cyan)}
@@ -801,13 +805,13 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
   <div class="section-head">
     <span class="eyebrow"><span class="dot"></span><span data-i18n="intake.eyebrow">Start Here</span></span>
     <h2 style="margin-top:18px" data-i18n="intake.h2">Book Your AI Assessment</h2>
+    <p class="intake-gold" data-i18n="intake.chatAlt">The chatbot can help you complete this assessment</p>
     <p data-i18n="intake.lead">Tell us a little about your operation — it takes 2 minutes. We'll review it and reply within 24 hours with a recommended starting point.</p>
-    <p class="intake-chat-alt" data-i18n="intake.chatAlt">Fill in the form below, or let the chatbot help you complete the same details.</p>
     <div class="intake-chat-path">
       <button type="button" class="btn btn-primary" id="intakeFormCta" onclick="focusIntakeForm()">
         <span data-i18n="intake.formCta">Fill out the form</span>
       </button>
-      <button type="button" class="btn btn-ghost" id="intakeChatCta" onclick="startIntakeChat()">
+      <button type="button" class="btn btn-gold" id="intakeChatCta" onclick="startIntakeChat()">
         <span data-i18n="intake.chatCta">Complete it with the chatbot</span> <span class="arr">→</span>
       </button>
     </div>
@@ -956,7 +960,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
     <p data-i18n="contact.body">Let's identify where AI can create measurable value in your telecom or digital infrastructure operations.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
       <a href="#intake" class="btn btn-primary"><span data-i18n="contact.cta1">Book an AI Assessment</span> <span class="arr">→</span></a>
-      <button type="button" class="btn btn-ghost" onclick="startIntakeChat()"><span data-i18n="intake.chatCta">Complete it with the chatbot</span></button>
+      <button type="button" class="btn btn-gold" onclick="startIntakeChat()"><span data-i18n="intake.chatCta">Complete it with the chatbot</span></button>
       <a href="mailto:hello@monkyfi.com" class="btn btn-ghost" data-i18n="contact.cta2">Contact Monkyfi</a>
     </div>
   </div>
@@ -1019,10 +1023,10 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
     <div class="msg bot"><div class="msg-bubble" data-i18n="chat.welcome">Hey 👋 I'm the Monkyfi AI. Ask me about <strong>Connect</strong>, <strong>Atlas</strong>, or <strong>Sentinel</strong> — or I can take your <strong>AI Assessment</strong> intake right here.</div></div>
   </div>
   <div class="chat-suggestions" id="chatSuggestions">
+    <button class="chip chip-gold" data-i18n="chat.chip4" data-suggestion-key="chat.chip4.full" onclick="sendSuggestionI18n(this)">Help me complete the AI Assessment</button>
     <button class="chip" data-i18n="chat.chip1" data-suggestion-key="chat.chip1.full" onclick="sendSuggestionI18n(this)">What does Connect include?</button>
     <button class="chip" data-i18n="chat.chip2" data-suggestion-key="chat.chip2.full" onclick="sendSuggestionI18n(this)">How does the Atlas pilot work?</button>
     <button class="chip" data-i18n="chat.chip3" data-suggestion-key="chat.chip3.full" onclick="sendSuggestionI18n(this)">What happens on a discovery call?</button>
-    <button class="chip" data-i18n="chat.chip4" data-suggestion-key="chat.chip4.full" onclick="sendSuggestionI18n(this)">Help me book an AI Assessment</button>
   </div>
   <div class="chat-input-wrap">
     <input id="chatInput" class="chat-input" data-i18n-placeholder="chat.placeholder" placeholder="Ask about solutions — or start the AI Assessment…" autocomplete="off" />
