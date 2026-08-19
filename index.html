@@ -368,6 +368,11 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .chat-send:active{transform:scale(.95)}
 .chat-send:disabled{opacity:.4;cursor:not-allowed}
 .chat-send svg{width:18px;height:18px}
+.chat-cta{margin-top:2px;display:flex;flex-direction:column;gap:8px;max-width:88%}
+.chat-cta-hint{margin:0;font-size:13.5px;color:#94a3b8;line-height:1.45}
+.chat-cta-btn{appearance:none;border:none;border-radius:10px;padding:11px 14px;background:var(--cyan);color:var(--ink);font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;text-align:center}
+.chat-cta-btn:hover{box-shadow:0 0 18px rgba(79,169,232,.45)}
+.chat-cta-btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
 
 .intake-card{margin-top:0;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg, rgba(14,27,51,.7), rgba(10,20,38,.55));padding:40px 36px;max-width:860px;margin-left:auto;margin-right:auto}
 @media(max-width:600px){
@@ -999,15 +1004,16 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
     <button class="chat-close" type="button" onclick="closeChat()" aria-label="Close chat" data-i18n-aria="a11y.closeChat">×</button>
   </div>
   <div class="chat-body" id="chatBody">
-    <div class="msg bot"><div class="msg-bubble" data-i18n="chat.welcome">Hey 👋 I'm the Monkyfi AI. Ask me about <strong>Connect</strong> (available now), <strong>Atlas</strong> (pilot), <strong>Sentinel</strong> (coming soon), or how we work.</div></div>
+    <div class="msg bot"><div class="msg-bubble" data-i18n="chat.welcome">Hey 👋 I'm the Monkyfi AI. Ask me about <strong>Connect</strong>, <strong>Atlas</strong>, or <strong>Sentinel</strong> — or I can take your <strong>AI Assessment</strong> intake right here.</div></div>
   </div>
   <div class="chat-suggestions" id="chatSuggestions">
     <button class="chip" data-i18n="chat.chip1" data-suggestion-key="chat.chip1.full" onclick="sendSuggestionI18n(this)">What does Connect include?</button>
     <button class="chip" data-i18n="chat.chip2" data-suggestion-key="chat.chip2.full" onclick="sendSuggestionI18n(this)">How does the Atlas pilot work?</button>
     <button class="chip" data-i18n="chat.chip3" data-suggestion-key="chat.chip3.full" onclick="sendSuggestionI18n(this)">What happens on a discovery call?</button>
+    <button class="chip" data-i18n="chat.chip4" data-suggestion-key="chat.chip4.full" onclick="sendSuggestionI18n(this)">Help me book an AI Assessment</button>
   </div>
   <div class="chat-input-wrap">
-    <input id="chatInput" class="chat-input" data-i18n-placeholder="chat.placeholder" placeholder="Ask about solutions, pilots, or how we work…" autocomplete="off" />
+    <input id="chatInput" class="chat-input" data-i18n-placeholder="chat.placeholder" placeholder="Ask about solutions — or start the AI Assessment…" autocomplete="off" />
     <button class="chat-send" id="chatSend" onclick="sendMessage()" aria-label="Send" data-i18n-aria="a11y.send">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
     </button>
@@ -1180,6 +1186,64 @@ function appendTyping(){
 }
 function removeTyping(){ const t = document.getElementById('typing-indicator'); if(t) t.remove(); }
 
+function removeIntakeSendCta(){
+  const wrap = document.getElementById('chatIntakeSendWrap');
+  if(wrap) wrap.remove();
+}
+function showIntakeSendCta(){
+  if(!window.MonkyfiIntake || typeof window.MonkyfiIntake.canSubmit !== 'function') return;
+  if(!window.MonkyfiIntake.canSubmit()) return;
+  if(document.getElementById('chatIntakeSendWrap')) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'chat-cta';
+  wrap.id = 'chatIntakeSendWrap';
+  const hint = document.createElement('p');
+  hint.className = 'chat-cta-hint';
+  hint.setAttribute('data-i18n', 'chat.intake.confirmHint');
+  hint.textContent = i18nT('chat.intake.confirmHint');
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'chat-cta-btn';
+  btn.id = 'chatIntakeSend';
+  btn.setAttribute('data-i18n', 'chat.intake.send');
+  btn.textContent = i18nT('chat.intake.send');
+  btn.addEventListener('click', submitIntakeFromChat);
+  wrap.appendChild(hint);
+  wrap.appendChild(btn);
+  body.appendChild(wrap);
+  body.scrollTop = body.scrollHeight;
+}
+async function submitIntakeFromChat(){
+  const btn = document.getElementById('chatIntakeSend');
+  if(!window.MonkyfiIntake || typeof window.MonkyfiIntake.submitFromChat !== 'function') return;
+  if(btn){
+    btn.disabled = true;
+    btn.textContent = i18nT('chat.intake.sending');
+  }
+  try{
+    const result = await window.MonkyfiIntake.submitFromChat();
+    if(result && result.ok){
+      removeIntakeSendCta();
+      const msg = i18nT('chat.intake.sent');
+      append('bot', msg);
+      history.push({ role: 'assistant', content: msg });
+      return;
+    }
+    if(result && result.error === 'incomplete'){
+      append('bot', i18nT('chat.intake.incomplete'));
+    } else {
+      append('bot', i18nT('chat.intake.sendError'));
+    }
+  }catch(err){
+    console.error('chat intake submit:', err);
+    append('bot', i18nT('chat.intake.sendError'));
+  }
+  if(btn){
+    btn.disabled = false;
+    btn.textContent = i18nT('chat.intake.send');
+  }
+}
+
 async function sendMessage(){
   const text = input.value.trim();
   if(!text) return;
@@ -1189,7 +1253,16 @@ async function sendMessage(){
   document.getElementById('chatSuggestions').style.display='none';
   appendTyping();
   try{
-    const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: history }) });
+    const payload = { messages: history };
+    try{
+      if(window.MonkyfiI18n && typeof window.MonkyfiI18n.getLang === 'function'){
+        payload.lang = window.MonkyfiI18n.getLang();
+      }
+      if(window.MonkyfiIntake && typeof window.MonkyfiIntake.snapshot === 'function'){
+        payload.intake = window.MonkyfiIntake.snapshot();
+      }
+    }catch(_){}
+    const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     if(!res.ok) throw new Error('API ' + res.status);
     const data = await res.json();
     const reply = (data && data.text) ? data.text : '';
@@ -1197,6 +1270,11 @@ async function sendMessage(){
     removeTyping();
     history.push({role:'assistant', content:reply});
     append('bot', reply);
+    if(data && data.intake && window.MonkyfiIntake && typeof window.MonkyfiIntake.apply === 'function'){
+      window.MonkyfiIntake.apply(data.intake);
+      if(data.intake.ready_to_submit) showIntakeSendCta();
+      else if(!window.MonkyfiIntake.canSubmit()) removeIntakeSendCta();
+    }
   }catch(err){
     console.error('chat error:', err);
     removeTyping();
@@ -1453,16 +1531,74 @@ if(intakeForm){
     }
   }
 
-  intakeForm.addEventListener('submit', async function(e){
-    e.preventDefault();
-    if(intakeSubmitting) return;
-    if(currentStep !== TOTAL_STEPS - 1){
-      if(isStepValid(currentStep)) showStep(Math.min(currentStep + 1, TOTAL_STEPS - 1));
-      return;
+  let chatNotes = '';
+  let intakeDone = false;
+  function fieldVal(id){
+    const el = document.getElementById(id);
+    return el ? String(el.value || '').trim() : '';
+  }
+  function setFieldVal(id, value){
+    const el = document.getElementById(id);
+    if(!el || value == null) return;
+    el.value = value;
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+    el.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+  function snapshotIntake(){
+    const interests = Array.from(intakeForm.querySelectorAll('input[name="interest"]:checked')).map(function(el){ return el.value; });
+    const data = {};
+    const name = fieldVal('iq-name'); if(name) data.name = name;
+    const email = fieldVal('iq-email'); if(email) data.email = email;
+    const phone = fieldVal('iq-phone'); if(phone && phoneOk(phone)) data.phone = phone;
+    const company = fieldVal('iq-company'); if(company) data.company = company;
+    const segment = fieldVal('iq-segment'); if(segment) data.segment = segment;
+    const segmentOther = fieldVal('iq-segment-other'); if(segmentOther) data.segment_other = segmentOther;
+    const size = fieldVal('iq-size'); if(size) data.size = size;
+    const issue = fieldVal('iq-issue'); if(issue) data.issue = issue;
+    const issueOther = fieldVal('iq-issue-other'); if(issueOther) data.issue_other = issueOther;
+    if(interests.length) data.interests = interests;
+    if(chatNotes) data.notes = chatNotes;
+    return data;
+  }
+  function applyIntake(fields){
+    if(intakeDone || !fields || typeof fields !== 'object') return;
+    if(fields.name) setFieldVal('iq-name', fields.name);
+    if(fields.email) setFieldVal('iq-email', fields.email);
+    if(fields.phone) setFieldVal('iq-phone', fields.phone);
+    if(fields.company) setFieldVal('iq-company', fields.company);
+    if(fields.segment) setFieldVal('iq-segment', fields.segment);
+    if(fields.segment_other) setFieldVal('iq-segment-other', fields.segment_other);
+    if(fields.size) setFieldVal('iq-size', fields.size);
+    if(fields.issue) setFieldVal('iq-issue', fields.issue);
+    if(fields.issue_other) setFieldVal('iq-issue-other', fields.issue_other);
+    if(Array.isArray(fields.interests)){
+      intakeForm.querySelectorAll('input[name="interest"]').forEach(function(cb){
+        cb.checked = fields.interests.indexOf(cb.value) !== -1;
+        const label = cb.closest('.f-check');
+        if(label) syncCheckVisual(label);
+      });
     }
+    if(typeof fields.notes === 'string' && fields.notes.trim()) chatNotes = fields.notes.trim().slice(0, 500);
+    const phoneEl = document.getElementById('iq-phone');
+    if(fields.ready_to_submit && phoneEl && phoneEl.value && !phoneOk(phoneEl.value)){
+      setFieldVal('iq-phone', '');
+    }
+    let step = 0;
+    if(fields.company || fields.segment || fields.size || fields.issue) step = 1;
+    if(fields.interests || fields.ready_to_submit) step = 2;
+    if(step > currentStep) showStep(step);
+    else updateStepValidity();
+  }
+  function canSubmitIntake(){
+    if(intakeDone || intakeSubmitting) return false;
+    const human = document.getElementById('iq-human');
+    return isStepValid(0) && isStepValid(1) && (intakeForm.querySelectorAll('input[name="interest"]:checked').length > 0) && !!(human);
+  }
+  async function runIntakeSubmit(opts){
+    const fromChat = !!(opts && opts.fromChat);
     const status = document.getElementById('intakeStatus');
     const btn = document.getElementById('intakeSubmit');
-    if(intakeForm.botcheck && intakeForm.botcheck.checked) return;
+    if(intakeForm.botcheck && intakeForm.botcheck.checked) return { ok: false, error: 'spam' };
     const fd = new FormData(intakeForm);
     const interests = fd.getAll('interest');
     clearIntakeErrors();
@@ -1472,7 +1608,6 @@ if(intakeForm){
       if(el && !firstErrorInput) firstErrorInput = el;
     }
 
-    // Full validation across all steps
     if(!(fd.get('name') || '').toString().trim()) markError('iq-name', i18nT('intake.js.reqName'));
     const emailVal = String(fd.get('email') || '').trim();
     if(!emailVal) markError('iq-email', i18nT('intake.js.reqEmail'));
@@ -1498,28 +1633,35 @@ if(intakeForm){
       showIntakeStatus(status,'err', i18nT('intake.js.fixErrors'));
       try{ firstErrorInput.focus({ preventScroll: true }); }catch(_){}
       try{ firstErrorInput.scrollIntoView({ behavior: 'smooth', block: 'center' }); }catch(_){}
-      return;
+      return { ok: false, error: 'incomplete' };
     }
 
     const segment = resolveChoice(fd.get('segment'), fd.get('segment_other'));
     const size = fd.get('size');
     const issueRaw = fd.get('issue');
     const issue = issueRaw ? resolveChoice(issueRaw, fd.get('issue_other')) : '(not specified)';
+    const source = fromChat ? 'Website chatbot' : 'Website form';
     fd.set('segment', segment);
     fd.set('size', size);
     fd.set('issue', issue);
     fd.set('interests', interests.join(', ') || '(none selected)');
     fd.set('phone', phoneVal || '(not provided)');
-    fd.set('message', [
+    fd.set('intake_source', source);
+    const messageLines = [
       'New AI Assessment request from monkyfi.com',
+      'Source: ' + source,
       '', 'Company: ' + fd.get('company'), 'Operation type: ' + segment,
       'Company size: ' + size, 'Biggest issue: ' + issue,
       'Phone: ' + (phoneVal || '(not provided)'),
       'Interested in: ' + (interests.join(', ') || '(none selected)')
-    ].join('\n'));
+    ];
+    if(chatNotes) messageLines.push('Notes: ' + chatNotes);
+    fd.set('message', messageLines.join('\n'));
     intakeSubmitting = true;
-    btn.disabled = true;
-    btn.innerHTML = '<span>' + i18nT('intake.js.sending') + '</span>';
+    if(btn){
+      btn.disabled = true;
+      btn.innerHTML = '<span>' + i18nT('intake.js.sending') + '</span>';
+    }
     status.className = 'intake-status';
     status.textContent = '';
     const payload = Object.fromEntries(fd);
@@ -1538,21 +1680,31 @@ if(intakeForm){
       clearTimeout(timeout);
       const data = await res.json().catch(() => ({}));
       if(!res.ok || !data.success) throw new Error(data.message || ('API ' + res.status));
-      trackEvent('Intake Submit Success');
+      trackEvent(fromChat ? 'Intake Submit Success Chat' : 'Intake Submit Success');
+      intakeDone = true;
       showSuccess(String(fd.get('name') || ''), emailVal);
       showIntakeStatus(status,'ok', i18nT('intake.js.ok'));
       intakeForm.reset();
+      chatNotes = '';
       clearIntakeErrors();
       toggleOtherField('iq-segment', 'iq-segment-other-wrap', 'iq-segment-other', true);
       toggleOtherField('iq-issue', 'iq-issue-other-wrap', 'iq-issue-other', false);
       syncAllChecks();
+      intakeSubmitting = false;
+      return { ok: true };
     }catch(err){
       console.error('web3forms error:', err);
       const msg = (err && err.message) ? String(err.message) : i18nT('intake.js.fail');
       if(err && err.name === 'AbortError'){
         showIntakeStatus(status,'err', i18nT('intake.js.timeout'));
+        intakeSubmitting = false;
+        if(btn){ btn.disabled = false; btn.innerHTML = intakeSubmitHtml(); }
+        return { ok: false, error: 'timeout' };
       } else if(/rate|too may|too many/i.test(msg)){
         showIntakeStatus(status,'err', i18nT('intake.js.rate'));
+        intakeSubmitting = false;
+        if(btn){ btn.disabled = false; btn.innerHTML = intakeSubmitHtml(); }
+        return { ok: false, error: 'rate' };
       } else {
         const bodyLines = [
           'Name: ' + fd.get('name'), 'Email: ' + fd.get('email'),
@@ -1560,18 +1712,49 @@ if(intakeForm){
           'Company: ' + fd.get('company'),
           'Operation: ' + segment, 'Size: ' + size, 'Biggest issue: ' + issue,
           'Interested in: ' + (interests.join(', ') || '(none selected)')
-        ].join('\n');
-        const mail = 'mailto:hello@monkyfi.com?subject=' + encodeURIComponent('AI Assessment Request — ' + fd.get('company')) + '&body=' + encodeURIComponent(bodyLines);
+        ];
+        if(chatNotes) bodyLines.push('Notes: ' + chatNotes);
+        const mail = 'mailto:hello@monkyfi.com?subject=' + encodeURIComponent('AI Assessment Request — ' + fd.get('company')) + '&body=' + encodeURIComponent(bodyLines.join('\n'));
         window.location.href = mail;
         showIntakeStatus(status,'ok', i18nT('intake.js.mailOpened'));
+        intakeSubmitting = false;
+        if(btn){ btn.disabled = false; btn.innerHTML = intakeSubmitHtml(); }
+        return { ok: true, fallback: 'mailto' };
       }
-      intakeSubmitting = false;
-      btn.disabled = false;
-      btn.innerHTML = intakeSubmitHtml();
+    }
+  }
+
+  intakeForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    if(intakeSubmitting) return;
+    if(currentStep !== TOTAL_STEPS - 1){
+      if(isStepValid(currentStep)) showStep(Math.min(currentStep + 1, TOTAL_STEPS - 1));
       return;
     }
-    intakeSubmitting = false;
+    await runIntakeSubmit({ fromChat: false });
   });
+
+  async function submitIntakeFromFormChat(){
+    if(intakeSubmitting || intakeDone) return { ok: false, error: 'busy' };
+    if(!isStepValid(0) || !isStepValid(1) || intakeForm.querySelectorAll('input[name="interest"]:checked').length === 0){
+      return { ok: false, error: 'incomplete' };
+    }
+    const human = document.getElementById('iq-human');
+    if(human){
+      human.checked = true;
+      const label = human.closest('.f-check');
+      if(label) syncCheckVisual(label);
+    }
+    showStep(2);
+    return runIntakeSubmit({ fromChat: true });
+  }
+
+  window.MonkyfiIntake = {
+    snapshot: snapshotIntake,
+    apply: applyIntake,
+    canSubmit: canSubmitIntake,
+    submitFromChat: submitIntakeFromFormChat
+  };
 
   showStep(0);
   document.addEventListener('monkyfi:langchange', function(){
@@ -1579,6 +1762,10 @@ if(intakeForm){
     const sub = document.getElementById('intakeSubmit');
     if(cont && !cont.hidden) cont.innerHTML = '<span data-i18n="intake.continue">' + i18nT('intake.continue') + '</span> <span class="arr">&#8594;</span>';
     if(sub && !sub.hidden && !intakeSubmitting) sub.innerHTML = intakeSubmitHtml();
+    const chatSend = document.getElementById('chatIntakeSend');
+    const chatHint = document.querySelector('#chatIntakeSendWrap .chat-cta-hint');
+    if(chatSend && !chatSend.disabled) chatSend.textContent = i18nT('chat.intake.send');
+    if(chatHint) chatHint.textContent = i18nT('chat.intake.confirmHint');
   });
 }
 </script>
