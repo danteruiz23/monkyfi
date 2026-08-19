@@ -158,7 +158,7 @@ p{line-height:1.65;color:#94a3b8;margin:0;font-size:16px}
 .section-head{max-width:760px;margin:0 auto 48px;text-align:center}
 .section-head p{font-size:17px;margin-top:14px}
 .intake-chat-alt{color:#94a3b8 !important;font-size:16px !important;margin-top:10px !important}
-.intake-chat-path{margin-top:20px;display:flex;justify-content:center}
+.intake-chat-path{margin-top:20px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
 
 .hero{position:relative;min-height:100vh;padding-top:140px;padding-bottom:60px;display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
 @media(max-width:980px){.hero{grid-template-columns:1fr;min-height:auto;padding-top:120px}}
@@ -804,6 +804,9 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
     <p data-i18n="intake.lead">Tell us a little about your operation — it takes 2 minutes. We'll review it and reply within 24 hours with a recommended starting point.</p>
     <p class="intake-chat-alt" data-i18n="intake.chatAlt">Fill in the form below, or let the chatbot help you complete the same details.</p>
     <div class="intake-chat-path">
+      <button type="button" class="btn btn-primary" id="intakeFormCta" onclick="focusIntakeForm()">
+        <span data-i18n="intake.formCta">Fill out the form</span>
+      </button>
       <button type="button" class="btn btn-ghost" id="intakeChatCta" onclick="startIntakeChat()">
         <span data-i18n="intake.chatCta">Complete it with the chatbot</span> <span class="arr">→</span>
       </button>
@@ -953,6 +956,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
     <p data-i18n="contact.body">Let's identify where AI can create measurable value in your telecom or digital infrastructure operations.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
       <a href="#intake" class="btn btn-primary"><span data-i18n="contact.cta1">Book an AI Assessment</span> <span class="arr">→</span></a>
+      <button type="button" class="btn btn-ghost" onclick="startIntakeChat()"><span data-i18n="intake.chatCta">Complete it with the chatbot</span></button>
       <a href="mailto:hello@monkyfi.com" class="btn btn-ghost" data-i18n="contact.cta2">Contact Monkyfi</a>
     </div>
   </div>
@@ -1294,8 +1298,23 @@ async function sendMessage(){
 window.sendMessage = sendMessage;
 function sendSuggestion(text){ input.value = text; sendMessage(); }
 window.sendSuggestion = sendSuggestion;
+function focusIntakeForm(){
+  var form = document.getElementById('intakeForm');
+  var el = document.getElementById('iq-name');
+  if(form){
+    try{ form.scrollIntoView({ behavior: 'smooth', block: 'start' }); }catch(_){}
+  }
+  if(el){
+    setTimeout(function(){
+      try{ el.focus({ preventScroll: true }); }catch(_){ try{ el.focus(); }catch(__){} }
+    }, 280);
+  }
+}
+window.focusIntakeForm = focusIntakeForm;
 function startIntakeChat(){
   openChat();
+  var alreadyAsked = history.some(function(m){ return m.role === 'user'; });
+  if(alreadyAsked) return;
   var text = i18nT('chat.chip4.full');
   if(!text || text === 'chat.chip4.full'){
     text = "I'd like to complete the Book an AI Assessment intake with you.";
