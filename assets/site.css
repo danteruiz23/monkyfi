@@ -494,3 +494,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 @media(max-width:560px){.cap-tiles{grid-template-columns:1fr}}
 .coming-pair{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:40px}
 @media(max-width:900px){.coming-pair{grid-template-columns:1fr}}
+.connect-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding:48px 0 20px}
+@media(max-width:900px){.connect-hero{grid-template-columns:1fr;gap:28px}}
+.connect-visual{min-height:280px;border-radius:22px;border:1px solid rgba(79,169,232,.35);background:radial-gradient(circle at 30% 30%, rgba(79,169,232,.18), rgba(10,20,38,.9) 62%);display:flex;align-items:center;justify-content:center;box-shadow:0 0 48px rgba(79,169,232,.12)}
+.connect-visual svg{width:min(220px,70%);height:auto}
