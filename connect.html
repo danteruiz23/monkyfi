@@ -40,6 +40,7 @@
       <a href="#process" data-i18n="nav.process">How We Work</a>
       <a href="index.html#founder" data-i18n="nav.about">About</a>
       <a href="#contact" data-i18n="nav.contact">Contact</a>
+      <a href="assets/monkyfi-brochure.pdf?v=20260813" class="nav-mobile-extra" download="Monkyfi-Brochure.pdf" data-i18n="nav.brochure">Brochure</a>
     </div>
     <div class="nav-end">
       <div class="lang-switch" id="langSwitch">
@@ -53,7 +54,7 @@
         </div>
       </div>
       <a href="assets/monkyfi-brochure.pdf?v=20260813" class="nav-brochure" download="Monkyfi-Brochure.pdf" data-i18n="nav.brochure">Brochure</a>
-      <a href="#intake" class="nav-cta"><span class="cta-full" data-i18n="nav.cta">Book an AI Assessment</span><span class="cta-short" data-i18n="nav.ctaShort">Book Assessment</span></a>
+      <a href="/#intake" class="nav-cta"><span class="cta-full" data-i18n="nav.cta">Book an AI Assessment</span><span class="cta-short" data-i18n="nav.ctaShort">Book Assessment</span></a>
       <button class="nav-toggle" id="navToggle" type="button" aria-label="Menu" data-i18n-aria="a11y.menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -62,13 +63,24 @@
 
 <main id="main-content" tabindex="-1">
 <section class="page-hero" id="top">
-  <span class="eyebrow"><span class="dot"></span><span data-i18n="pageconnect.eyebrow">Monkyfi Connect · Available now</span></span>
-  <h1 data-i18n="pageconnect.h1">Consulting first. A clear path to AI.</h1>
-  <p class="connect-kicker" data-i18n="connect.sub">AI &amp; Telecom Consulting</p>
-  <p class="lead" data-i18n="connect.tagline">Practical telecom and AI consulting designed to identify operational opportunities, improve service delivery, and create a roadmap for AI adoption.</p>
-  <div class="hero-ctas">
-    <a href="#intake" class="btn btn-primary"><span data-i18n="intake.formCta">Fill out the form</span> <span class="arr">→</span></a>
-    <button type="button" class="btn btn-gold" onclick="startIntakeChat()"><span data-i18n="intake.chatCta">Complete it with the chatbot</span> <span class="arr">→</span></button>
+  <div class="connect-hero">
+    <div>
+      <span class="eyebrow"><span class="dot"></span><span data-i18n="pageconnect.eyebrow">Monkyfi Connect · Available now</span></span>
+      <h1 data-i18n="pageconnect.h1">Monkyfi Connect</h1>
+      <p class="connect-kicker" data-i18n="connect.sub">AI &amp; Telecom Consulting</p>
+      <p class="lead" data-i18n="connect.tagline">Practical telecom and AI consulting designed to identify operational opportunities, improve service delivery, and create a roadmap for AI adoption.</p>
+      <div class="hero-ctas">
+        <button type="button" class="btn btn-gold" onclick="startIntakeChat()"><span data-i18n="intake.chatCta">Complete it with the chatbot</span> <span class="arr">→</span></button>
+        <a href="/#intake" class="btn btn-ghost" data-i18n="pageconnect.heroCtaHome">Book the assessment on the homepage</a>
+      </div>
+    </div>
+    <div class="connect-visual" aria-hidden="true">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#4FA9E8" stroke-width="2.2" stroke-linecap="round">
+        <circle cx="14" cy="14" r="5"/><circle cx="50" cy="14" r="5"/><circle cx="14" cy="50" r="5"/><circle cx="50" cy="50" r="5"/>
+        <circle cx="32" cy="32" r="6.5" fill="#4FA9E8" fill-opacity=".2"/>
+        <line x1="18" y1="17" x2="28" y2="29"/><line x1="46" y1="17" x2="36" y2="29"/><line x1="18" y1="47" x2="28" y2="35"/><line x1="46" y1="47" x2="36" y2="35"/>
+      </svg>
+    </div>
   </div>
 </section>
 
@@ -150,22 +162,8 @@
   </div>
 </section>
 
-<section id="intake">
-  <div class="section-head">
-    <span class="eyebrow"><span class="dot"></span><span data-i18n="intake.eyebrow">Start Here</span></span>
-    <h2 style="margin-top:18px" data-i18n="intake.h2">Book Your AI Assessment</h2>
-    <p class="intake-gold" data-i18n="intake.chatAlt">The chatbot can help you complete this assessment</p>
-    <p data-i18n="intake.lead">Tell us a little about your operation — it takes 2 minutes. We'll review it and reply within 24 hours with a recommended starting point.</p>
-    <div class="intake-chat-path">
-      <button type="button" class="btn btn-primary" id="intakeFormCta" onclick="focusIntakeForm()">
-        <span data-i18n="intake.formCta">Fill out the form</span>
-      </button>
-      <button type="button" class="btn btn-gold" id="intakeChatCta" onclick="startIntakeChat()">
-        <span data-i18n="intake.chatCta">Complete it with the chatbot</span> <span class="arr">→</span>
-      </button>
-    </div>
-  </div>
-  <form class="intake-card reveal" id="intakeForm" novalidate>
+<section id="intake" hidden>
+  <form class="intake-card" id="intakeForm" novalidate aria-hidden="true">
     <input type="hidden" name="access_key" value="645f7dca-b0f1-4469-9541-83dc7a825ec7">
     <input type="hidden" name="subject" value="New AI Assessment Request — Monkyfi Connect">
     <input type="hidden" name="from_name" value="Monkyfi Website Intake">
@@ -308,8 +306,8 @@
     <h2 style="margin-top:14px" data-i18n="contact.h2">Ready to Get AI Power?</h2>
     <p data-i18n="contact.body">Let's identify where AI can create measurable value in your telecom or digital infrastructure operations.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <a href="#intake" class="btn btn-primary"><span data-i18n="contact.cta1">Book an AI Assessment</span> <span class="arr">→</span></a>
       <button type="button" class="btn btn-gold" onclick="startIntakeChat()"><span data-i18n="intake.chatCta">Complete it with the chatbot</span></button>
+      <a href="/#intake" class="btn btn-ghost" data-i18n="pageconnect.heroCtaHome">Book the assessment on the homepage</a>
       <a href="mailto:hello@monkyfi.com" class="btn btn-ghost" data-i18n="contact.cta2">Contact Monkyfi</a>
     </div>
   </div>
