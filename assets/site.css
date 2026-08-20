@@ -92,13 +92,12 @@ a.brand:hover{color:inherit}
   .nav-brochure{display:none}
   .nav-mobile-extra{display:block}
   .brand{gap:8px}
-  .brand-text small{display:none}
+  .brand-text small{font-size:9px;letter-spacing:.12em;margin-top:3px}
   .nav-cta{padding:8px 10px;font-size:12.5px;flex-shrink:0}
   .nav-cta .cta-full{display:none}
   .nav-cta .cta-short{display:inline}
 }
 @media(max-width:560px){
-  .brand-text{display:none}
   .lang-btn .chev{display:none}
   .lang-btn{padding:8px 9px}
 }
