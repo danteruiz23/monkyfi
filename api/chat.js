@@ -15,6 +15,10 @@ import {
 } from '../lib/intake-fields.js';
 
 // --- Allowed origins (restrict CORS to your own domains) ---
+// Same-origin chat: the Claude widget lives on this project (/connect).
+// Public brochure hosts (including github.com/danteruiz23/Monkyfi-demo)
+// must open https://www.monkyfi.com/connect?chat=intake instead of calling
+// this API from another origin. Do not add GitHub Pages or third-party demo hosts.
 const ALLOWED_ORIGINS = [
   'https://monkyfi.com',
   'https://www.monkyfi.com',
