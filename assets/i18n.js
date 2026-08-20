@@ -70,6 +70,21 @@
     "connect.c5": "Data Readiness for AI",
     "connect.c6": "AI Strategy & Advisory",
     "connect.cta": "Explore Connect <span class=\"arr\">→</span>",
+    "pageconnect.meta.title": "Monkyfi Connect — AI & Telecom Consulting",
+    "pageconnect.meta.description": "Practical telecom and AI consulting: AI readiness, service delivery, and a roadmap for AI adoption. Book an AI Assessment or complete it with the Monkyfi chatbot.",
+    "pageconnect.eyebrow": "Monkyfi Connect · Available now",
+    "pageconnect.h1": "Consulting first. A clear path to AI.",
+    "pageconnect.what.eyebrow": "What you receive",
+    "pageconnect.what.h2": "A human-reviewed starting point",
+    "pageconnect.d1.title": "AI readiness readout",
+    "pageconnect.d1.body": "Where AI can help your operation, based on the company-level context you share — not a black-box score.",
+    "pageconnect.d2.title": "Sequenced roadmap",
+    "pageconnect.d2.body": "What to fix first, what to pilot next, and what to leave for later.",
+    "pageconnect.d3.title": "Recommended next step",
+    "pageconnect.d3.body": "A practical starting point from the Monkyfi team within 24 hours. Reviewed by a human.",
+    "pageconnect.note": "Company-level information only. Do not send customer personal data, credentials, or detailed network diagrams at this stage.",
+    "pageconnect.next.eyebrow": "What's ahead",
+    "pageconnect.next.h2": "Pilots and platform when you are ready",
     "atlas.sub": "Agentic AI for Network Operations",
     "atlas.tagline": "An AI copilot designed to help Network Operations Center teams understand incidents, search operational knowledge, correlate events, accelerate troubleshooting, and recommend next actions.",
     "atlas.c1": "Alarm & incident analysis",
@@ -329,6 +344,21 @@
     "connect.c5": "Datos listos para IA",
     "connect.c6": "Estrategia y asesoría de IA",
     "connect.cta": "Explorar Connect <span class=\"arr\">→</span>",
+    "pageconnect.meta.title": "Monkyfi Connect — Consultoría de IA y telecom",
+    "pageconnect.meta.description": "Consultoría práctica de telecom e IA: preparación, entrega de servicio y un roadmap de adopción. Agenda una evaluación de IA o complétala con el chatbot de Monkyfi.",
+    "pageconnect.eyebrow": "Monkyfi Connect · Disponible ahora",
+    "pageconnect.h1": "Primero consultoría. Un camino claro hacia la IA.",
+    "pageconnect.what.eyebrow": "Qué recibes",
+    "pageconnect.what.h2": "Un punto de partida revisado por un humano",
+    "pageconnect.d1.title": "Lectura de preparación para IA",
+    "pageconnect.d1.body": "Dónde la IA puede ayudar a tu operación, con el contexto de empresa que compartes — no una puntuación opaca.",
+    "pageconnect.d2.title": "Roadmap secuenciado",
+    "pageconnect.d2.body": "Qué corregir primero, qué pilotar después y qué dejar para más adelante.",
+    "pageconnect.d3.title": "Siguiente paso recomendado",
+    "pageconnect.d3.body": "Un punto de partida práctico del equipo Monkyfi en 24 horas. Revisado por un humano.",
+    "pageconnect.note": "Solo información a nivel de empresa. No envíes datos personales de clientes, credenciales ni diagramas detallados de red en esta etapa.",
+    "pageconnect.next.eyebrow": "Lo que sigue",
+    "pageconnect.next.h2": "Pilotos y plataforma cuando estés listo",
     "atlas.sub": "IA agéntica para operaciones de red",
     "atlas.tagline": "Un copiloto de IA diseñado para ayudar a equipos de Network Operations Center a entender incidentes, buscar conocimiento operativo, correlacionar eventos, acelerar el troubleshooting y recomendar siguientes acciones.",
     "atlas.c1": "Análisis de alarmas e incidentes",
@@ -588,6 +618,21 @@
     "connect.c5": "Dados prontos para IA",
     "connect.c6": "Estratégia e consultoria de IA",
     "connect.cta": "Explorar Connect <span class=\"arr\">→</span>",
+    "pageconnect.meta.title": "Monkyfi Connect — Consultoria de IA e telecom",
+    "pageconnect.meta.description": "Consultoria prática de telecom e IA: prontidão, entrega de serviço e um roadmap de adoção. Agende uma avaliação de IA ou complete com o chatbot da Monkyfi.",
+    "pageconnect.eyebrow": "Monkyfi Connect · Disponível agora",
+    "pageconnect.h1": "Consultoria primeiro. Um caminho claro para a IA.",
+    "pageconnect.what.eyebrow": "O que você recebe",
+    "pageconnect.what.h2": "Um ponto de partida revisado por uma pessoa",
+    "pageconnect.d1.title": "Leitura de prontidão para IA",
+    "pageconnect.d1.body": "Onde a IA pode ajudar a sua operação, com o contexto da empresa que você compartilha — não uma pontuação opaca.",
+    "pageconnect.d2.title": "Roadmap sequenciado",
+    "pageconnect.d2.body": "O que corrigir primeiro, o que pilotar em seguida e o que deixar para depois.",
+    "pageconnect.d3.title": "Próximo passo recomendado",
+    "pageconnect.d3.body": "Um ponto de partida prático da equipe Monkyfi em 24 horas. Revisado por uma pessoa.",
+    "pageconnect.note": "Apenas informação no nível da empresa. Não envie dados pessoais de clientes, credenciais nem diagramas detalhados de rede nesta etapa.",
+    "pageconnect.next.eyebrow": "O que vem a seguir",
+    "pageconnect.next.h2": "Pilotos e plataforma quando você estiver pronto",
     "atlas.sub": "IA agêntica para operações de rede",
     "atlas.tagline": "Um copiloto de IA projetado para ajudar equipes de Network Operations Center a entender incidentes, buscar conhecimento operacional, correlacionar eventos, acelerar o troubleshooting e recomendar próximas ações.",
     "atlas.c1": "Análise de alarmes e incidentes",
@@ -797,6 +842,7 @@
     currentLang = lang;
     var dict = I18N[lang];
     document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      if (el.tagName === 'META') return;
       var key = el.getAttribute('data-i18n');
       if (dict[key] !== undefined) el.innerHTML = dict[key];
     });
@@ -819,7 +865,10 @@
       }
     });
     var metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc && dict['meta.description']) metaDesc.setAttribute('content', dict['meta.description']);
+    if (metaDesc) {
+      var descKey = metaDesc.getAttribute('data-i18n') || 'meta.description';
+      if (dict[descKey]) metaDesc.setAttribute('content', dict[descKey]);
+    }
     document.documentElement.lang = htmlLangMap[lang] || 'en';
     var cur = document.getElementById('langCurrent');
     if (cur) cur.textContent = lang;
