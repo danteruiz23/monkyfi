@@ -1,4 +1,7 @@
 {
+  "rewrites": [
+    { "source": "/connect", "destination": "/connect.html" }
+  ],
   "headers": [
     {
       "source": "/assets/monkyfi-brochure.pdf",
