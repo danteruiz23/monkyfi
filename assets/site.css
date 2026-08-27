@@ -560,6 +560,8 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 }
 .masthead-ticker a:last-child{border-right:none}
 .masthead-ticker a:hover{color:var(--cyan)}
+.masthead-ticker a.ticker-gold{color:var(--cream)}
+.masthead-ticker a.ticker-gold:hover{color:#fff3d6}
 @media(max-width:820px){
   .masthead-inner{padding:0 14px}
   .masthead-brand{padding:8px 0 6px;gap:10px}
