@@ -587,6 +587,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .kicker-live::before,.kicker-pilot::before,.kicker-soon::before{
   content:'';width:7px;height:7px;border-radius:50%;display:inline-block;
 }
+.kicker-live{color:#22c55e}
 .kicker-live::before{background:#22c55e;box-shadow:0 0 8px #22c55e}
 .kicker-pilot::before{background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
 .kicker-soon{color:var(--cream)}
@@ -594,6 +595,10 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .p-head .kicker,.p-head .p-tag{
   font-size:12px;font-weight:700;letter-spacing:.18em;font-family:var(--display);margin:0;
 }
+#connect .p-head .kicker,#connect .p-head .p-tag{
+  font-size:15px;color:#22c55e;
+}
+#connect .p-head .kicker-live::before{width:9px;height:9px}
 #sentinel .p-tag{color:var(--cream)}
 
 .paper{
