@@ -66,7 +66,20 @@
         <div class="masthead-mark"><img src="assets/favicon-48.png" alt="" width="56" height="56" /></div>
         <p class="masthead-name">Monkyfi</p>
       </a>
-      <p class="masthead-tag" data-i18n="brand.tag">Get AI Power</p>
+      <div class="masthead-actions">
+        <div class="lang-switch" id="langSwitch">
+          <button type="button" class="lang-btn" id="langBtn" onclick="toggleLang()" aria-haspopup="menu" aria-expanded="false" aria-controls="langMenu" data-i18n-aria="lang.label">
+            <span id="langCurrent">EN</span><span class="chev" aria-hidden="true">▾</span>
+          </button>
+          <div class="lang-menu" id="langMenu" role="menu" aria-label="Language">
+            <button type="button" role="menuitem" data-lang="EN" onclick="setLang('EN')" aria-pressed="true"><span class="flag" aria-hidden="true">🇺🇸</span>English</button>
+            <button type="button" role="menuitem" data-lang="ES" onclick="setLang('ES')" aria-pressed="false"><span class="flag" aria-hidden="true">🇪🇸</span>Español</button>
+            <button type="button" role="menuitem" data-lang="PT" onclick="setLang('PT')" aria-pressed="false"><span class="flag" aria-hidden="true">🇧🇷</span>Português</button>
+          </div>
+        </div>
+        <a href="assets/monkyfi-brochure.pdf?v=20260813" class="nav-brochure" download="Monkyfi-Brochure.pdf" data-i18n="nav.brochure">Brochure</a>
+        <a href="#intake" class="nav-cta"><span class="cta-full" data-i18n="nav.cta">Book an AI Assessment</span><span class="cta-short" data-i18n="nav.ctaShort">Book Assessment</span></a>
+      </div>
     </div>
     <nav class="masthead-ticker" aria-label="Edition sections">
       <a href="/connect" data-i18n="nav.connect">Connect</a>
@@ -93,18 +106,6 @@
       <a href="assets/monkyfi-brochure.pdf?v=20260813" class="nav-mobile-extra" download="Monkyfi-Brochure.pdf" data-i18n="nav.brochure">Brochure</a>
     </div>
     <div class="nav-end">
-      <div class="lang-switch" id="langSwitch">
-        <button type="button" class="lang-btn" id="langBtn" onclick="toggleLang()" aria-haspopup="menu" aria-expanded="false" aria-controls="langMenu" data-i18n-aria="lang.label">
-          <span id="langCurrent">EN</span><span class="chev" aria-hidden="true">▾</span>
-        </button>
-        <div class="lang-menu" id="langMenu" role="menu" aria-label="Language">
-          <button type="button" role="menuitem" data-lang="EN" onclick="setLang('EN')" aria-pressed="true"><span class="flag" aria-hidden="true">🇺🇸</span>English</button>
-          <button type="button" role="menuitem" data-lang="ES" onclick="setLang('ES')" aria-pressed="false"><span class="flag" aria-hidden="true">🇪🇸</span>Español</button>
-          <button type="button" role="menuitem" data-lang="PT" onclick="setLang('PT')" aria-pressed="false"><span class="flag" aria-hidden="true">🇧🇷</span>Português</button>
-        </div>
-      </div>
-      <a href="assets/monkyfi-brochure.pdf?v=20260813" class="nav-brochure" download="Monkyfi-Brochure.pdf" data-i18n="nav.brochure">Brochure</a>
-      <a href="#intake" class="nav-cta"><span class="cta-full" data-i18n="nav.cta">Book an AI Assessment</span><span class="cta-short" data-i18n="nav.ctaShort">Book Assessment</span></a>
       <button class="nav-toggle" id="navToggle" type="button" aria-label="Menu" data-i18n-aria="a11y.menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
     </div>
   </div>
