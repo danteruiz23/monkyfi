@@ -590,6 +590,10 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 }
 .kicker-cyan{color:var(--cyan)}
 .kicker-cream{color:var(--cream)}
+#why .kicker{
+  font-size:16px;letter-spacing:.16em;color:var(--cream);
+  text-shadow:0 0 18px rgba(242,201,139,.35);
+}
 .kicker-live::before,.kicker-pilot::before,.kicker-soon::before{
   content:'';width:7px;height:7px;border-radius:50%;display:inline-block;
 }
