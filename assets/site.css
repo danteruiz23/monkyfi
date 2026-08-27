@@ -708,9 +708,13 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .plan-list .step h4{margin:4px 0 4px;letter-spacing:-.01em;font-size:15px}
 .plan-list .step p{font-size:14px}
 
-.approach-stack{display:flex;flex-direction:column;gap:0}
+.approach-stack{
+  display:flex;flex-direction:column;align-items:stretch;gap:0;
+  width:100%;margin-top:16px;text-align:left;
+}
 .approach-stack .flow-card{
   border-radius:0;padding:12px 0;border:none;border-bottom:1px solid var(--tabloid-rule);background:transparent;
+  width:100%;text-align:left;
 }
 .approach-stack .flow-card-final{background:transparent;border-color:transparent}
 .approach-stack .flow-arrow{display:none}
@@ -752,7 +756,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .story-map .cable-svg img{border-radius:0}
 .story-founder .founder-wrap{max-width:none;margin:0}
 .pull-quote{
-  font-family:var(--display);font-size:18px;line-height:1.35;color:#EDEFF2;
+  font-family:inherit;font-size:15px;line-height:1.55;color:#cbd5e1;
   border-left:3px solid var(--tabloid-red);padding:4px 0 4px 14px;margin:16px 0;
 }
 
