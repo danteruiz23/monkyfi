@@ -21,11 +21,47 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
 <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" /></noscript>
-<link rel="stylesheet" href="assets/site.css" />
+<link rel="stylesheet" href="assets/site.css?v=20260827p" />
 </head>
 <body>
 
 <a href="#main-content" class="skip-link" data-i18n="a11y.skip">Skip to main content</a>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-top">
+      <span class="mast-place" data-i18n="mast.place">Miami · US &amp; LATAM</span>
+      <time class="mast-date" id="mastheadDate" datetime="2026-08-27">Thursday 27 August 2026</time>
+      <span class="mast-edition" data-i18n="mast.edition">Night Edition</span>
+    </div>
+    <div class="masthead-brand">
+      <a href="index.html" aria-label="Monkyfi home" data-i18n-aria="a11y.home">
+        <div class="masthead-mark"><img src="assets/favicon-48.png" alt="" width="56" height="56" /></div>
+        <p class="masthead-name">Monky<span class="fi">fI</span></p>
+      </a>
+      <div class="masthead-actions">
+        <div class="lang-switch" id="langSwitch">
+          <button type="button" class="lang-btn" id="langBtn" onclick="toggleLang()" aria-haspopup="menu" aria-expanded="false" aria-controls="langMenu" data-i18n-aria="lang.label">
+            <span id="langCurrent">EN</span><span class="chev" aria-hidden="true">▾</span>
+          </button>
+          <div class="lang-menu" id="langMenu" role="menu" aria-label="Language">
+            <button type="button" role="menuitem" data-lang="EN" onclick="setLang('EN')" aria-pressed="true"><span class="flag" aria-hidden="true">🇺🇸</span>English</button>
+            <button type="button" role="menuitem" data-lang="ES" onclick="setLang('ES')" aria-pressed="false"><span class="flag" aria-hidden="true">🇪🇸</span>Español</button>
+            <button type="button" role="menuitem" data-lang="PT" onclick="setLang('PT')" aria-pressed="false"><span class="flag" aria-hidden="true">🇧🇷</span>Português</button>
+          </div>
+        </div>
+        <a href="assets/monkyfi-brochure.pdf?v=20260813" class="nav-brochure" download="Monkyfi-Brochure.pdf" data-i18n="nav.brochure">Brochure</a>
+        <a href="/#intake" class="nav-cta"><span class="cta-full" data-i18n="nav.cta">Book an AI Assessment</span><span class="cta-short" data-i18n="nav.ctaShort">Book Assessment</span></a>
+      </div>
+    </div>
+    <nav class="masthead-ticker" aria-label="Edition sections">
+      <a href="/connect" data-i18n="nav.connect">Connect</a>
+      <a href="index.html#atlas">Atlas</a>
+      <a href="index.html#sentinel">Sentinel</a>
+      <a href="/#intake" class="ticker-gold" data-i18n="mast.ticker.assessment">Assessment</a>
+    </nav>
+  </div>
+</header>
 
 <nav class="top">
   <div class="wrap">
@@ -43,18 +79,6 @@
       <a href="assets/monkyfi-brochure.pdf?v=20260813" class="nav-mobile-extra" download="Monkyfi-Brochure.pdf" data-i18n="nav.brochure">Brochure</a>
     </div>
     <div class="nav-end">
-      <div class="lang-switch" id="langSwitch">
-        <button type="button" class="lang-btn" id="langBtn" onclick="toggleLang()" aria-haspopup="menu" aria-expanded="false" aria-controls="langMenu" data-i18n-aria="lang.label">
-          <span id="langCurrent">EN</span><span class="chev" aria-hidden="true">▾</span>
-        </button>
-        <div class="lang-menu" id="langMenu" role="menu" aria-label="Language">
-          <button type="button" role="menuitem" data-lang="EN" onclick="setLang('EN')" aria-pressed="true"><span class="flag" aria-hidden="true">🇺🇸</span>English</button>
-          <button type="button" role="menuitem" data-lang="ES" onclick="setLang('ES')" aria-pressed="false"><span class="flag" aria-hidden="true">🇪🇸</span>Español</button>
-          <button type="button" role="menuitem" data-lang="PT" onclick="setLang('PT')" aria-pressed="false"><span class="flag" aria-hidden="true">🇧🇷</span>Português</button>
-        </div>
-      </div>
-      <a href="assets/monkyfi-brochure.pdf?v=20260813" class="nav-brochure" download="Monkyfi-Brochure.pdf" data-i18n="nav.brochure">Brochure</a>
-      <a href="/#intake" class="nav-cta"><span class="cta-full" data-i18n="nav.cta">Book an AI Assessment</span><span class="cta-short" data-i18n="nav.ctaShort">Book Assessment</span></a>
       <button class="nav-toggle" id="navToggle" type="button" aria-label="Menu" data-i18n-aria="a11y.menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -62,19 +86,19 @@
 </nav>
 
 <main id="main-content" tabindex="-1">
-<section class="page-hero" id="top">
-  <div class="connect-hero">
-    <div>
-      <span class="eyebrow"><span class="dot"></span><span data-i18n="pageconnect.eyebrow">Monkyfi Connect · Available now</span></span>
+<section class="page-hero edition-connect" id="top">
+  <div class="paper paper-connect">
+    <article class="story story-splash">
+      <p class="kicker kicker-live" data-i18n="pageconnect.eyebrow">Monkyfi Connect · Available now</p>
       <h1 data-i18n="pageconnect.h1">Monkyfi Connect</h1>
       <p class="connect-kicker" data-i18n="connect.sub">AI &amp; Telecom Consulting</p>
-      <p class="lead" data-i18n="connect.tagline">Practical telecom and AI consulting designed to identify operational opportunities, improve service delivery, and create a roadmap for AI adoption.</p>
+      <p class="dek lead" data-i18n="connect.tagline">Practical telecom and AI consulting designed to identify operational opportunities, improve service delivery, and create a roadmap for AI adoption.</p>
       <div class="hero-ctas">
         <button type="button" class="btn btn-gold" onclick="startIntakeChat()"><span data-i18n="intake.chatCta">Complete it with the chatbot</span> <span class="arr">→</span></button>
         <a href="/#intake" class="btn btn-ghost" data-i18n="pageconnect.heroCtaHome">Book the assessment on the homepage</a>
       </div>
-    </div>
-    <div class="connect-visual" aria-hidden="true">
+    </article>
+    <div class="story connect-visual" aria-hidden="true">
       <svg viewBox="0 0 64 64" fill="none" stroke="#4FA9E8" stroke-width="2.2" stroke-linecap="round">
         <circle cx="14" cy="14" r="5"/><circle cx="50" cy="14" r="5"/><circle cx="14" cy="50" r="5"/><circle cx="50" cy="50" r="5"/>
         <circle cx="32" cy="32" r="6.5" fill="#4FA9E8" fill-opacity=".2"/>
@@ -84,81 +108,89 @@
   </div>
 </section>
 
-<section id="capabilities">
-  <div class="section-head">
-    <span class="eyebrow"><span class="dot"></span><span data-i18n="sol.eyebrow">Monkyfi Solutions</span></span>
-    <h2 style="margin-top:18px" data-i18n="connect.sub">AI &amp; Telecom Consulting</h2>
-  </div>
-  <div class="cap-tiles">
-    <div class="tile reveal"><div class="t-ic">◈</div><h4 data-i18n="connect.c1">AI Readiness Assessment</h4></div>
-    <div class="tile reveal"><div class="t-ic">↗</div><h4 data-i18n="connect.c2">Telecom Digital Transformation</h4></div>
-    <div class="tile reveal"><div class="t-ic">◎</div><h4 data-i18n="connect.c3">Service Delivery Optimization</h4></div>
-    <div class="tile reveal"><div class="t-ic">⚡</div><h4 data-i18n="connect.c4">Network Operations Automation</h4></div>
-    <div class="tile reveal"><div class="t-ic">▤</div><h4 data-i18n="connect.c5">Data Readiness for AI</h4></div>
-    <div class="tile reveal"><div class="t-ic">⚙</div><h4 data-i18n="connect.c6">AI Strategy &amp; Advisory</h4></div>
-  </div>
-</section>
-
-<section id="receive">
-  <div class="section-head">
-    <span class="eyebrow"><span class="dot"></span><span data-i18n="pageconnect.what.eyebrow">What you receive</span></span>
-    <h2 style="margin-top:18px" data-i18n="pageconnect.what.h2">A human-reviewed starting point</h2>
-    <p data-i18n="pageconnect.note">Company-level information only. Do not send customer personal data, credentials, or detailed network diagrams at this stage.</p>
-  </div>
-  <div class="deliver-grid">
-    <div class="deliver-card reveal">
-      <div class="deliver-num">01</div>
-      <h3 data-i18n="pageconnect.d1.title">AI readiness readout</h3>
-      <p data-i18n="pageconnect.d1.body">Where AI can help your operation, based on the company-level context you share — not a black-box score.</p>
-    </div>
-    <div class="deliver-card reveal">
-      <div class="deliver-num">02</div>
-      <h3 data-i18n="pageconnect.d2.title">Sequenced roadmap</h3>
-      <p data-i18n="pageconnect.d2.body">What to fix first, what to pilot next, and what to leave for later.</p>
-    </div>
-    <div class="deliver-card reveal">
-      <div class="deliver-num">03</div>
-      <h3 data-i18n="pageconnect.d3.title">Recommended next step</h3>
-      <p data-i18n="pageconnect.d3.body">A practical starting point from the Monkyfi team within 24 hours. Reviewed by a human.</p>
-    </div>
+<section class="edition-inside connect-pack" id="capabilities">
+  <div class="paper paper-pack">
+    <article class="story span-12 reveal">
+      <p class="kicker kicker-cyan" data-i18n="sol.eyebrow">Monkyfi Solutions</p>
+      <h2 data-i18n="connect.sub">AI &amp; Telecom Consulting</h2>
+      <div class="cap-tiles">
+        <div class="tile"><div class="t-ic">◈</div><h4 data-i18n="connect.c1">AI Readiness Assessment</h4></div>
+        <div class="tile"><div class="t-ic">↗</div><h4 data-i18n="connect.c2">Telecom Digital Transformation</h4></div>
+        <div class="tile"><div class="t-ic">◎</div><h4 data-i18n="connect.c3">Service Delivery Optimization</h4></div>
+        <div class="tile"><div class="t-ic">⚡</div><h4 data-i18n="connect.c4">Network Operations Automation</h4></div>
+        <div class="tile"><div class="t-ic">▤</div><h4 data-i18n="connect.c5">Data Readiness for AI</h4></div>
+        <div class="tile"><div class="t-ic">⚙</div><h4 data-i18n="connect.c6">AI Strategy &amp; Advisory</h4></div>
+      </div>
+    </article>
   </div>
 </section>
 
-<section id="process">
-  <div class="section-head">
-    <span class="eyebrow"><span class="dot"></span><span data-i18n="process.eyebrow">How We Work</span></span>
-    <h2 style="margin-top:18px" data-i18n="process.h2">From AI Opportunity to Real-World Impact</h2>
-  </div>
-  <div class="how-grid">
-    <div class="step reveal"><div class="s-ic">01</div><h4 data-i18n="process.s1.title">Discover</h4><p data-i18n="process.s1.body">Understand your business, data, systems, and operational challenges.</p></div>
-    <div class="step reveal"><div class="s-ic">02</div><h4 data-i18n="process.s2.title">Assess</h4><p data-i18n="process.s2.body">Evaluate AI readiness and identify high-value opportunities.</p></div>
-    <div class="step reveal"><div class="s-ic">03</div><h4 data-i18n="process.s3.title">Prioritize</h4><p data-i18n="process.s3.body">Select use cases based on business impact, feasibility, and risk.</p></div>
-    <div class="step reveal"><div class="s-ic">04</div><h4 data-i18n="process.s4.title">Pilot</h4><p data-i18n="process.s4.body">Build and validate a focused AI solution.</p></div>
-    <div class="step reveal"><div class="s-ic">05</div><h4 data-i18n="process.s5.title">Scale</h4><p data-i18n="process.s5.body">Expand successful solutions across the organization.</p></div>
+<section class="edition-inside connect-pack" id="receive">
+  <div class="paper">
+    <article class="story reveal">
+      <p class="kicker" data-i18n="pageconnect.what.eyebrow">What you receive</p>
+      <h2 data-i18n="pageconnect.what.h2">A human-reviewed starting point</h2>
+      <p class="dek" data-i18n="pageconnect.note">Company-level information only. Do not send customer personal data, credentials, or detailed network diagrams at this stage.</p>
+      <div class="deliver-grid">
+        <div class="deliver-card">
+          <div class="deliver-num">01</div>
+          <h3 data-i18n="pageconnect.d1.title">AI readiness readout</h3>
+          <p data-i18n="pageconnect.d1.body">Where AI can help your operation, based on the company-level context you share — not a black-box score.</p>
+        </div>
+        <div class="deliver-card">
+          <div class="deliver-num">02</div>
+          <h3 data-i18n="pageconnect.d2.title">Sequenced roadmap</h3>
+          <p data-i18n="pageconnect.d2.body">What to fix first, what to pilot next, and what to leave for later.</p>
+        </div>
+        <div class="deliver-card">
+          <div class="deliver-num">03</div>
+          <h3 data-i18n="pageconnect.d3.title">Recommended next step</h3>
+          <p data-i18n="pageconnect.d3.body">A practical starting point from the Monkyfi team within 24 hours. Reviewed by a human.</p>
+        </div>
+      </div>
+    </article>
   </div>
 </section>
 
-<section id="ahead">
-  <div class="section-head">
-    <span class="eyebrow"><span class="dot"></span><span data-i18n="pageconnect.next.eyebrow">What's ahead</span></span>
-    <h2 style="margin-top:18px" data-i18n="pageconnect.next.h2">Pilots and platform when you are ready</h2>
+<section class="edition-inside connect-pack" id="process">
+  <div class="paper">
+    <article class="story reveal">
+      <p class="kicker kicker-cream" data-i18n="process.eyebrow">How We Work</p>
+      <h2 data-i18n="process.h2">From AI opportunity to real-world impact</h2>
+      <div class="plan-list how-grid">
+        <div class="step"><div class="s-ic">01</div><h4 data-i18n="process.s1.title">Discover</h4><p data-i18n="process.s1.body">Understand your business, data, systems, and operational challenges.</p></div>
+        <div class="step"><div class="s-ic">02</div><h4 data-i18n="process.s2.title">Assess</h4><p data-i18n="process.s2.body">Evaluate AI readiness and identify high-value opportunities.</p></div>
+        <div class="step"><div class="s-ic">03</div><h4 data-i18n="process.s3.title">Prioritize</h4><p data-i18n="process.s3.body">Select use cases based on business impact, feasibility, and risk.</p></div>
+        <div class="step"><div class="s-ic">04</div><h4 data-i18n="process.s4.title">Pilot</h4><p data-i18n="process.s4.body">Build and validate a focused AI solution.</p></div>
+        <div class="step"><div class="s-ic">05</div><h4 data-i18n="process.s5.title">Scale</h4><p data-i18n="process.s5.body">Expand successful solutions across the organization.</p></div>
+      </div>
+    </article>
   </div>
-  <div class="coming-pair">
-    <div class="product reveal" id="atlas">
-      <div class="p-head"><span class="badge badge-pilot" data-i18n="badge.pilot">Pilot · coming soon</span><span class="p-tag">02</span></div>
-      <h3>Monkyfi Atlas</h3>
-      <div class="p-sub" data-i18n="atlas.sub">Agentic AI for Network Operations</div>
-      <p class="tagline" data-i18n="atlas.tagline">An AI copilot designed to help Network Operations Center teams understand incidents, search operational knowledge, correlate events, accelerate troubleshooting, and recommend next actions.</p>
-      <p class="hitl" data-i18n="atlas.hitl">Human-in-the-loop. AI recommends. Your team decides.</p>
-      <a href="mailto:hello@monkyfi.com?subject=Atlas%20Pilot" class="btn btn-primary" data-i18n="atlas.cta">Join the Atlas Pilot <span class="arr">→</span></a>
-    </div>
-    <div class="product reveal" id="sentinel">
-      <div class="p-head"><span class="badge badge-soon" data-i18n="badge.soon">Coming soon</span><span class="p-tag">03</span></div>
-      <h3>Monkyfi Sentinel</h3>
-      <div class="p-sub" data-i18n="sentinel.sub">AI for Subsea Cable &amp; Backbone Resilience</div>
-      <p class="tagline" data-i18n="sentinel.tagline">AI-powered intelligence for critical digital infrastructure, helping operators identify risks, improve operational visibility, and strengthen the resilience of subsea cable and backbone networks.</p>
-      <a href="mailto:hello@monkyfi.com?subject=Monkyfi%20Sentinel" class="btn btn-primary" data-i18n="sentinel.cta">Learn About Sentinel <span class="arr">→</span></a>
-    </div>
+</section>
+
+<section class="edition-inside connect-pack" id="ahead">
+  <div class="paper">
+    <article class="story">
+      <p class="kicker" data-i18n="pageconnect.next.eyebrow">What's ahead</p>
+      <h2 data-i18n="pageconnect.next.h2">Pilots and platform when you are ready</h2>
+      <div class="coming-pair">
+        <div class="product reveal" id="atlas">
+          <div class="p-head p-head-lg"><span class="kicker kicker-pilot" data-i18n="kicker.pilot">Pilot</span><span class="p-tag">02</span></div>
+          <h3>Monkyfi Atlas</h3>
+          <div class="p-sub" data-i18n="atlas.sub">Agentic AI for Network Operations</div>
+          <p class="tagline" data-i18n="atlas.tagline">An AI copilot designed to help Network Operations Center teams understand incidents, search operational knowledge, correlate events, accelerate troubleshooting, and recommend next actions.</p>
+          <p class="hitl" data-i18n="atlas.hitl">Human-in-the-loop. AI recommends. Your team decides.</p>
+          <a href="mailto:hello@monkyfi.com?subject=Atlas%20Pilot" class="btn btn-primary" data-i18n="atlas.cta">Join the Atlas Pilot <span class="arr">→</span></a>
+        </div>
+        <div class="product reveal" id="sentinel">
+          <div class="p-head p-head-lg"><span class="kicker kicker-soon" data-i18n="kicker.soon">Coming soon</span><span class="p-tag">03</span></div>
+          <h3>Monkyfi Sentinel</h3>
+          <div class="p-sub" data-i18n="sentinel.sub">AI for Subsea Cable &amp; Backbone Resilience</div>
+          <p class="tagline" data-i18n="sentinel.tagline">AI-powered intelligence for critical digital infrastructure, helping operators identify risks, improve operational visibility, and strengthen the resilience of subsea cable and backbone networks.</p>
+          <a href="mailto:hello@monkyfi.com?subject=Monkyfi%20Sentinel" class="btn btn-primary" data-i18n="sentinel.cta">Learn About Sentinel <span class="arr">→</span></a>
+        </div>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -302,7 +334,7 @@
 
 <section id="contact">
   <div class="cta-strip">
-    <span class="eyebrow"><span class="dot"></span><span data-i18n="contact.eyebrow">Let's Talk</span></span>
+    <p class="kicker kicker-cyan" data-i18n="contact.eyebrow">Let's Talk</p>
     <h2 style="margin-top:14px" data-i18n="contact.h2">Ready to Get AI Power?</h2>
     <p data-i18n="contact.body">Let's identify where AI can create measurable value in your telecom or digital infrastructure operations.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">

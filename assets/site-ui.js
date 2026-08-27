@@ -787,3 +787,25 @@ if(document.readyState === 'loading'){
 } else {
   bootChatFromQuery();
 }
+
+(function mastheadDate(){
+  function localeFor(lang){
+    if(lang === 'ES') return 'es';
+    if(lang === 'PT') return 'pt-BR';
+    return 'en-GB';
+  }
+  function stamp(){
+    var el = document.getElementById('mastheadDate');
+    if(!el) return;
+    var lang = 'EN';
+    try{
+      if(window.MonkyfiI18n && typeof window.MonkyfiI18n.getLang === 'function') lang = window.MonkyfiI18n.getLang();
+    }catch(_){}
+    var d = new Date();
+    el.setAttribute('datetime', d.toISOString().slice(0,10));
+    el.textContent = d.toLocaleDateString(localeFor(lang), { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  }
+  document.addEventListener('monkyfi:langchange', stamp);
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', stamp);
+  else stamp();
+})();
