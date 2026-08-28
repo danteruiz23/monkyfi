@@ -39,6 +39,7 @@ a.brand:hover{color:inherit}
 .nav-links a{color:#94a3b8;font-size:15px;font-weight:400;transition:color .2s;white-space:nowrap}
 .nav-links a:hover{color:var(--cyan)}
 .nav-end{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.nav-bar-cta{display:none}
 .nav-mobile-extra{display:none}
 
 .lang-switch{position:relative}
@@ -86,15 +87,20 @@ a.brand:hover{color:inherit}
 .nav-toggle.open span:nth-child(2){opacity:0}
 .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 @media(max-width:820px){
-  nav.top .wrap{padding:12px 14px;gap:8px}
+  nav.top .wrap{
+    padding:12px 14px;gap:8px;
+    display:grid;grid-template-columns:auto 1fr auto;align-items:center;
+  }
   .nav-links{position:absolute;top:100%;left:0;right:0;margin-left:0;flex-direction:column;align-items:flex-start;gap:0;background:rgba(7,11,20,.97);border-bottom:1px solid var(--line);padding:10px 16px 18px;max-height:0;overflow:hidden;transition:max-height .25s ease}
   .nav-links.open{max-height:480px}
   .nav-links a{padding:12px 0;width:100%;border-bottom:1px solid rgba(255,255,255,.05)}
-  .nav-end{margin-left:auto;gap:6px;min-width:0}
+  .nav-bar-cta{display:inline-flex;justify-self:center}
+  .nav-end{margin-left:0;gap:6px;min-width:0;justify-self:end}
   .nav-toggle{display:flex}
   .nav-brochure{display:none}
+  .masthead-actions .nav-cta{display:none}
   .nav-mobile-extra{display:block}
-  .brand{gap:8px}
+  .brand{gap:8px;justify-self:start}
   .brand-text small{display:none}
   .nav-cta{padding:8px 10px;font-size:12.5px;flex-shrink:0}
   .nav-cta .cta-full{display:none}
