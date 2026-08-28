@@ -249,14 +249,20 @@
   }
   .cat-list button:hover{ background:var(--surface-2); color:var(--cat-color, var(--ink)); }
   .cat-list button.active{
-    background:color-mix(in srgb, var(--cat-color, var(--accent)) 14%, var(--surface-2));
-    color:var(--cat-color, var(--ink));
+    background:color-mix(in srgb, var(--cat-color, var(--accent)) 42%, #0A1426);
+    color:#FFFDF8;
     font-weight:700;
     border-left-color:var(--cat-color, var(--accent));
   }
+  .cat-list button.active .tag,
+  .cat-list button.active .n{
+    color:#FFFDF8;
+    background:rgba(255,255,255,.16);
+  }
   .cat-list button[data-cat="__all"]{ color:var(--muted); }
   .cat-list button[data-cat="__all"]:hover{ color:var(--ink); }
-  .cat-list button[data-cat="__all"].active{ color:var(--ink); background:var(--surface-2); border-left-color:var(--accent); }
+  .cat-list button[data-cat="__all"].active{ color:#FFFDF8; background:#0A1426; border-left-color:var(--accent); }
+  .cat-list button[data-cat="__all"].active .tag{ color:#FFFDF8; background:transparent; }
   .cat-list button[data-cat="__all"] .tag{ color:var(--accent); background:transparent; }
   .cat-list button .tag{
     font-family:var(--font-mono);
@@ -546,7 +552,7 @@
   .entry-usecase{
     margin:5px 0 0;
     font-size:13.5px;
-    color:var(--muted);
+    color:var(--ink);
     line-height:1.5;
   }
   .entry-tags{
@@ -572,10 +578,12 @@
     font-size:14px;
     line-height:1.65;
     margin:0 0 12px;
+    color:var(--ink);
   }
   .prompt-para{
     margin:0 0 14px;
     white-space:pre-wrap;
+    color:var(--ink);
   }
   .prompt-para:last-child{ margin-bottom:0; }
   .prompt-section{
@@ -603,6 +611,7 @@
   .prompt-body{
     white-space:pre-wrap;
     margin:0;
+    color:var(--ink);
   }
   .prompt-section.prompt-template{
     background:var(--surface-2);
@@ -736,4 +745,82 @@
   body.lexicon-embed #lang-toggle{ display:none !important; }
   body.lexicon-embed .brand h1{
     display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  }
+
+  html[data-edition="morning"]{
+    --bg:#F3EBDD;
+    --surface:#FFF9EF;
+    --surface-2:#FFFFFF;
+    --ink:#0A1426;
+    --muted:#3D4A5C;
+    --border:rgba(10,20,38,.14);
+    --accent-ink:#070B14;
+    --shadow: 0 0 0 1px rgba(79,169,232,.16), 0 12px 28px -14px rgba(10,20,38,.16), 0 0 24px rgba(79,169,232,.08);
+  }
+  html[data-edition="morning"] body,
+  html[data-edition="morning"] body.lexicon-embed{
+    color-scheme:light;
+    background:#F3EBDD;
+    color:#0A1426;
+  }
+  html[data-edition="morning"] .lexicon-main,
+  html[data-edition="morning"] .lexicon-board,
+  html[data-edition="morning"] .shell,
+  html[data-edition="morning"] .rail{
+    background:#F3EBDD;
+    color:#0A1426;
+  }
+  html[data-edition="morning"] .overlay{
+    background:rgba(243,235,221,.72);
+  }
+  html[data-edition="morning"] .site-bar{
+    background:rgba(255,249,239,.88);
+  }
+  html[data-edition="morning"] .entry,
+  html[data-edition="morning"] .modal,
+  html[data-edition="morning"] .search input,
+  html[data-edition="morning"] .field input,
+  html[data-edition="morning"] .field select,
+  html[data-edition="morning"] .field textarea{
+    background:#FFFDF8;
+    color:#0A1426;
+  }
+  html[data-edition="morning"] .entry-usecase,
+  html[data-edition="morning"] .entry-prompt,
+  html[data-edition="morning"] .prompt-para,
+  html[data-edition="morning"] .prompt-body{
+    color:#0A1426;
+  }
+  html[data-edition="morning"] .rail .brand h1,
+  html[data-edition="morning"] .rail .brand p,
+  html[data-edition="morning"] .rail-label,
+  html[data-edition="morning"] .sources-note,
+  html[data-edition="morning"] .storage-note,
+  html[data-edition="morning"] .view-switch button:not(.active),
+  html[data-edition="morning"] .cat-list button,
+  html[data-edition="morning"] .cat-list button .n,
+  html[data-edition="morning"] .cat-list button .tag,
+  html[data-edition="morning"] .rail .lang-btn,
+  html[data-edition="morning"] .rail .refresh-btn{
+    color:#0A1426;
+  }
+  html[data-edition="morning"] .view-switch button.active{
+    background:color-mix(in srgb, var(--accent) 22%, #FFF9EF);
+    color:#0A1426;
+  }
+  html[data-edition="morning"] .cat-list button.active,
+  html[data-edition="morning"] .cat-list button[data-cat="__all"].active{
+    background:color-mix(in srgb, var(--cat-color, var(--accent)) 18%, #FFF9EF);
+    color:#0A1426;
+    border-left-color:var(--cat-color, var(--accent));
+  }
+  html[data-edition="morning"] .cat-list button.active .n,
+  html[data-edition="morning"] .cat-list button.active .tag,
+  html[data-edition="morning"] .cat-list button[data-cat="__all"].active .tag{
+    color:#0A1426;
+    background:color-mix(in srgb, var(--cat-color, var(--accent)) 22%, #FFF9EF);
+  }
+  html[data-edition="morning"] .cat-list button[data-cat="__all"].active{
+    background:color-mix(in srgb, var(--accent) 16%, #FFF9EF);
+    border-left-color:var(--accent);
   }
