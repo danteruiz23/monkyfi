@@ -809,3 +809,59 @@ if(document.readyState === 'loading'){
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', stamp);
   else stamp();
 })();
+
+(function editionToggle(){
+  var KEY = 'monkyfi.edition';
+  function read(){
+    try{
+      return localStorage.getItem(KEY) === 'morning' ? 'morning' : 'night';
+    }catch(e){
+      return 'night';
+    }
+  }
+  function labelFor(ed){
+    var key = ed === 'morning' ? 'mast.edition.morning' : 'mast.edition.night';
+    try{
+      if(window.MonkyfiI18n && typeof window.MonkyfiI18n.t === 'function') return window.MonkyfiI18n.t(key);
+    }catch(_){}
+    return ed === 'morning' ? 'Morning Edition' : 'Night Edition';
+  }
+  function hintFor(){
+    try{
+      if(window.MonkyfiI18n && typeof window.MonkyfiI18n.t === 'function') return window.MonkyfiI18n.t('a11y.edition');
+    }catch(_){}
+    return 'Switch between night and morning edition';
+  }
+  function apply(ed){
+    document.documentElement.setAttribute('data-edition', ed);
+    var pressed = ed === 'morning' ? 'true' : 'false';
+    var label = labelFor(ed);
+    var hint = hintFor();
+    document.querySelectorAll('[data-edition-label]').forEach(function(el){
+      el.textContent = label;
+    });
+    document.querySelectorAll('.edition-toggle').forEach(function(btn){
+      btn.setAttribute('aria-pressed', pressed);
+      btn.setAttribute('title', label);
+      if(!btn.hasAttribute('data-edition-label')){
+        btn.setAttribute('aria-label', hint + ' — ' + label);
+      }
+    });
+  }
+  function toggle(e){
+    if(e){
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    var next = read() === 'morning' ? 'night' : 'morning';
+    try{ localStorage.setItem(KEY, next); }catch(_){}
+    apply(next);
+  }
+  window.toggleEdition = toggle;
+  document.addEventListener('click', function(e){
+    var btn = e.target && e.target.closest ? e.target.closest('.edition-toggle') : null;
+    if(btn) toggle(e);
+  });
+  document.addEventListener('monkyfi:langchange', function(){ apply(read()); });
+  apply(read());
+})();

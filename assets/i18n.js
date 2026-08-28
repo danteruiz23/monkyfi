@@ -15,6 +15,9 @@
     "brand.tag": "Get AI Power",
     "mast.place": "Miami · US &amp; LATAM",
     "mast.edition": "Night Edition",
+    "mast.edition.night": "Night Edition",
+    "mast.edition.morning": "Morning Edition",
+    "a11y.edition": "Switch between night and morning edition",
     "mast.ticker.assessment": "Assessment",
     "kicker.live": "Live",
     "kicker.pilot": "Pilot",
@@ -306,6 +309,9 @@
     "brand.tag": "Obtén el poder de la IA",
     "mast.place": "Miami · EE.UU. y LATAM",
     "mast.edition": "Edición nocturna",
+    "mast.edition.night": "Edición nocturna",
+    "mast.edition.morning": "Edición matutina",
+    "a11y.edition": "Cambiar entre edición nocturna y matutina",
     "mast.ticker.assessment": "Evaluación",
     "kicker.live": "En vivo",
     "kicker.pilot": "Piloto",
@@ -597,6 +603,9 @@
     "brand.tag": "Tenha o poder da IA",
     "mast.place": "Miami · EUA e LATAM",
     "mast.edition": "Edição noturna",
+    "mast.edition.night": "Edição noturna",
+    "mast.edition.morning": "Edição matinal",
+    "a11y.edition": "Alternar entre edição noturna e matinal",
     "mast.ticker.assessment": "Avaliação",
     "kicker.live": "Ao vivo",
     "kicker.pilot": "Piloto",
@@ -921,8 +930,9 @@
       if (dict[descKey]) metaDesc.setAttribute('content', dict[descKey]);
     }
     document.documentElement.lang = htmlLangMap[lang] || 'en';
-    var cur = document.getElementById('langCurrent');
-    if (cur) cur.textContent = lang;
+    document.querySelectorAll('.lang-current').forEach(function (el) {
+      el.textContent = lang;
+    });
     document.querySelectorAll('.lang-menu button[data-lang]').forEach(function (btn) {
       btn.setAttribute('aria-pressed', btn.getAttribute('data-lang') === lang ? 'true' : 'false');
     });
@@ -942,22 +952,36 @@
     return 'EN';
   }
 
+  function closeLangMenus() {
+    document.querySelectorAll('.lang-menu').forEach(function (menu) {
+      menu.classList.remove('open');
+    });
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  }
+
   function setLang(code) {
     if (!I18N[code]) code = 'EN';
     applyI18n(code);
     try { localStorage.setItem('monkyfi.lang', code); } catch (e) {}
-    var menu = document.getElementById('langMenu');
-    if (menu) menu.classList.remove('open');
-    var btn = document.getElementById('langBtn');
-    if (btn) btn.setAttribute('aria-expanded', 'false');
+    closeLangMenus();
   }
 
-  function toggleLang() {
-    var menu = document.getElementById('langMenu');
-    var btn = document.getElementById('langBtn');
+  function toggleLang(ev) {
+    var btn = (ev && ev.currentTarget) ? ev.currentTarget : document.querySelector('.lang-btn');
+    if (!btn) return;
+    var sw = btn.closest ? btn.closest('.lang-switch') : null;
+    if (!sw) sw = document.getElementById('langSwitch') || document.querySelector('.lang-switch');
+    if (!sw) return;
+    var menu = sw.querySelector('.lang-menu');
     if (!menu) return;
-    var open = menu.classList.toggle('open');
-    if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    var willOpen = !menu.classList.contains('open');
+    closeLangMenus();
+    if (willOpen) {
+      menu.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
   }
 
   function sendSuggestionI18n(btn) {
@@ -969,13 +993,8 @@
   function init() {
     applyI18n(detectLang());
     document.addEventListener('click', function (e) {
-      var sw = document.getElementById('langSwitch');
-      if (sw && !sw.contains(e.target)) {
-        var menu = document.getElementById('langMenu');
-        var btn = document.getElementById('langBtn');
-        if (menu) menu.classList.remove('open');
-        if (btn) btn.setAttribute('aria-expanded', 'false');
-      }
+      if (e.target && e.target.closest && e.target.closest('.lang-switch')) return;
+      closeLangMenus();
     });
   }
 
