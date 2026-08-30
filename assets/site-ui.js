@@ -288,6 +288,7 @@ function startIntakeChat(){
   }, 300);
 }
 window.startIntakeChat = startIntakeChat;
+/* Voice intake (ElevenLabs) is on standby until further notice. Kept so it can be re-enabled. */
 function startIntakeVoice(){
   if(typeof closeChat === 'function') closeChat();
   var widget = document.querySelector('elevenlabs-convai');
