@@ -425,13 +425,6 @@ footer{margin-top:80px;border-top:1px solid var(--line);padding:48px 0 40px}
 .chat-cta-btn:hover{box-shadow:0 0 18px rgba(79,169,232,.45)}
 .chat-cta-btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
 
-body:has(elevenlabs-convai) .chat-fab,
-body:has(elevenlabs-convai) .chat-panel{right:108px}
-@media(max-width:640px){
-  body:has(elevenlabs-convai) .chat-fab{right:16px;bottom:100px}
-  body:has(elevenlabs-convai) .chat-panel{right:8px;bottom:8px}
-}
-
 .intake-card{margin-top:0;border-radius:18px;border:1px solid var(--line);background:var(--card-bg);padding:40px 36px;max-width:860px;margin-left:auto;margin-right:auto}
 @media(max-width:600px){
   .intake-card{padding:28px 20px;overflow:hidden}
