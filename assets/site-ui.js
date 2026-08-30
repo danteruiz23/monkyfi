@@ -288,6 +288,23 @@ function startIntakeChat(){
   }, 300);
 }
 window.startIntakeChat = startIntakeChat;
+function startIntakeVoice(){
+  if(typeof closeChat === 'function') closeChat();
+  var widget = document.querySelector('elevenlabs-convai');
+  if(!widget) return;
+  function begin(){
+    if(typeof widget.startConversation === 'function'){
+      try{ widget.startConversation(); }catch(_){}
+    }
+  }
+  if(window.customElements && typeof customElements.whenDefined === 'function'){
+    if(customElements.get('elevenlabs-convai')) begin();
+    else customElements.whenDefined('elevenlabs-convai').then(begin);
+  } else {
+    begin();
+  }
+}
+window.startIntakeVoice = startIntakeVoice;
 input.addEventListener('keydown', (e)=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendMessage(); } });
 
 const intakeForm = document.getElementById('intakeForm');
