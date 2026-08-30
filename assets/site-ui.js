@@ -288,7 +288,19 @@ function startIntakeChat(){
   }, 300);
 }
 window.startIntakeChat = startIntakeChat;
-/* Voice intake (ElevenLabs) is on standby until further notice. Kept so it can be re-enabled. */
+/*
+ * ElevenLabs voice intake — STANDBY until further notice.
+ * Agent id: agent_8801m05ndkpyfanva562vsc3ss9j
+ * To re-enable:
+ *  1. Add this CTA in index.html #intake .intake-chat-path:
+ *     <button type="button" class="btn btn-gold" id="intakeVoiceCta" onclick="startIntakeVoice()">
+ *       <span data-i18n="intake.voiceCta">Talk with the voice agent</span>
+ *     </button>
+ *  2. Before the site scripts, add:
+ *     <elevenlabs-convai agent-id="agent_8801m05ndkpyfanva562vsc3ss9j" placement="bottom-left"></elevenlabs-convai>
+ *     <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+ *  3. Restore ElevenLabs CSP + microphone=(self) in vercel.json.
+ */
 function startIntakeVoice(){
   if(typeof closeChat === 'function') closeChat();
   var widget = document.querySelector('elevenlabs-convai');
