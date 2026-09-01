@@ -288,6 +288,36 @@ function startIntakeChat(){
   }, 300);
 }
 window.startIntakeChat = startIntakeChat;
+/*
+ * ElevenLabs voice intake — STANDBY until further notice.
+ * Agent id: agent_8801m05ndkpyfanva562vsc3ss9j
+ * To re-enable:
+ *  1. Add this CTA in index.html #intake .intake-chat-path:
+ *     <button type="button" class="btn btn-gold" id="intakeVoiceCta" onclick="startIntakeVoice()">
+ *       <span data-i18n="intake.voiceCta">Talk with the voice agent</span>
+ *     </button>
+ *  2. Before the site scripts, add:
+ *     <elevenlabs-convai agent-id="agent_8801m05ndkpyfanva562vsc3ss9j" placement="bottom-left"></elevenlabs-convai>
+ *     <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+ *  3. Restore ElevenLabs CSP + microphone=(self) in vercel.json.
+ */
+function startIntakeVoice(){
+  if(typeof closeChat === 'function') closeChat();
+  var widget = document.querySelector('elevenlabs-convai');
+  if(!widget) return;
+  function begin(){
+    if(typeof widget.startConversation === 'function'){
+      try{ widget.startConversation(); }catch(_){}
+    }
+  }
+  if(window.customElements && typeof customElements.whenDefined === 'function'){
+    if(customElements.get('elevenlabs-convai')) begin();
+    else customElements.whenDefined('elevenlabs-convai').then(begin);
+  } else {
+    begin();
+  }
+}
+window.startIntakeVoice = startIntakeVoice;
 input.addEventListener('keydown', (e)=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendMessage(); } });
 
 const intakeForm = document.getElementById('intakeForm');
@@ -864,4 +894,52 @@ if(document.readyState === 'loading'){
   });
   document.addEventListener('monkyfi:langchange', function(){ apply(read()); });
   apply(read());
+})();
+
+(function () {
+  'use strict';
+  var src = 'https://assets.calendly.com/assets/external/widget.js';
+  var url = 'https://calendly.com/hello-monkyfi/20min?hide_gdpr_banner=1&primary_color=00D4FF';
+
+  function badgeLabel(){
+    var label = typeof i18nT === 'function' ? i18nT('calendly.badge') : '';
+    if(label && label !== 'calendly.badge') return label;
+    var lang = String(document.documentElement.lang || '').toLowerCase();
+    if(lang.indexOf('es') === 0) return 'Agenda una llamada de 20m';
+    if(lang.indexOf('pt') === 0) return 'Agende uma chamada de 20m';
+    return 'Schedule a 20m call';
+  }
+
+  function applyBadgeText(){
+    var text = badgeLabel();
+    document.querySelectorAll('.calendly-badge-content').forEach(function(el){
+      el.textContent = text;
+    });
+  }
+
+  if (document.querySelector('script[src="' + src + '"]')) {
+    document.addEventListener('monkyfi:langchange', applyBadgeText);
+    return;
+  }
+
+  var css = document.createElement('link');
+  css.rel = 'stylesheet';
+  css.href = 'https://assets.calendly.com/assets/external/widget.css';
+  document.head.appendChild(css);
+
+  var script = document.createElement('script');
+  script.src = src;
+  script.async = true;
+  script.onload = function () {
+    if (!window.Calendly || typeof window.Calendly.initBadgeWidget !== 'function') return;
+    window.Calendly.initBadgeWidget({
+      url: url,
+      text: badgeLabel(),
+      color: '#0A1F3C',
+      textColor: '#FFFFFF'
+    });
+    applyBadgeText();
+  };
+  document.head.appendChild(script);
+  document.addEventListener('monkyfi:langchange', applyBadgeText);
 })();
