@@ -899,7 +899,28 @@ if(document.readyState === 'loading'){
 (function () {
   'use strict';
   var src = 'https://assets.calendly.com/assets/external/widget.js';
-  if (document.querySelector('script[src="' + src + '"]')) return;
+  var url = 'https://calendly.com/hello-monkyfi/20min?hide_gdpr_banner=1&primary_color=00D4FF';
+
+  function badgeLabel(){
+    var label = typeof i18nT === 'function' ? i18nT('calendly.badge') : '';
+    if(label && label !== 'calendly.badge') return label;
+    var lang = String(document.documentElement.lang || '').toLowerCase();
+    if(lang.indexOf('es') === 0) return 'Agenda una llamada de 20m';
+    if(lang.indexOf('pt') === 0) return 'Agende uma chamada de 20m';
+    return 'Schedule a 20m call';
+  }
+
+  function applyBadgeText(){
+    var text = badgeLabel();
+    document.querySelectorAll('.calendly-badge-content').forEach(function(el){
+      el.textContent = text;
+    });
+  }
+
+  if (document.querySelector('script[src="' + src + '"]')) {
+    document.addEventListener('monkyfi:langchange', applyBadgeText);
+    return;
+  }
 
   var css = document.createElement('link');
   css.rel = 'stylesheet';
@@ -911,13 +932,14 @@ if(document.readyState === 'loading'){
   script.async = true;
   script.onload = function () {
     if (!window.Calendly || typeof window.Calendly.initBadgeWidget !== 'function') return;
-    var lang = String(document.documentElement.lang || '').toLowerCase();
     window.Calendly.initBadgeWidget({
-      url: 'https://calendly.com/hello-monkyfi/20min?hide_gdpr_banner=1&primary_color=00D4FF',
-      text: lang.indexOf('es') === 0 ? 'Agenda 20 min' : 'Book 20 min',
+      url: url,
+      text: badgeLabel(),
       color: '#0A1F3C',
       textColor: '#FFFFFF'
     });
+    applyBadgeText();
   };
   document.head.appendChild(script);
+  document.addEventListener('monkyfi:langchange', applyBadgeText);
 })();
