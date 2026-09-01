@@ -895,3 +895,29 @@ if(document.readyState === 'loading'){
   document.addEventListener('monkyfi:langchange', function(){ apply(read()); });
   apply(read());
 })();
+
+(function () {
+  'use strict';
+  var src = 'https://assets.calendly.com/assets/external/widget.js';
+  if (document.querySelector('script[src="' + src + '"]')) return;
+
+  var css = document.createElement('link');
+  css.rel = 'stylesheet';
+  css.href = 'https://assets.calendly.com/assets/external/widget.css';
+  document.head.appendChild(css);
+
+  var script = document.createElement('script');
+  script.src = src;
+  script.async = true;
+  script.onload = function () {
+    if (!window.Calendly || typeof window.Calendly.initBadgeWidget !== 'function') return;
+    var lang = String(document.documentElement.lang || '').toLowerCase();
+    window.Calendly.initBadgeWidget({
+      url: 'https://calendly.com/hello-monkyfi/20min?hide_gdpr_banner=1&primary_color=00D4FF',
+      text: lang.indexOf('es') === 0 ? 'Agenda 20 min' : 'Book 20 min',
+      color: '#0A1F3C',
+      textColor: '#FFFFFF'
+    });
+  };
+  document.head.appendChild(script);
+})();

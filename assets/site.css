@@ -1209,3 +1209,9 @@ html[data-edition="morning"] .kicker-orange,
 html[data-edition="morning"] .kicker-green{
   text-shadow:none;
 }
+
+.calendly-badge-widget {
+  right: auto !important;
+  left: 20px !important;
+  bottom: 20px !important;
+}
