@@ -1017,6 +1017,7 @@
     document.getElementById('refresh-btn-label').textContent = tr('refreshBtn');
     var searchInput = document.getElementById('search-input');
     searchInput.placeholder = tr('searchPlaceholder');
+    searchInput.setAttribute('aria-label', tr('searchPlaceholder'));
     if(searchInput.value !== ui.query) searchInput.value = ui.query;
     document.getElementById('label-term').textContent = tr('fieldTerm');
     document.getElementById('label-cat').textContent = tr('fieldCategory');

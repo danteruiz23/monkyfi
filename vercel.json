@@ -1,4 +1,12 @@
 {
+  "redirects": [
+    {
+      "source": "/:path(.*)",
+      "has": [{ "type": "host", "value": "www.monkyfi.com" }],
+      "destination": "https://monkyfi.com/:path",
+      "statusCode": 301
+    }
+  ],
   "rewrites": [
     { "source": "/connect", "destination": "/connect.html" },
     { "source": "/lexicon", "destination": "/lexicon.html" }
