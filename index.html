@@ -1,585 +1,930 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title data-i18n-title="meta.title">Monkyfi — Get AI Power</title>
-<script>(function(){try{if(localStorage.getItem('monkyfi.edition')==='morning')document.documentElement.setAttribute('data-edition','morning')}catch(e){}})();</script>
-<meta name="description" content="Monkyfi combines real telecom expertise with AI to help critical infrastructure companies automate operations, turn data into intelligence, and prepare for the next generation of network operations." />
+<title>Monkyfi — AI Agents for Telecom Operations</title>
+<meta name="description" content="Monkyfi builds AI agents for telecom operations — from NOC automation to service delivery intelligence, field tools, and network planning." />
 <link rel="canonical" href="https://monkyfi.com/" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://monkyfi.com/" />
-<meta property="og:title" content="Monkyfi — Get AI Power" />
-<meta property="og:description" content="Monkyfi combines real telecom expertise with AI to help critical infrastructure companies automate operations, turn data into intelligence, and prepare for the next generation of network operations." />
+<meta property="og:title" content="Monkyfi — AI Agents for Telecom Operations" />
+<meta property="og:description" content="Monkyfi builds AI agents for telecom operations — from NOC automation to service delivery intelligence, field tools, and network planning." />
 <meta property="og:image" content="https://monkyfi.com/assets/og-image.jpg" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Monkyfi — Get AI Power" />
-<meta name="twitter:description" content="AI automation and intelligence for telecom and digital infrastructure operations." />
 <meta name="twitter:image" content="https://monkyfi.com/assets/og-image.jpg" />
 <link rel="icon" href="assets/favicon-48.png" type="image/png" sizes="48x48" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-<noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" /></noscript>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://monkyfi.com/#organization",
-      "name": "Monkyfi",
-      "url": "https://monkyfi.com/",
-      "logo": "https://monkyfi.com/assets/favicon-48.png",
-      "email": "hello@monkyfi.com",
-      "description": "Monkyfi combines real telecom expertise with AI to help critical infrastructure companies automate operations, turn data into intelligence, and prepare for the next generation of network operations."
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://monkyfi.com/#website",
-      "url": "https://monkyfi.com/",
-      "name": "Monkyfi",
-      "description": "AI automation and intelligence for telecom and digital infrastructure operations.",
-      "publisher": { "@id": "https://monkyfi.com/#organization" }
-    }
-  ]
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --cyan: #4FA9E8;
+  --cyan-soft: rgba(79,169,232,.12);
+  --navy-2: #0E1B33;
+  --ink: #070B14;
+  --slate: #94a3b8;
+  --line: rgba(148,163,184,.12);
 }
-</script>
-<link rel="stylesheet" href="assets/site.css?v=20260919a" />
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  font-family: 'Poppins', system-ui, sans-serif;
+  background: var(--ink); color: #cbd5e1;
+  font-size: 16px; line-height: 1.65;
+  overflow-x: hidden; -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--cyan); }
 
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(7,11,20,.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-mark {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: radial-gradient(circle at 30% 30%, #143055, #0A1426 70%);
+  border: 1px solid rgba(79,169,232,.35);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.brand-mark img { width: 88%; height: 88%; object-fit: contain; }
+.brand-text b { color: #EDEFF2; font-weight: 700; font-size: 17px; letter-spacing: -.02em; display: block; }
+.brand-text small { color: var(--cyan); font-size: 10px; letter-spacing: .28em; text-transform: uppercase; font-weight: 600; }
+.nav-end { display: flex; align-items: center; gap: 10px; }
+.lang-switch { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.lang-switch button {
+  background: transparent; border: none; color: var(--slate);
+  font-family: inherit; font-size: 12px; font-weight: 600;
+  padding: 8px 10px; cursor: pointer; transition: background .2s, color .2s;
+}
+.lang-switch button:hover { color: #EDEFF2; }
+.lang-switch button[aria-pressed="true"] { background: var(--cyan-soft); color: var(--cyan); }
+.nav-cta {
+  padding: 9px 18px; border-radius: 8px;
+  background: var(--cyan); color: var(--ink);
+  font-weight: 600; font-size: 14px; white-space: nowrap;
+  box-shadow: 0 0 20px rgba(79,169,232,.35);
+  transition: transform .2s, box-shadow .2s;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 0 32px rgba(79,169,232,.5); color: var(--ink); }
+@media(max-width: 560px) { .nav-cta { display: none; } }
+.brand-text small { white-space: nowrap; }
+@media(max-width: 420px) { .nav-inner { padding: 12px 16px; } .brand-text small { display: none; } .nav-end { gap: 8px; } }
+
+/* HERO */
+.hero {
+  max-width: 1200px; margin: 0 auto; padding: 72px 24px 60px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+}
+@media(max-width: 760px) { .hero { grid-template-columns: 1fr; padding: 48px 16px 40px; } }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 12px; border-radius: 20px;
+  background: var(--cyan-soft); border: 1px solid rgba(79,169,232,.25);
+  font-size: 12px; font-weight: 600; color: var(--cyan);
+  letter-spacing: .04em; text-transform: uppercase; margin-bottom: 20px;
+}
+.hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.hero h1 {
+  font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: #EDEFF2;
+  line-height: 1.15; letter-spacing: -.03em; margin-bottom: 20px;
+}
+.hero h1 em { font-style: normal; color: var(--cyan); display: block; }
+.hero p { font-size: 17px; color: var(--slate); line-height: 1.7; margin-bottom: 32px; max-width: 480px; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-primary {
+  padding: 12px 24px; border-radius: 9px; background: var(--cyan); color: var(--ink);
+  font-weight: 600; font-size: 15px; box-shadow: 0 0 24px rgba(79,169,232,.4);
+  transition: transform .2s, box-shadow .2s;
+}
+.btn-primary:hover { transform: translateY(-2px); color: var(--ink); }
+.btn-secondary {
+  padding: 12px 24px; border-radius: 9px; border: 1px solid rgba(79,169,232,.3);
+  color: var(--cyan); font-weight: 600; font-size: 15px; transition: background .2s;
+}
+.btn-secondary:hover { background: var(--cyan-soft); }
+/* Logo with orbiting rings (from the previous site) */
+.hero-visual {
+  position: relative; height: 520px;
+  display: flex; align-items: center; justify-content: center;
+}
+.orb {
+  position: absolute; width: 440px; height: 440px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(79,169,232,.18) 0%, rgba(79,169,232,0) 60%);
+  animation: float 10s ease-in-out infinite;
+}
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+.ring { position: absolute; border: 1px solid rgba(79,169,232,.18); border-radius: 50%; animation: spin 40s linear infinite; }
+.ring.r1 { width: 480px; height: 480px; }
+.ring.r2 { width: 360px; height: 360px; animation-duration: 30s; animation-direction: reverse; border-color: rgba(79,169,232,.28); }
+.ring.r3 { width: 260px; height: 260px; animation-duration: 22s; border-style: dashed; border-color: rgba(79,169,232,.15); }
+@keyframes spin { to { transform: rotate(360deg); } }
+.ring::before {
+  content: ''; position: absolute; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--cyan); top: -4px; left: 50%; margin-left: -4px; box-shadow: 0 0 14px var(--cyan);
+}
+.ring.r2::before { background: #fff; box-shadow: 0 0 10px #fff; }
+.ring.r3::before { display: none; }
+.hero-logo {
+  position: relative; z-index: 1; width: 290px; height: 290px; border-radius: 50%;
+  object-fit: cover; box-shadow: 0 0 40px rgba(79,169,232,.22), 0 0 0 1px rgba(79,169,232,.25);
+}
+@media (prefers-reduced-motion: reduce) { .orb, .ring, .hero-badge span { animation: none; } }
+
+/* Stat tiles under the hero text */
+.hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 36px; }
+.stat-card {
+  --k: var(--cyan);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--k) 16%, transparent) 0, transparent 110px), var(--navy-2);
+  border: 1px solid var(--line); border-top: 3px solid var(--k); border-radius: 12px;
+  padding: 14px 16px; display: flex; flex-direction: column; gap: 6px;
+}
+.stat-card .stat-icon { font-size: 26px; line-height: 1.35; }
+.stat-card .stat-value { font-size: 13.5px; line-height: 1.45; margin-top: 0; }
+
+@media(max-width: 760px) {
+  .hero { display: flex; flex-direction: column-reverse; gap: 8px; }
+  .hero-visual { height: 330px; width: 100%; overflow: hidden; }
+  .orb { width: 300px; height: 300px; }
+  .ring.r1 { width: min(86vw, 320px); height: min(86vw, 320px); }
+  .ring.r2 { width: min(66vw, 250px); height: min(66vw, 250px); }
+  .ring.r3 { width: min(48vw, 185px); height: min(48vw, 185px); }
+  .hero-logo { width: min(42vw, 170px); height: min(42vw, 170px); }
+}
+@media(max-width: 520px) { .hero-stats { grid-template-columns: 1fr; } }
+.stat-card.c-green { --k: #3DDC84; }
+.stat-card.c-amber { --k: #F2C98B; }
+.stat-num {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-weight: 600;
+  font-size: clamp(2.25rem, 4.2vw, 3rem); line-height: 1.1; letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums; color: var(--k);
+}
+.stat-icon { font-size: 22px; flex-shrink: 0; }
+.stat-label { font-size: 12px; color: var(--slate); text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+.stat-value { font-size: 15px; font-weight: 600; color: #EDEFF2; margin-top: 2px; }
+
+/* SECTIONS */
+.section-header { max-width: 1200px; margin: 0 auto; padding: 0 24px 32px; }
+.section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--cyan); margin-bottom: 8px; }
+.section-title { font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 700; color: #EDEFF2; letter-spacing: -.02em; }
+.section-sub { font-size: 15px; color: var(--slate); margin-top: 8px; max-width: 560px; }
+@media(max-width: 760px) { .section-header { padding: 0 16px 28px; } }
+
+/* AGENTS */
+.agents-wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }
+@media(max-width: 760px) { .agents-wrap { padding: 0 16px 60px; } }
+.agents-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 20px; }
+.agent-card {
+  --k: var(--cyan);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--k) 16%, transparent) 0, transparent 140px), var(--navy-2);
+  border: 1px solid var(--line); border-top: 3px solid var(--k); border-radius: 14px;
+  padding: 24px; display: flex; flex-direction: column; gap: 14px;
+  transition: border-color .25s, transform .25s;
+}
+.agent-card:hover { border-color: color-mix(in srgb, var(--k) 45%, transparent); border-top-color: var(--k); transform: translateY(-3px); }
+.agent-name::before {
+  content: ''; display: inline-block; width: 9px; height: 9px; border-radius: 3px;
+  background: var(--k); margin-right: 8px; vertical-align: middle; position: relative; top: -2px;
+}
+.agent-card .agent-icon { background: color-mix(in srgb, var(--k) 14%, transparent); border-color: color-mix(in srgb, var(--k) 30%, transparent); }
+.agent-card .tag { color: var(--k); background: color-mix(in srgb, var(--k) 12%, transparent); border-color: color-mix(in srgb, var(--k) 28%, transparent); }
+.c-sdi { --k: #4FA9E8; }
+.c-noc { --k: #F5A9B8; }
+.c-survey { --k: #FFCB9A; }
+.c-field { --k: #A7E3C4; }
+.c-longhaul { --k: #9CCFEF; }
+.c-iq { --k: #C4B5F4; }
+.c-coord { --k: #F3DE8A; }
+.agent-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.agent-icon {
+  width: 44px; height: 44px; border-radius: 11px;
+  background: var(--cyan-soft); border: 1px solid rgba(79,169,232,.2);
+  display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+}
+.agent-area {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--slate);
+  background: rgba(148,163,184,.08); border: 1px solid var(--line); padding: 4px 9px; border-radius: 6px; text-align: right;
+}
+.agent-name { font-size: 17px; font-weight: 700; color: #EDEFF2; line-height: 1.3; }
+.agent-desc { font-size: 13.5px; color: var(--slate); line-height: 1.6; flex-grow: 1; }
+.agent-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  font-size: 11px; font-weight: 700; color: var(--cyan);
+  background: var(--cyan-soft); border: 1px solid rgba(79,169,232,.18); padding: 3px 9px; border-radius: 5px;
+}
+
+/* CONTACT */
+.contact-section { max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }
+.contact-section .section-header { padding-left: 0; padding-right: 0; }
+@media(max-width: 760px) { .contact-section { padding: 0 16px 60px; } }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+@media(max-width: 760px) { .contact-grid { grid-template-columns: 1fr; gap: 28px; } }
+.contact-info p { font-size: 15px; color: var(--slate); line-height: 1.7; margin-bottom: 28px; }
+.contact-detail { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 14px; }
+.cd-icon {
+  width: 36px; height: 36px; border-radius: 9px; background: var(--cyan-soft);
+  border: 1px solid rgba(79,169,232,.18); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;
+}
+.contact-detail a { color: var(--cyan); }
+.contact-form-box { background: var(--navy-2); border: 1px solid var(--line); border-radius: 16px; padding: 32px; }
+@media(max-width: 500px) { .contact-form-box { padding: 22px; } }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media(max-width: 500px) { .form-row { grid-template-columns: 1fr; gap: 0; } }
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.form-group label { font-size: 12px; font-weight: 600; color: var(--slate); text-transform: uppercase; letter-spacing: .06em; }
+.form-group label small { color: #64748b; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 12px; }
+.form-input, .form-select, .form-textarea {
+  padding: 11px 14px; border-radius: 9px; width: 100%;
+  background: rgba(10,20,38,.8); border: 1px solid rgba(148,163,184,.15);
+  color: #EDEFF2; font-family: inherit; font-size: 14px; outline: none; transition: border-color .2s;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--cyan); }
+.form-input::placeholder, .form-textarea::placeholder { color: #64748b; }
+.form-select { cursor: pointer; }
+.form-select option { background: #0A1426; }
+.form-textarea { resize: vertical; min-height: 100px; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.form-submit {
+  width: 100%; padding: 13px; border-radius: 9px; background: var(--cyan); color: var(--ink);
+  font-weight: 600; font-size: 15px; border: none; cursor: pointer; font-family: inherit;
+  box-shadow: 0 0 24px rgba(79,169,232,.35); transition: transform .2s;
+}
+.form-submit:hover { transform: translateY(-2px); }
+.form-submit:disabled { opacity: .6; cursor: wait; transform: none; }
+.form-error { color: #FF5C70; font-size: 13px; margin: 0 0 12px; min-height: 0; }
+.form-error:empty { display: none; }
+.form-success { text-align: center; padding: 32px 16px; display: none; }
+.form-success .fs-icon { font-size: 36px; margin-bottom: 12px; }
+.form-success h3 { font-size: 18px; color: var(--cyan); font-weight: 700; margin-bottom: 8px; }
+.form-success p { font-size: 14px; color: var(--slate); }
+
+/* FOOTER */
+footer { border-top: 1px solid var(--line); padding: 28px 24px 96px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer-left { font-size: 13px; color: #64748b; }
+.footer-right { display: flex; gap: 20px; flex-wrap: wrap; }
+.footer-right a { font-size: 13px; color: #64748b; }
+.footer-right a:hover { color: var(--cyan); }
+
+/* CHATBOT */
+.chat-fab {
+  position: fixed; bottom: 28px; right: 28px; z-index: 100;
+  width: 54px; height: 54px; border-radius: 50%; background: var(--cyan); border: none; cursor: pointer;
+  box-shadow: 0 4px 24px rgba(79,169,232,.5); display: flex; align-items: center; justify-content: center;
+  font-size: 22px; transition: transform .2s;
+}
+.chat-fab:hover { transform: scale(1.08); }
+.chat-fab .fab-close { display: none; font-size: 20px; color: var(--ink); }
+.chat-fab.open .fab-icon { display: none; }
+.chat-fab.open .fab-close { display: block; }
+.chat-window {
+  position: fixed; bottom: 94px; right: 28px; z-index: 99;
+  width: 340px; height: 480px; max-height: calc(100vh - 120px);
+  background: var(--navy-2); border: 1px solid rgba(79,169,232,.25); border-radius: 18px; overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,.55); display: none; flex-direction: column;
+}
+.chat-window.open { display: flex; }
+.chat-header { padding: 14px 18px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 10px; }
+.chat-avatar {
+  width: 34px; height: 34px; border-radius: 50%; background: var(--cyan-soft);
+  border: 1px solid rgba(79,169,232,.3); display: flex; align-items: center; justify-content: center; font-size: 16px;
+}
+.chat-header-info b { font-size: 14px; color: #EDEFF2; display: block; }
+.chat-header-info small { font-size: 11px; color: var(--cyan); }
+.chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.msg { max-width: 85%; padding: 10px 13px; font-size: 13px; line-height: 1.55; overflow-wrap: anywhere; }
+.msg.bot { background: rgba(79,169,232,.1); border: 1px solid rgba(79,169,232,.15); color: #cbd5e1; align-self: flex-start; border-radius: 4px 12px 12px 12px; }
+.msg.bot a { color: var(--cyan); }
+.msg.user { background: var(--cyan); color: var(--ink); font-weight: 500; align-self: flex-end; border-radius: 12px 12px 4px 12px; }
+.chat-chips { padding: 0 16px 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; font-family: inherit;
+  background: var(--cyan-soft); border: 1px solid rgba(79,169,232,.25); color: var(--cyan); cursor: pointer;
+}
+.chip:hover { background: rgba(79,169,232,.22); }
+.chat-input-row { padding: 12px 14px; border-top: 1px solid var(--line); display: flex; gap: 8px; }
+.chat-input {
+  flex: 1; min-width: 0; padding: 9px 12px; border-radius: 8px;
+  background: rgba(10,20,38,.8); border: 1px solid rgba(148,163,184,.15);
+  color: #EDEFF2; font-family: inherit; font-size: 13px; outline: none;
+}
+.chat-input:focus { border-color: var(--cyan); }
+.chat-input::placeholder { color: #64748b; }
+.chat-send {
+  width: 36px; height: 36px; border-radius: 8px; background: var(--cyan); border: none; cursor: pointer;
+  color: var(--ink); font-size: 15px; flex-shrink: 0;
+}
+@media(max-width: 600px) {
+  .chat-window { width: calc(100vw - 32px); right: 16px; bottom: 86px; }
+  .chat-fab { right: 16px; bottom: 20px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+}
+</style>
 </head>
 <body>
 
-<a href="#main-content" class="skip-link" data-i18n="a11y.skip">Skip to main content</a>
-
-<header class="masthead">
-  <div class="masthead-inner">
-    <div class="masthead-top">
-      <span class="mast-place" data-i18n="mast.place">Miami · US &amp; LATAM</span>
-      <time class="mast-date" id="mastheadDate" datetime="2026-08-27">Thursday 27 August 2026</time>
-      <button type="button" class="mast-edition edition-toggle" data-edition-label data-i18n-aria="a11y.edition" aria-pressed="false">Night Edition</button>
-    </div>
-    <div class="masthead-brand">
-      <a href="#top" aria-label="Monkyfi home" data-i18n-aria="a11y.home">
-        <div class="masthead-mark"><img src="assets/favicon-48.png" alt="" width="56" height="56" /></div>
-        <p class="masthead-name">Monky<span class="fi">fi</span></p>
-      </a>
-      <div class="masthead-actions">
-        <div class="lang-switch" id="langSwitch">
-          <button type="button" class="lang-btn" id="langBtn" onclick="toggleLang(event)" aria-haspopup="menu" aria-expanded="false" aria-controls="langMenu" data-i18n-aria="lang.label">
-            <span class="lang-current" id="langCurrent">EN</span><span class="chev" aria-hidden="true">▾</span>
-          </button>
-          <div class="lang-menu" id="langMenu" role="menu" aria-label="Language">
-            <button type="button" role="menuitem" data-lang="EN" onclick="setLang('EN')" aria-pressed="true"><span class="flag" aria-hidden="true">🇺🇸</span>English</button>
-            <button type="button" role="menuitem" data-lang="ES" onclick="setLang('ES')" aria-pressed="false"><span class="flag" aria-hidden="true">🇪🇸</span>Español</button>
-            <button type="button" role="menuitem" data-lang="PT" onclick="setLang('PT')" aria-pressed="false"><span class="flag" aria-hidden="true">🇧🇷</span>Português</button>
-          </div>
-        </div>
-        <a href="assets/monkyfi-brochure.pdf?v=20260813" class="nav-brochure" download="Monkyfi-Brochure.pdf" data-i18n="nav.brochure">Brochure</a>
-        <a href="#intake" class="nav-cta"><span class="cta-full" data-i18n="nav.cta">Book an AI Assessment</span><span class="cta-short" data-i18n="nav.ctaShort">Book Assessment</span></a>
-      </div>
-    </div>
-    <nav class="masthead-ticker" aria-label="Edition sections">
-      <a href="/connect" data-i18n="nav.connect">Connect</a>
-      <a href="#atlas">Atlas</a>
-      <a href="#sentinel">Sentinel</a>
-      <a href="#intake" class="ticker-gold" data-i18n="mast.ticker.assessment">Assessment</a>
-      <a href="/lexicon" data-i18n="nav.lexicon">Lexicon</a>
-    </nav>
-  </div>
-</header>
-
-<nav class="top">
-  <div class="wrap">
-    <a href="#top" class="brand" aria-label="Monkyfi home" data-i18n-aria="a11y.home">
-      <div class="brand-mark"><img src="assets/favicon-48.png" alt="" width="42" height="42" /></div>
-      <div class="brand-text"><b>Monkyfi</b><small data-i18n="brand.tag">Get AI Power</small></div>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="brand">
+      <div class="brand-mark"><img src="assets/favicon-48.png" alt="Monkyfi" onerror="this.style.display='none'"></div>
+      <div class="brand-text"><b>Monkyfi</b><small>Get AI Power</small></div>
     </a>
-    <div class="nav-bar-cluster">
-      <div class="lang-switch lang-switch-bar">
-        <button type="button" class="lang-btn" onclick="toggleLang(event)" aria-haspopup="menu" aria-expanded="false" aria-controls="langMenuBar" data-i18n-aria="lang.label">
-          <span class="lang-current">EN</span><span class="chev" aria-hidden="true">▾</span>
-        </button>
-        <div class="lang-menu" id="langMenuBar" role="menu" aria-label="Language">
-          <button type="button" role="menuitem" data-lang="EN" onclick="setLang('EN')" aria-pressed="true"><span class="flag" aria-hidden="true">🇺🇸</span>English</button>
-          <button type="button" role="menuitem" data-lang="ES" onclick="setLang('ES')" aria-pressed="false"><span class="flag" aria-hidden="true">🇪🇸</span>Español</button>
-          <button type="button" role="menuitem" data-lang="PT" onclick="setLang('PT')" aria-pressed="false"><span class="flag" aria-hidden="true">🇧🇷</span>Português</button>
-        </div>
-      </div>
-      <a href="#intake" class="nav-cta nav-bar-cta"><span class="cta-full" data-i18n="nav.cta">Book an AI Assessment</span><span class="cta-short" data-i18n="nav.ctaShort">Book Assessment</span></a>
-    </div>
-    <div class="nav-links" id="navLinks">
-      <a href="/connect" data-i18n="nav.connect">Connect</a>
-      <a href="#solutions" data-i18n="nav.solutions">Solutions</a>
-      <a href="#serve" data-i18n="nav.serve">Who We Serve</a>
-      <a href="#process" data-i18n="nav.process">How We Work</a>
-      <a href="#founder" data-i18n="nav.about">About</a>
-      <a href="#contact" data-i18n="nav.contact">Contact</a>
-      <a href="assets/monkyfi-brochure.pdf?v=20260813" class="nav-mobile-extra" download="Monkyfi-Brochure.pdf" data-i18n="nav.brochure">Brochure</a>
-      <button type="button" class="nav-mobile-extra edition-toggle" data-edition-label data-i18n-aria="a11y.edition">Night Edition</button>
-    </div>
     <div class="nav-end">
-      <button type="button" class="edition-icon-btn edition-toggle" data-i18n-aria="a11y.edition" title="Night Edition">
-        <span class="visually-hidden" data-edition-label>Night Edition</span>
-        <svg class="edition-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3 7 7 0 0 0 21 14.5z"/></svg>
-        <svg class="edition-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-      </button>
-      <button class="nav-toggle" id="navToggle" type="button" aria-label="Menu" data-i18n-aria="a11y.menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="en" onclick="setLang('en')">EN</button>
+        <button type="button" data-lang="es" onclick="setLang('es')">ES</button>
+        <button type="button" data-lang="pt" onclick="setLang('pt')">PT</button>
+      </div>
+      <a href="#contact" class="nav-cta" data-i18n="nav.cta"></a>
     </div>
   </div>
-  <script>document.getElementById('navToggle').addEventListener('click',function(){var open=this.classList.toggle('open');document.getElementById('navLinks').classList.toggle('open');this.setAttribute('aria-expanded',open?'true':'false')});document.querySelectorAll('#navLinks a, #navLinks button').forEach(function(a){a.addEventListener('click',function(){var t=document.getElementById('navToggle');t.classList.remove('open');t.setAttribute('aria-expanded','false');document.getElementById('navLinks').classList.remove('open')})})</script>
 </nav>
 
-<main id="main-content" tabindex="-1">
-<section class="edition-front" id="top">
-  <div class="paper paper-front">
-    <article class="story story-splash">
-      <div class="hero-bg"><canvas id="circuitCanvas"></canvas></div>
-      <div class="splash-copy">
-        <p class="kicker kicker-cyan" data-i18n="hero.eyebrow">AI Automation &amp; Intelligence for Telecom Operations</p>
-        <h1 data-i18n="hero.h1">Get <span class="fi">AI Power</span></h1>
-        <p class="dek hero-sub" data-i18n="hero.sub">Telecom and digital infrastructure operators: turn operational data into intelligence, automation, and better decisions.</p>
-        <div class="hero-ctas">
-          <a href="#intake" class="btn btn-primary"><span data-i18n="hero.cta1">Book an AI Assessment</span> <span class="arr">→</span></a>
-          <a href="#solutions" class="btn btn-ghost" data-i18n="hero.cta2">Explore Solutions</a>
-        </div>
-        <p class="kicker kicker-lg kicker-cream" style="margin-top:8px" data-i18n="kicker.brief">In brief</p>
-        <div class="in-brief hero-pillars">
-          <div class="pillar"><span class="ic">◈</span><b data-i18n="hero.pillar1.title">AI-First</b><small data-i18n="hero.pillar1.sub">Built for 2026+</small></div>
-          <div class="pillar"><span class="ic">⚡</span><b data-i18n="hero.pillar2.title">Powerful</b><small data-i18n="hero.pillar2.sub">Real impact</small></div>
-          <div class="pillar"><span class="ic">◎</span><b data-i18n="hero.pillar3.title">Focused</b><small data-i18n="hero.pillar3.sub">Boutique craft</small></div>
-          <div class="pillar"><span class="ic">↗</span><b data-i18n="hero.pillar4.title">Scalable</b><small data-i18n="hero.pillar4.sub">From 1 to N</small></div>
-          <div class="pillar"><span class="ic">◇</span><b data-i18n="hero.pillar5.title">Trusted</b><small data-i18n="hero.pillar5.sub">Real telecom roots</small></div>
-        </div>
-      </div>
-      <div class="hero-visual splash-orbit">
-        <div class="ring r1"></div>
-        <div class="ring r2"></div>
-        <div class="ring r3"></div>
-        <div class="orb"></div>
-        <div class="hero-logo">
-          <picture>
-            <source type="image/webp" srcset="assets/logo-full-hero-sm.webp 440w, assets/logo-full-hero.webp 760w" sizes="(max-width:980px) min(52vw,220px), 280px" />
-            <img src="assets/logo-full-web-opt.png" alt="Monkyfi logo" width="380" height="380" fetchpriority="high" decoding="async" />
-          </picture>
-        </div>
-        <div class="float-badge fb-1">
-          <a href="/connect">
-            <div class="b-ic">◈</div>
-            <div><b data-i18n="hero.badge1.title">Connect</b><small data-i18n="hero.badge1.sub">Available now</small></div>
-          </a>
-        </div>
-        <div class="float-badge fb-2">
-          <div class="b-ic">⚡</div>
-          <div><b data-i18n="hero.badge2.title">Atlas</b><small data-i18n="hero.badge2.sub">Pilot · coming soon</small></div>
-        </div>
-        <div class="float-badge fb-3">
-          <div class="b-ic">↘</div>
-          <div><b data-i18n="hero.badge3.title">Sentinel</b><small data-i18n="hero.badge3.sub">Coming soon</small></div>
-        </div>
-      </div>
-    </article>
-
-    <div class="story-rail" id="solutions">
-      <article class="story product story-lead reveal" id="connect">
-        <div class="p-head p-head-lg"><span class="kicker kicker-live" data-i18n="kicker.live">Live</span><span class="p-tag">01</span></div>
-        <h3>Monkyfi Connect</h3>
-        <div class="p-sub" data-i18n="connect.sub">AI &amp; Telecom Consulting</div>
-        <p class="tagline" data-i18n="connect.tagline">Practical telecom and AI consulting designed to identify operational opportunities, improve service delivery, and create a roadmap for AI adoption.</p>
-        <p class="intake-gold story-hint" data-i18n="connect.openHint">Open the Connect page — same chatbot, same intake</p>
-        <ul class="cap-list">
-          <li data-i18n="connect.c1">AI Readiness Assessment</li>
-          <li data-i18n="connect.c2">Telecom Digital Transformation</li>
-          <li data-i18n="connect.c3">Service Delivery Optimization</li>
-          <li data-i18n="connect.c4">Network Operations Automation</li>
-          <li data-i18n="connect.c5">Data Readiness for AI</li>
-          <li data-i18n="connect.c6">AI Strategy &amp; Advisory</li>
-        </ul>
-        <a href="/connect" class="btn btn-primary" data-i18n="connect.cta">Explore Connect <span class="arr">→</span></a>
-      </article>
-
-      <article class="story product reveal" id="atlas">
-        <div class="p-head p-head-lg"><span class="kicker kicker-pilot" data-i18n="kicker.pilot">Pilot</span><span class="p-tag">02</span></div>
-        <h3>Monkyfi Atlas</h3>
-        <div class="p-sub" data-i18n="atlas.sub">Agentic AI for Network Operations</div>
-        <p class="tagline" data-i18n="atlas.tagline">An AI copilot designed to help Network Operations Center teams understand incidents, search operational knowledge, correlate events, accelerate troubleshooting, and recommend next actions.</p>
-        <div class="hitl" data-i18n="atlas.hitl">Human-in-the-loop. AI recommends. Your team decides.</div>
-        <a href="mailto:hello@monkyfi.com?subject=Atlas%20Pilot" class="btn btn-primary" data-i18n="atlas.cta">Join the Atlas Pilot <span class="arr">→</span></a>
-      </article>
-
-      <article class="story product reveal" id="sentinel">
-        <div class="p-head p-head-lg"><span class="kicker kicker-soon" data-i18n="kicker.soon">Coming soon</span><span class="p-tag">03</span></div>
-        <h3>Monkyfi Sentinel</h3>
-        <div class="p-sub" data-i18n="sentinel.sub">AI for Subsea Cable &amp; Backbone Resilience</div>
-        <p class="tagline" data-i18n="sentinel.tagline">AI-powered intelligence for critical digital infrastructure, helping operators identify risks, improve operational visibility, and strengthen the resilience of subsea cable and backbone networks.</p>
-        <a href="mailto:hello@monkyfi.com?subject=Monkyfi%20Sentinel" class="btn btn-primary" data-i18n="sentinel.cta">Learn About Sentinel <span class="arr">→</span></a>
-      </article>
+<section class="hero">
+  <div>
+    <div class="hero-badge"><span></span><b data-i18n="hero.badge"></b></div>
+    <h1><span data-i18n="hero.title1"></span> <em data-i18n="hero.title2"></em></h1>
+    <p data-i18n="hero.sub"></p>
+    <div class="hero-actions">
+      <a href="#agents" class="btn-primary" data-i18n="hero.btn1"></a>
+      <a href="#contact" class="btn-secondary" data-i18n="hero.btn2"></a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card"><div class="stat-label" data-i18n="stat1.l"></div><div class="stat-num">7</div><div class="stat-value" data-i18n="stat1.v"></div></div>
+      <div class="stat-card c-green"><div class="stat-label" data-i18n="stat2.l"></div><div class="stat-icon">🌐</div><div class="stat-value" data-i18n="stat2.v"></div></div>
+      <div class="stat-card c-amber"><div class="stat-label" data-i18n="stat3.l"></div><div class="stat-icon">⚡</div><div class="stat-value" data-i18n="stat3.v"></div></div>
     </div>
   </div>
-</section>
-
-<section class="edition-inside">
-  <div class="paper paper-pack">
-    <article class="story span-6 reveal" id="why">
-      <p class="kicker kicker-lg kicker-gold" data-i18n="why.eyebrow">Why Monkyfi</p>
-      <h2 data-i18n="why.h2">Telecom muscle. AI brains.</h2>
-      <p class="dek" data-i18n="why.lead">Monkyfi combines deep telecommunications and digital infrastructure experience with modern AI technologies to solve practical operational problems. We understand: Networks. Operations. Service Delivery. Infrastructure. AI.</p>
-      <ul class="brief-list">
-        <li><div class="t-ic">◈</div><div><h4 data-i18n="why.t1.title">Telecom Operations</h4><p data-i18n="why.t1.body">Real network and NOC experience, not theory.</p></div></li>
-        <li><div class="t-ic">⚙</div><div><h4 data-i18n="why.t2.title">AI &amp; Automation</h4><p data-i18n="why.t2.body">Practical automation for real operational workflows.</p></div></li>
-        <li><div class="t-ic">◎</div><div><h4 data-i18n="why.t3.title">Digital Infrastructure</h4><p data-i18n="why.t3.body">Networks, data centers, and critical systems.</p></div></li>
-        <li><div class="t-ic">▤</div><div><h4 data-i18n="why.t4.title">Data Readiness</h4><p data-i18n="why.t4.body">Preparing operational data for AI use.</p></div></li>
-        <li><div class="t-ic">↗</div><div><h4 data-i18n="why.t5.title">Digital Transformation</h4><p data-i18n="why.t5.body">From legacy process to modern, AI-ready operations.</p></div></li>
-      </ul>
-      <p class="why-note" style="text-align:left;margin-top:16px" data-i18n="why.note">We don't apply AI for the sake of technology. We identify where AI can create <em>measurable business value</em>, then help organizations assess, pilot, and scale practical solutions.</p>
-    </article>
-
-    <article class="story span-3 reveal" id="serve">
-      <p class="kicker kicker-lg kicker-orange" data-i18n="serve.eyebrow">Who We Serve</p>
-      <h2 data-i18n="serve.h2">Built for operators who can't go down</h2>
-      <div class="serve-stack serve-grid">
-        <div class="serve-card"><span data-i18n="serve.1">Telecom Carriers</span></div>
-        <div class="serve-card"><span data-i18n="serve.2">Fiber &amp; Network Operators</span></div>
-        <div class="serve-card"><span data-i18n="serve.3">Data Centers</span></div>
-        <div class="serve-card"><span data-i18n="serve.4">Digital Infrastructure Providers</span></div>
-        <div class="serve-card"><span data-i18n="serve.5">Managed Service Providers</span></div>
-        <div class="serve-card"><span data-i18n="serve.6">Technology Companies</span></div>
-        <div class="serve-card"><span data-i18n="serve.7">Enterprise IT Operations</span></div>
-      </div>
-    </article>
-
-    <article class="story span-3 reveal" id="process">
-      <p class="kicker kicker-lg kicker-green" data-i18n="process.eyebrow">How We Work</p>
-      <h2 data-i18n="process.h2">From AI opportunity to real-world impact</h2>
-      <div class="plan-list how-grid">
-        <div class="step"><div class="s-ic">01</div><h4 data-i18n="process.s1.title">Discover</h4><p data-i18n="process.s1.body">Understand your business, data, systems, and operational challenges.</p></div>
-        <div class="step"><div class="s-ic">02</div><h4 data-i18n="process.s2.title">Assess</h4><p data-i18n="process.s2.body">Evaluate AI readiness and identify high-value opportunities.</p></div>
-        <div class="step"><div class="s-ic">03</div><h4 data-i18n="process.s3.title">Prioritize</h4><p data-i18n="process.s3.body">Select use cases based on business impact, feasibility, and risk.</p></div>
-        <div class="step"><div class="s-ic">04</div><h4 data-i18n="process.s4.title">Pilot</h4><p data-i18n="process.s4.body">Build and validate a focused AI solution.</p></div>
-        <div class="step"><div class="s-ic">05</div><h4 data-i18n="process.s5.title">Scale</h4><p data-i18n="process.s5.body">Expand successful solutions across the organization.</p></div>
-      </div>
-    </article>
-
-    <article class="story span-5 reveal" id="engagement-flow">
-      <p class="kicker kicker-cream" data-i18n="approach.eyebrow">Our Approach</p>
-      <h2 data-i18n="approach.h2">Assessment to action — no fog</h2>
-      <div class="approach-stack flow-row">
-        <div class="flow-card"><h4 data-i18n="approach.1.title">Discover</h4><p data-i18n="approach.1.body">Where you stand today</p></div>
-        <div class="flow-card"><h4 data-i18n="approach.2.title">Diagnose</h4><p data-i18n="approach.2.body">Deep dive where it matters most</p></div>
-        <div class="flow-card"><h4 data-i18n="approach.3.title">Prioritize</h4><p data-i18n="approach.3.body">A sequenced, actionable roadmap</p></div>
-        <div class="flow-card flow-card-final"><h4 data-i18n="approach.4.title">Deliver</h4><p data-i18n="approach.4.body">Reviewed and ready to execute</p></div>
-      </div>
-    </article>
-
-    <article class="story span-7 reveal" id="outcomes">
-      <p class="kicker kicker-cyan" data-i18n="out.eyebrow">Business Outcomes</p>
-      <h2 data-i18n="out.h2">AI that pays its way</h2>
-      <div class="outcome-grid grid-4">
-        <div class="outcome-card"><div class="o-ic">⚙</div><h4 data-i18n="out.1.title">Cut the manual work</h4><p data-i18n="out.1.body">Automate repetitive operational workflows.</p></div>
-        <div class="outcome-card"><div class="o-ic">⚡</div><h4 data-i18n="out.2.title">Faster resolution</h4><p data-i18n="out.2.body">Help teams analyze incidents and make faster decisions.</p></div>
-        <div class="outcome-card"><div class="o-ic">◎</div><h4 data-i18n="out.3.title">See more, guess less</h4><p data-i18n="out.3.body">Turn operational data into actionable intelligence.</p></div>
-        <div class="outcome-card"><div class="o-ic">↗</div><h4 data-i18n="out.4.title">Scale the expertise</h4><p data-i18n="out.4.body">Make organizational knowledge available through AI-powered assistants.</p></div>
-      </div>
-    </article>
+  <div class="hero-visual">
+    <div class="ring r1"></div>
+    <div class="ring r2"></div>
+    <div class="ring r3"></div>
+    <div class="orb"></div>
+    <img src="assets/logo-monkyfi.webp" alt="Monkyfi — Get AI Power" class="hero-logo" width="1254" height="1254" fetchpriority="high" />
   </div>
 </section>
 
-<section class="edition-geo map-section" id="network">
-  <div class="paper paper-geo">
-    <article class="story story-map reveal">
-      <p class="kicker" data-i18n="kicker.geo">Geographic exclusive</p>
-      <h2 data-i18n="net.h2">Connecting <span class="glow">US &amp; LATAM</span> Telecom Expertise</h2>
-      <div class="map-wrap">
-        <div class="map-grid">
-          <div id="americasMap" class="cable-svg" style="position:relative;aspect-ratio:600/540">
-            <picture>
-              <source type="image/webp" srcset="assets/subcabsys-map.webp" />
-              <img src="assets/subcabsys-opt.png" alt="Global subsea cable system map" data-i18n-alt="net.mapAlt" style="width:100%;height:auto;display:block" loading="lazy" decoding="async" width="900" height="835" />
-            </picture>
-          </div>
-        </div>
-      </div>
-      <p class="dek" style="margin-top:16px" data-i18n="net.body">Monkyfi brings together US-based technology and business expertise with deep understanding of telecommunications and digital infrastructure across Latin America.</p>
-      <p class="kicker kicker-cream" style="margin-top:8px" data-i18n="kicker.figures">The figures</p>
-      <div class="figures latam-stats">
-        <div><b>20+</b><small data-i18n="net.s1">Years experience</small></div>
-        <div><b>17</b><small data-i18n="net.s2">Connectivity hubs</small></div>
-        <div><b>Miami</b><small data-i18n="net.s3">Home base</small></div>
-      </div>
-    </article>
-
-    <article class="story story-founder reveal" id="founder">
-      <p class="kicker kicker-cyan" data-i18n="kicker.profile">Profile</p>
-      <h2 data-i18n="founder.h2">Built on real telecom years</h2>
-      <div class="founder-wrap">
-        <p data-i18n="founder.lead">Monkyfi is built on extensive telecommunications, network operations, service delivery, digital infrastructure, and technology transformation experience — now combined with advanced AI capabilities.</p>
-        <div class="figures founder-stats" style="display:grid">
-          <div><b>80%</b><small data-i18n="founder.stat1">Incident reduction via process automation, submarine cable ops</small></div>
-          <div><b>99.5%</b><small data-i18n="founder.stat2">SLA sustained across 100+ global carrier clients</small></div>
-          <div><b>50+</b><small data-i18n="founder.stat3">International vendors managed, subsea &amp; terrestrial systems</small></div>
-        </div>
-        <blockquote class="pull-quote" data-i18n="founder.hitl">Experienced in NOC leadership of the 16,000-mile SAM-1 submarine cable system, plus deployment and service delivery across a global subsea &amp; backbone network spanning systems including Dunant, Marea, Firmina, Celia, Brusa and PCCS.</blockquote>
-        <div class="founder-tags">
-          <span data-i18n="founder.tag1">Telecom &amp; Network Operations</span>
-          <span data-i18n="founder.tag2">Service Delivery</span>
-          <span data-i18n="founder.tag3">Digital Infrastructure</span>
-          <span data-i18n="founder.tag4">Subsea Cable Experience</span>
-          <span data-i18n="founder.tag5">AI &amp; Digital Transformation</span>
-          <span data-i18n="founder.tag6">Generative AI</span>
-          <span data-i18n="founder.tag7">Agentic AI</span>
-        </div>
-        <div class="founder-cred" data-i18n="founder.cred1"><b>Massachusetts Institute of Technology — MIT</b><br>Generative AI for Digital Transformation — CERTIFIED</div>
-        <div class="founder-cred" style="margin-top:10px" data-i18n="founder.cred2"><b>Harvard</b> — Agentic AI Foundation: Risk and Application — CERTIFIED</div>
-      </div>
-    </article>
+<section id="agents">
+  <div class="section-header">
+    <div class="section-label" data-i18n="agents.label"></div>
+    <h2 class="section-title" data-i18n="agents.title"></h2>
+    <p class="section-sub" data-i18n="agents.sub"></p>
   </div>
+  <div class="agents-wrap"><div class="agents-grid" id="agents-grid"></div></div>
 </section>
 
-<section class="edition-classifieds" id="intake">
-  <div class="paper classifieds">
-    <article class="story span-12">
-      <div class="story-head">
-        <p class="kicker kicker-cream" data-i18n="kicker.classifieds">Classifieds</p>
-        <h2 data-i18n="intake.h2">Book Your AI Assessment</h2>
-        <p class="intake-gold" data-i18n="intake.chatAlt">The chatbot can help you complete this assessment</p>
-        <p data-i18n="intake.lead">Tell us a little about your operation — it takes 2 minutes. We'll review it and reply within 24 hours with a recommended starting point.</p>
-        <div class="intake-chat-path">
-          <button type="button" class="btn btn-primary" id="intakeFormCta" onclick="focusIntakeForm()">
-            <span data-i18n="intake.formCta">Fill out the form</span>
-          </button>
-          <button type="button" class="btn btn-gold" id="intakeChatCta" onclick="startIntakeChat()">
-            <span data-i18n="intake.chatCta">Complete it with the chatbot</span> <span class="arr">→</span>
-          </button>
-        </div>
-      </div>
-      <form class="intake-card reveal" id="intakeForm" novalidate>
-        <input type="hidden" name="access_key" value="645f7dca-b0f1-4469-9541-83dc7a825ec7">
-        <input type="hidden" name="subject" value="New AI Assessment Request — Monkyfi Connect">
-        <input type="hidden" name="from_name" value="Monkyfi Website Intake">
-        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
-
-        <div class="intake-progress" id="intakeProgress" aria-hidden="true">
-          <div class="bar active" data-step="0"></div>
-          <div class="bar" data-step="1"></div>
-          <div class="bar" data-step="2"></div>
-        </div>
-
-        <div class="intake-success" id="intakeSuccess" hidden>
-          <div class="ok-ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+<section class="contact-section" id="contact">
+  <div class="section-header">
+    <div class="section-label" data-i18n="contact.label"></div>
+    <h2 class="section-title" data-i18n="contact.title"></h2>
+    <p class="section-sub" data-i18n="contact.sub"></p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p data-i18n="contact.info"></p>
+      <div class="contact-detail"><div class="cd-icon">✉️</div><a href="mailto:hello@monkyfi.com">hello@monkyfi.com</a></div>
+      <div class="contact-detail"><div class="cd-icon">📞</div><a href="tel:+17863779802">+1 (786) 377-9802</a></div>
+      <div class="contact-detail"><div class="cd-icon">⚡</div><span data-i18n="contact.response"></span></div>
+    </div>
+    <div class="contact-form-box">
+      <form id="contact-form" onsubmit="handleContactSubmit(event)" novalidate>
+        <input type="hidden" name="access_key" value="645f7dca-b0f1-4469-9541-83dc7a825ec7" />
+        <input type="hidden" name="subject" value="New contact request — monkyfi.com" />
+        <input type="hidden" name="from_name" value="Monkyfi Website" />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="f-first" data-i18n="form.first"></label>
+            <input id="f-first" name="first_name" type="text" required maxlength="80" autocomplete="given-name" class="form-input" />
           </div>
-          <h3 id="intakeThanksTitle">Thanks!</h3>
-          <p id="intakeThanksBody" data-i18n="intake.thanks.body">We received your request. Our team will reach out shortly.</p>
-        </div>
-
-        <div id="intakeSteps">
-          <div class="intake-step active" data-step="0" id="intakeStep0">
-            <div class="intake-step-grid">
-              <div class="f-field full">
-                <label for="iq-name"><span data-i18n="intake.name">Name</span><span class="req" aria-hidden="true">*</span></label>
-                <input class="f-input" id="iq-name" name="name" type="text" autocomplete="name" placeholder="Jane Doe" data-i18n-placeholder="intake.ph.name" required aria-describedby="iq-name-error" />
-                <span class="f-field-error" id="iq-name-error" role="alert"></span>
-              </div>
-              <div class="f-field full">
-                <label for="iq-email"><span data-i18n="intake.email">Work email</span><span class="req" aria-hidden="true">*</span></label>
-                <input class="f-input" id="iq-email" name="email" type="email" autocomplete="email" placeholder="jane@company.com" data-i18n-placeholder="intake.ph.email" required aria-describedby="iq-email-error iq-email-hint" />
-                <span class="email-hint" id="iq-email-hint" data-i18n="intake.js.badEmail">Enter a valid email address.</span>
-                <span class="f-field-error" id="iq-email-error" role="alert"></span>
-              </div>
-              <div class="f-field full">
-                <label for="iq-phone"><span data-i18n="intake.phone">Phone</span> <small class="select-hint" data-i18n="intake.optional">(optional)</small></label>
-                <input class="f-input" id="iq-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="24" placeholder="+1 305 555 0100" data-i18n-placeholder="intake.ph.phone" aria-describedby="iq-phone-error" />
-                <span class="f-field-error" id="iq-phone-error" role="alert"></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="intake-step" data-step="1" id="intakeStep1" hidden>
-            <div class="intake-step-grid">
-              <div class="f-field full">
-                <label for="iq-company"><span data-i18n="intake.company">Company</span><span class="req" aria-hidden="true">*</span></label>
-                <input class="f-input" id="iq-company" name="company" type="text" autocomplete="organization" placeholder="Company name" data-i18n-placeholder="intake.ph.company" required aria-describedby="iq-company-error" />
-                <span class="f-field-error" id="iq-company-error" role="alert"></span>
-              </div>
-              <div class="f-field full">
-                <label for="iq-segment"><span data-i18n="intake.segment">Type of operation</span><span class="req" aria-hidden="true">*</span></label>
-                <select class="f-select" id="iq-segment" name="segment" required aria-describedby="iq-segment-error">
-                  <option value="" disabled selected data-i18n="intake.select">Select one…</option>
-                  <option value="Mobile / MNO/MVNO" data-i18n="intake.seg.mobile">Mobile / MNO/MVNO</option>
-                  <option value="Broadband / Fixed" data-i18n="intake.seg.fixed">Broadband / Fixed</option>
-                  <option value="Subsea / Backbone" data-i18n="intake.seg.subsea">Subsea / Backbone</option>
-                  <option value="Data Center / Infrastructure" data-i18n="intake.seg.dc">Data Center / Infrastructure</option>
-                  <option value="Other" data-i18n="intake.seg.other">Other</option>
-                </select>
-                <span class="f-field-error" id="iq-segment-error" role="alert"></span>
-              </div>
-              <div class="f-field full" id="iq-segment-other-wrap" hidden>
-                <label for="iq-segment-other"><span data-i18n="intake.seg.otherLabel">Please specify operation type</span><span class="req" aria-hidden="true">*</span></label>
-                <input class="f-input" id="iq-segment-other" name="segment_other" type="text" maxlength="120" autocomplete="off" aria-describedby="iq-segment-other-error" />
-                <span class="f-field-error" id="iq-segment-other-error" role="alert"></span>
-              </div>
-              <div class="f-field full">
-                <label for="iq-size"><span data-i18n="intake.size">Company size</span><span class="req" aria-hidden="true">*</span></label>
-                <select class="f-select" id="iq-size" name="size" required aria-describedby="iq-size-error">
-                  <option value="" disabled selected data-i18n="intake.select">Select one…</option>
-                  <option value="Startup / Pilot" data-i18n="intake.size.startup">Startup / Pilot</option>
-                  <option value="Small (regional, single market)" data-i18n="intake.size.small">Small (regional, single market)</option>
-                  <option value="Medium (multi-market, national)" data-i18n="intake.size.medium">Medium (multi-market, national)</option>
-                  <option value="Large (national / multinational carrier)" data-i18n="intake.size.large">Large (national / multinational carrier)</option>
-                </select>
-                <span class="f-field-error" id="iq-size-error" role="alert"></span>
-              </div>
-              <div class="f-field full">
-                <label for="iq-issue" data-i18n="intake.issue">Biggest operational issue today</label>
-                <select class="f-select" id="iq-issue" name="issue" aria-describedby="iq-issue-error">
-                  <option value="" disabled selected data-i18n="intake.select">Select one…</option>
-                  <option value="No clear AI roadmap" data-i18n="intake.issue.roadmap">No clear AI roadmap</option>
-                  <option value="Alarm noise / NOC overload" data-i18n="intake.issue.noc">Alarm noise / NOC overload</option>
-                  <option value="Slow / manual service delivery" data-i18n="intake.issue.manual">Slow / manual service delivery</option>
-                  <option value="Data quality" data-i18n="intake.issue.data">Data quality</option>
-                  <option value="System integration issues" data-i18n="intake.issue.integration">System integration issues</option>
-                  <option value="Order-to-activation delays" data-i18n="intake.issue.activation">Order-to-activation delays</option>
-                  <option value="Other" data-i18n="intake.issue.other">Other</option>
-                </select>
-                <span class="f-field-error" id="iq-issue-error" role="alert"></span>
-              </div>
-              <div class="f-field full" id="iq-issue-other-wrap" hidden>
-                <label for="iq-issue-other" data-i18n="intake.issue.otherLabel">Please describe the issue</label>
-                <input class="f-input" id="iq-issue-other" name="issue_other" type="text" maxlength="200" autocomplete="off" aria-describedby="iq-issue-other-error" />
-                <span class="f-field-error" id="iq-issue-other-error" role="alert"></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="intake-step" data-step="2" id="intakeStep2" hidden>
-            <div class="f-field full">
-              <label><span data-i18n="intake.exploreLabel">What would you like to explore?</span><span class="req" aria-hidden="true">*</span> <small class="select-hint" data-i18n="intake.exploreHint">(select any)</small></label>
-              <div class="f-checks" id="iq-explore">
-                <label class="f-check"><input type="checkbox" name="interest" value="AI Readiness Assessment" /><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="label" data-i18n="intake.int1">AI Readiness Assessment</span></label>
-                <label class="f-check"><input type="checkbox" name="interest" value="Telecom Digital Transformation" /><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="label" data-i18n="intake.int2">Telecom Digital Transformation</span></label>
-                <label class="f-check"><input type="checkbox" name="interest" value="Service Delivery Optimization" /><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="label" data-i18n="intake.int3">Service Delivery Optimization</span></label>
-                <label class="f-check"><input type="checkbox" name="interest" value="Network Operations Automation" /><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="label" data-i18n="intake.int4">Network Operations Automation</span></label>
-                <label class="f-check"><input type="checkbox" name="interest" value="Data Readiness for AI" /><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="label" data-i18n="intake.int5">Data Readiness for AI</span></label>
-                <label class="f-check"><input type="checkbox" name="interest" value="AI Strategy & Advisory" /><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="label" data-i18n="intake.int6">AI Strategy &amp; Advisory</span></label>
-              </div>
-              <span class="f-field-error" id="iq-explore-error" role="alert"></span>
-            </div>
-            <div class="f-field full" id="humanField" style="margin-top:20px">
-              <label for="iq-human"><span data-i18n="intake.verify">Verification</span><span class="req" aria-hidden="true">*</span></label>
-              <label class="f-check">
-                <input type="checkbox" id="iq-human" name="human_check" value="1" />
-                <span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-                <span class="label" data-i18n="intake.human">I'm human</span>
-              </label>
-              <span class="f-field-error" id="iq-human-error" role="alert"></span>
-            </div>
+          <div class="form-group">
+            <label for="f-last" data-i18n="form.last"></label>
+            <input id="f-last" name="last_name" type="text" required maxlength="80" autocomplete="family-name" class="form-input" />
           </div>
         </div>
-
-        <div class="intake-nav" id="intakeNav">
-          <button type="button" class="intake-back" id="intakeBack" hidden data-i18n="intake.back">Back</button>
-          <span class="intake-aside" id="intakeAside" data-i18n="intake.aside">No spam. One reply, from a human.</span>
-          <div class="intake-nav-actions">
-            <button type="button" class="btn btn-primary" id="intakeContinue" disabled><span data-i18n="intake.continue">Continue</span> <span class="arr">&#8594;</span></button>
-            <button type="submit" class="btn btn-primary" id="intakeSubmit" hidden disabled><span data-i18n="intake.submit">Submit</span> <span class="arr">&#8594;</span></button>
-          </div>
+        <div class="form-group">
+          <label for="f-email" data-i18n="form.email"></label>
+          <input id="f-email" name="email" type="email" required maxlength="120" autocomplete="email" class="form-input" data-i18n-ph="form.emailPh" />
         </div>
-        <div class="intake-status" id="intakeStatus" role="status" aria-live="polite" tabindex="-1"></div>
-        <p class="intake-note" id="intakeNote" data-i18n="intake.note">Please don't include customer personal data or credentials — company-level information is all we need at this stage.</p>
+        <div class="form-group">
+          <label for="f-company" data-i18n="form.company"></label>
+          <input id="f-company" name="company" type="text" required maxlength="120" autocomplete="organization" class="form-input" data-i18n-ph="form.companyPh" />
+        </div>
+        <div class="form-group">
+          <label for="f-interest" data-i18n="form.interest"></label>
+          <select id="f-interest" name="interest" class="form-select" required></select>
+        </div>
+        <div class="form-group">
+          <label for="f-msg"><span data-i18n="form.message"></span> <small data-i18n="form.optional"></small></label>
+          <textarea id="f-msg" name="details" class="form-textarea" maxlength="1500" data-i18n-ph="form.messagePh"></textarea>
+        </div>
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <p class="form-error" id="form-error" role="alert"></p>
+        <button type="submit" class="form-submit" data-i18n="form.submit"></button>
       </form>
-    </article>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="cta-strip">
-    <p class="kicker kicker-cyan" data-i18n="contact.eyebrow">Let's Talk</p>
-    <h2 style="margin-top:14px" data-i18n="contact.h2">Ready to Get AI Power?</h2>
-    <p data-i18n="contact.body">Let's identify where AI can create measurable value in your telecom or digital infrastructure operations.</p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <a href="#intake" class="btn btn-primary"><span data-i18n="contact.cta1">Book an AI Assessment</span> <span class="arr">→</span></a>
-      <button type="button" class="btn btn-gold" onclick="startIntakeChat()"><span data-i18n="intake.chatCta">Complete it with the chatbot</span></button>
-      <a href="mailto:hello@monkyfi.com" class="btn btn-ghost" data-i18n="contact.cta2">Contact Monkyfi</a>
+      <div class="form-success" id="form-success" role="status">
+        <div class="fs-icon">✅</div>
+        <h3 data-i18n="form.successTitle"></h3>
+        <p data-i18n="form.successText"></p>
+      </div>
     </div>
   </div>
 </section>
-</main>
 
 <footer>
-  <div class="foot-top">
-    <div>
-      <div class="brand" style="margin-bottom:14px">
-        <div class="brand-mark" style="width:34px;height:34px;border-radius:8px"><img src="assets/favicon-48.png" alt="" width="34" height="34" loading="lazy" decoding="async" /></div>
-        <div class="brand-text"><b>Monkyfi</b><small data-i18n="brand.tag">Get AI Power</small></div>
-      </div>
-      <p style="font-size:15px" data-i18n="foot.tagline">AI Automation & Intelligence for Telecom Operations</p>
+  <div class="footer-inner">
+    <div class="footer-left" data-i18n="footer.rights"></div>
+    <div class="footer-right">
+      <a href="terms.html" data-i18n="footer.terms"></a>
+      <a href="privacy.html" data-i18n="footer.privacy"></a>
+      <a href="mailto:hello@monkyfi.com">hello@monkyfi.com</a>
     </div>
-    <div>
-      <h2 data-i18n="foot.solutions">Solutions</h2>
-      <ul>
-        <li><a href="/connect">Connect</a></li>
-        <li><a href="/lexicon" data-i18n="nav.lexicon">Lexicon</a></li>
-        <li><a href="#atlas">Atlas</a></li>
-        <li><a href="#sentinel">Sentinel</a></li>
-        <li><a href="assets/monkyfi-brochure.pdf?v=20260813" download="Monkyfi-Brochure.pdf" data-i18n="foot.brochure">Brochure</a></li>
-      </ul>
-    </div>
-    <div>
-      <h2 data-i18n="foot.company">Company</h2>
-      <ul>
-        <li><a href="#founder" data-i18n="foot.about">About</a></li>
-        <li><a href="#contact" data-i18n="foot.contact">Contact</a></li>
-      </ul>
-    </div>
-    <div>
-      <h2 data-i18n="foot.legal">Legal</h2>
-      <ul>
-        <li><a href="privacy.html" data-i18n="foot.privacy">Privacy Policy</a></li>
-        <li><a href="terms.html" data-i18n="foot.terms">Terms</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="foot-bottom">
-    <small data-i18n="foot.copy">© 2026 Monkyfi LLC · Miami, Florida, USA · <a href="tel:+17863779802">786-377-9802</a> · <a href="mailto:hello@monkyfi.com">hello@monkyfi.com</a></small>
-    <div class="social"><a href="https://www.linkedin.com/company/monkyfi/" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
   </div>
 </footer>
 
-<button class="chat-fab" id="chatFab" onclick="openChat()" aria-label="Open AI chat" data-i18n-aria="a11y.openChat" aria-haspopup="dialog" aria-controls="chatPanel" aria-expanded="false">
-  <span class="pulse"></span><span class="dot-status"></span>
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+<button class="chat-fab" id="chat-fab" onclick="toggleChat()" data-i18n-aria="chat.open">
+  <span class="fab-icon">💬</span><span class="fab-close">✕</span>
 </button>
-
-<div class="chat-panel" id="chatPanel" role="dialog" aria-modal="true" aria-labelledby="chatTitle" aria-hidden="true" hidden>
-  <div class="chat-head">
-    <div class="chat-head-left">
-      <div class="chat-avatar"><img src="assets/favicon-48.png" alt="" width="40" height="40" loading="lazy" decoding="async" /></div>
-      <div><b id="chatTitle">Monkyfi AI</b><small data-i18n="chat.online">● Online</small></div>
-    </div>
-    <button class="chat-close" type="button" onclick="closeChat()" aria-label="Close chat" data-i18n-aria="a11y.closeChat">×</button>
+<div class="chat-window" id="chat-window" role="dialog">
+  <div class="chat-header">
+    <div class="chat-avatar">🤖</div>
+    <div class="chat-header-info"><b data-i18n="chat.title"></b><small data-i18n="chat.online"></small></div>
   </div>
-  <div class="chat-body" id="chatBody">
-    <div class="msg bot"><div class="msg-bubble" data-i18n="chat.welcome">Hey 👋 I'm the Monkyfi AI. Ask me about <strong>Connect</strong>, <strong>Atlas</strong>, or <strong>Sentinel</strong> — or I can take your <strong>AI Assessment</strong> intake right here.</div></div>
-  </div>
-  <div class="chat-suggestions" id="chatSuggestions">
-    <button class="chip chip-gold" data-i18n="chat.chip4" data-suggestion-key="chat.chip4.full" onclick="sendSuggestionI18n(this)">Help me complete the AI Assessment</button>
-    <button class="chip" data-i18n="chat.chip1" data-suggestion-key="chat.chip1.full" onclick="sendSuggestionI18n(this)">What does Connect include?</button>
-    <button class="chip" data-i18n="chat.chip2" data-suggestion-key="chat.chip2.full" onclick="sendSuggestionI18n(this)">How does the Atlas pilot work?</button>
-    <button class="chip" data-i18n="chat.chip3" data-suggestion-key="chat.chip3.full" onclick="sendSuggestionI18n(this)">What happens on a discovery call?</button>
-  </div>
-  <div class="chat-input-wrap">
-    <input id="chatInput" class="chat-input" data-i18n-placeholder="chat.placeholder" data-i18n-aria="a11y.chatInput" placeholder="Ask about solutions — or start the AI Assessment…" aria-label="Ask about solutions or start the AI Assessment" autocomplete="off" />
-    <button class="chat-send" id="chatSend" onclick="sendMessage()" aria-label="Send" data-i18n-aria="a11y.send">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-    </button>
+  <div class="chat-messages" id="chat-messages" aria-live="polite"></div>
+  <div class="chat-chips" id="chat-chips"></div>
+  <div class="chat-input-row">
+    <input type="text" class="chat-input" id="chat-input" maxlength="500" data-i18n-ph="chat.placeholder" onkeydown="if(event.key==='Enter') sendChat()" />
+    <button class="chat-send" onclick="sendChat()" data-i18n-aria="chat.send">➤</button>
   </div>
 </div>
 
-<script src="assets/i18n.js?v=20260919a"></script>
-<script src="assets/site-ui.js?v=20260919a"></script>
+<script>
+const MAIL = '<a href="mailto:hello@monkyfi.com">hello@monkyfi.com</a>';
+
+const I18N = {
+  en: {
+    'meta.title': 'Monkyfi — AI Agents for Telecom Operations',
+    'nav.cta': 'Get in Touch',
+    'hero.badge': 'AI Agents · Telecom Operations',
+    'hero.title1': 'AI agents built for',
+    'hero.title2': 'telecom operators',
+    'hero.sub': 'From NOC automation to service delivery intelligence, Monkyfi builds specialized AI agents that fit the way telecom teams actually work.',
+    'hero.btn1': 'See the Agents',
+    'hero.btn2': 'Talk to Us',
+    'stat1.l': 'Agents', 'stat1.v': 'Specialized AI agents',
+    'stat2.l': 'Coverage', 'stat2.v': 'NOC · Field · Service Delivery · Planning',
+    'stat3.l': 'Built for', 'stat3.v': 'Carriers · Operators · Infrastructure',
+    'agents.label': 'The Agents',
+    'agents.title': 'Purpose-built for telecom',
+    'agents.sub': 'Each agent is built around a specific telecom workflow, not a generic chatbot adapted to the industry.',
+    'contact.label': 'Contact',
+    'contact.title': "Let's talk about your operations",
+    'contact.sub': "Tell us where the friction is. We'll show you which agent applies and what a pilot looks like.",
+    'contact.info': 'We work with carriers, operators, and infrastructure providers. Whether you need a quick assessment or want to explore a specific agent, reach out and we will respond within one business day.',
+    'contact.response': 'Response within 1 business day',
+    'form.first': 'First name', 'form.last': 'Last name',
+    'form.email': 'Work email', 'form.emailPh': 'name@company.com',
+    'form.company': 'Company', 'form.companyPh': 'Your organization',
+    'form.interest': 'Area of interest', 'form.interestPh': 'Select an agent or area',
+    'form.general': 'General inquiry / Not sure yet',
+    'form.message': 'Message', 'form.optional': '(optional)',
+    'form.messagePh': 'Briefly describe your current challenge or what you would like to explore.',
+    'form.submit': 'Send Message', 'form.sending': 'Sending…',
+    'form.error': 'Your message could not be sent. Please try again or write to hello@monkyfi.com.',
+    'form.timeout': 'The connection took too long. Please try again.',
+    'form.invalid': 'Please complete the required fields.',
+    'form.successTitle': 'Message received',
+    'form.successText': 'Thanks for reaching out. We will be in touch within one business day.',
+    'footer.rights': '© 2026 Monkyfi LLC · Telecom AI Operations',
+    'footer.terms': 'Terms', 'footer.privacy': 'Privacy',
+    'chat.open': 'Open chat', 'chat.send': 'Send',
+    'chat.title': 'Monkyfi Assistant', 'chat.online': '● Online',
+    'chat.placeholder': 'Ask about our agents',
+    'chat.greeting': "Hi! I'm the Monkyfi assistant. I can tell you about our AI agents for telecom operations. What are you working on?",
+    'chat.outOfScope': "That's outside what I cover. I'm the Monkyfi assistant, here to talk about our AI agents for telecom operations. What can I help you with?",
+    'chat.sensitive': 'Monkyfi is a prepared team with the expertise needed to analyze your operation and deliver an effective diagnosis. The best next step is to write to ' + MAIL + ' so we can review your context.',
+    'chat.tooLong': "That's a detailed question, best handled by email. Write to " + MAIL + ' and we will give it the attention it deserves.',
+    'chat.pricing': 'Engagements are scoped per project. The best path is a 30-minute call where we map your challenge to the right agent. Write to ' + MAIL + ' or use the contact form.',
+    'chat.contact': 'You can reach us at ' + MAIL + ' or through the contact form on this page. We respond within one business day.',
+    'chat.fallback': 'Good question. For specifics, the best path is a short conversation: write to ' + MAIL + ' or use the contact form on this page.',
+  },
+  es: {
+    'meta.title': 'Monkyfi — Agentes de IA para Operaciones Telecom',
+    'nav.cta': 'Contáctanos',
+    'hero.badge': 'Agentes de IA · Operaciones Telecom',
+    'hero.title1': 'Agentes de IA creados para',
+    'hero.title2': 'operadores de telecomunicaciones',
+    'hero.sub': 'Desde la automatización del NOC hasta la inteligencia de entrega de servicios, Monkyfi crea agentes de IA especializados que se adaptan a la forma en que realmente trabajan los equipos de telecom.',
+    'hero.btn1': 'Ver los agentes',
+    'hero.btn2': 'Hablemos',
+    'stat1.l': 'Agentes', 'stat1.v': 'Agentes de IA especializados',
+    'stat2.l': 'Cobertura', 'stat2.v': 'NOC · Campo · Entrega de servicios · Planificación',
+    'stat3.l': 'Diseñado para', 'stat3.v': 'Carriers · Operadores · Infraestructura',
+    'agents.label': 'Los agentes',
+    'agents.title': 'Diseñados para telecom',
+    'agents.sub': 'Cada agente está construido alrededor de un flujo de trabajo telecom específico, no es un chatbot genérico adaptado a la industria.',
+    'contact.label': 'Contacto',
+    'contact.title': 'Hablemos de tu operación',
+    'contact.sub': 'Cuéntanos dónde está la fricción. Te mostraremos qué agente aplica y cómo sería un piloto.',
+    'contact.info': 'Trabajamos con carriers, operadores y proveedores de infraestructura. Ya sea que necesites una evaluación rápida o quieras explorar un agente específico, escríbenos y te responderemos en un día hábil.',
+    'contact.response': 'Respuesta en 1 día hábil',
+    'form.first': 'Nombre', 'form.last': 'Apellido',
+    'form.email': 'Correo corporativo', 'form.emailPh': 'nombre@empresa.com',
+    'form.company': 'Empresa', 'form.companyPh': 'Tu organización',
+    'form.interest': 'Área de interés', 'form.interestPh': 'Selecciona un agente o área',
+    'form.general': 'Consulta general / Aún no lo sé',
+    'form.message': 'Mensaje', 'form.optional': '(opcional)',
+    'form.messagePh': 'Describe brevemente tu desafío actual o lo que te gustaría explorar.',
+    'form.submit': 'Enviar mensaje', 'form.sending': 'Enviando…',
+    'form.error': 'No se pudo enviar tu mensaje. Inténtalo de nuevo o escribe a hello@monkyfi.com.',
+    'form.timeout': 'La conexión tardó demasiado. Inténtalo de nuevo.',
+    'form.invalid': 'Completa los campos obligatorios.',
+    'form.successTitle': 'Mensaje recibido',
+    'form.successText': 'Gracias por escribirnos. Te contactaremos en un día hábil.',
+    'footer.rights': '© 2026 Monkyfi LLC · Operaciones Telecom con IA',
+    'footer.terms': 'Términos', 'footer.privacy': 'Privacidad',
+    'chat.open': 'Abrir chat', 'chat.send': 'Enviar',
+    'chat.title': 'Asistente Monkyfi', 'chat.online': '● En línea',
+    'chat.placeholder': 'Pregunta por nuestros agentes',
+    'chat.greeting': '¡Hola! Soy el asistente de Monkyfi. Puedo contarte sobre nuestros agentes de IA para operaciones telecom. ¿En qué estás trabajando?',
+    'chat.outOfScope': 'Eso está fuera de lo que cubro. Soy el asistente de Monkyfi y estoy aquí para hablar de nuestros agentes de IA para operaciones telecom. ¿En qué te puedo ayudar?',
+    'chat.sensitive': 'Monkyfi es un equipo preparado, con la experiencia necesaria para analizar tu operación y entregar un diagnóstico efectivo. El mejor siguiente paso es escribir a ' + MAIL + ' para revisar tu contexto.',
+    'chat.tooLong': 'Es una pregunta detallada; conviene tratarla por correo. Escríbenos a ' + MAIL + ' y le daremos la atención que merece.',
+    'chat.pricing': 'Cada proyecto se cotiza según su alcance. Lo mejor es una llamada de 30 minutos para identificar el agente adecuado para tu desafío. Escríbenos a ' + MAIL + ' o usa el formulario de contacto.',
+    'chat.contact': 'Puedes escribirnos a ' + MAIL + ' o usar el formulario de contacto de esta página. Respondemos en un día hábil.',
+    'chat.fallback': 'Buena pregunta. Para los detalles, lo mejor es una conversación breve: escríbenos a ' + MAIL + ' o usa el formulario de contacto de esta página.',
+  },
+  pt: {
+    'meta.title': 'Monkyfi — Agentes de IA para Operações de Telecom',
+    'nav.cta': 'Fale conosco',
+    'hero.badge': 'Agentes de IA · Operações de Telecom',
+    'hero.title1': 'Agentes de IA criados para',
+    'hero.title2': 'operadoras de telecomunicações',
+    'hero.sub': 'Da automação do NOC à inteligência de entrega de serviços, a Monkyfi cria agentes de IA especializados que se adaptam à forma como as equipes de telecom realmente trabalham.',
+    'hero.btn1': 'Ver os agentes',
+    'hero.btn2': 'Vamos conversar',
+    'stat1.l': 'Agentes', 'stat1.v': 'Agentes de IA especializados',
+    'stat2.l': 'Cobertura', 'stat2.v': 'NOC · Campo · Entrega de serviços · Planejamento',
+    'stat3.l': 'Feito para', 'stat3.v': 'Carriers · Operadoras · Infraestrutura',
+    'agents.label': 'Os agentes',
+    'agents.title': 'Feitos para telecom',
+    'agents.sub': 'Cada agente é construído em torno de um fluxo de trabalho específico de telecom, não é um chatbot genérico adaptado ao setor.',
+    'contact.label': 'Contato',
+    'contact.title': 'Vamos falar sobre a sua operação',
+    'contact.sub': 'Conte onde está o atrito. Mostraremos qual agente se aplica e como seria um piloto.',
+    'contact.info': 'Trabalhamos com carriers, operadoras e provedores de infraestrutura. Se você precisa de uma avaliação rápida ou quer explorar um agente específico, escreva para nós e responderemos em um dia útil.',
+    'contact.response': 'Resposta em 1 dia útil',
+    'form.first': 'Nome', 'form.last': 'Sobrenome',
+    'form.email': 'E-mail corporativo', 'form.emailPh': 'nome@empresa.com',
+    'form.company': 'Empresa', 'form.companyPh': 'Sua organização',
+    'form.interest': 'Área de interesse', 'form.interestPh': 'Selecione um agente ou área',
+    'form.general': 'Consulta geral / Ainda não sei',
+    'form.message': 'Mensagem', 'form.optional': '(opcional)',
+    'form.messagePh': 'Descreva brevemente o seu desafio atual ou o que gostaria de explorar.',
+    'form.submit': 'Enviar mensagem', 'form.sending': 'Enviando…',
+    'form.error': 'Não foi possível enviar sua mensagem. Tente novamente ou escreva para hello@monkyfi.com.',
+    'form.timeout': 'A conexão demorou demais. Tente novamente.',
+    'form.invalid': 'Preencha os campos obrigatórios.',
+    'form.successTitle': 'Mensagem recebida',
+    'form.successText': 'Obrigado pelo contato. Retornaremos em um dia útil.',
+    'footer.rights': '© 2026 Monkyfi LLC · Operações de Telecom com IA',
+    'footer.terms': 'Termos', 'footer.privacy': 'Privacidade',
+    'chat.open': 'Abrir chat', 'chat.send': 'Enviar',
+    'chat.title': 'Assistente Monkyfi', 'chat.online': '● Online',
+    'chat.placeholder': 'Pergunte sobre nossos agentes',
+    'chat.greeting': 'Olá! Sou o assistente da Monkyfi. Posso falar sobre nossos agentes de IA para operações de telecom. No que você está trabalhando?',
+    'chat.outOfScope': 'Isso está fora do que eu cubro. Sou o assistente da Monkyfi e estou aqui para falar sobre nossos agentes de IA para operações de telecom. Como posso ajudar?',
+    'chat.sensitive': 'A Monkyfi é uma equipe preparada, com a experiência necessária para analisar a sua operação e entregar um diagnóstico eficaz. O melhor próximo passo é escrever para ' + MAIL + ' para avaliarmos o seu contexto.',
+    'chat.tooLong': 'É uma pergunta detalhada; o ideal é tratá-la por e-mail. Escreva para ' + MAIL + ' e daremos a atenção que ela merece.',
+    'chat.pricing': 'Cada projeto é orçado conforme o escopo. O melhor caminho é uma conversa de 30 minutos para identificar o agente certo para o seu desafio. Escreva para ' + MAIL + ' ou use o formulário de contato.',
+    'chat.contact': 'Você pode nos escrever em ' + MAIL + ' ou usar o formulário de contato desta página. Respondemos em um dia útil.',
+    'chat.fallback': 'Boa pergunta. Para os detalhes, o melhor é uma conversa rápida: escreva para ' + MAIL + ' ou use o formulário de contato desta página.',
+  },
+};
+
+// Agents: name, area, desc, tags, chatbot reply and keywords per language
+const AGENTS = [
+  {
+    icon: '📡',
+    cls: 'c-sdi',
+    keys: ['service delivery', 'sdi', 'epl', 'wavelength', 'entrega de servicio', 'entrega de serviço', 'orden de servicio', 'ordem de serviço', 'longitud de onda', 'comprimento de onda'],
+    en: { name: 'Service Delivery Intelligence', area: 'Service Delivery', tags: ['Order Management', 'Delivery Gates', 'EPL / Wavelength'],
+      desc: 'Ingests EPL and wavelength service orders, extracts structured data, detects discrepancies against technical specs, and enforces delivery gates so nothing slips through before activation.' },
+    es: { name: 'Service Delivery Intelligence', area: 'Entrega de servicios', tags: ['Gestión de órdenes', 'Control de etapas', 'EPL / Longitud de onda'],
+      desc: 'Procesa órdenes de servicio EPL y de longitud de onda, extrae datos estructurados, detecta discrepancias frente a las especificaciones técnicas y aplica controles por etapa para que nada se escape antes de la activación.' },
+    pt: { name: 'Service Delivery Intelligence', area: 'Entrega de serviços', tags: ['Gestão de ordens', 'Controle por etapas', 'EPL / Comprimento de onda'],
+      desc: 'Processa ordens de serviço EPL e de comprimento de onda, extrai dados estruturados, detecta divergências em relação às especificações técnicas e aplica controles por etapa para que nada passe despercebido antes da ativação.' },
+  },
+  {
+    icon: '🖥️',
+    cls: 'c-noc',
+    keys: ['noc', 'alarm', 'alarma', 'alarme', 'incident', 'incidente', 'network operations', 'operaciones de red', 'operações de rede'],
+    en: { name: 'NOC Assistant', area: 'Network Operations', tags: ['Alarm Correlation', 'Incident Response', 'Voice Interface'],
+      desc: 'Ingests live alarms, correlates incidents, surfaces runbook-based remediation, and drafts closure summaries, with an optional voice interface.' },
+    es: { name: 'NOC Assistant', area: 'Operaciones de red', tags: ['Correlación de alarmas', 'Respuesta a incidentes', 'Interfaz de voz'],
+      desc: 'Recibe alarmas en vivo, correlaciona incidentes, sugiere la remediación según los runbooks y redacta resúmenes de cierre, con interfaz de voz opcional.' },
+    pt: { name: 'NOC Assistant', area: 'Operações de rede', tags: ['Correlação de alarmes', 'Resposta a incidentes', 'Interface de voz'],
+      desc: 'Recebe alarmes em tempo real, correlaciona incidentes, sugere a remediação com base nos runbooks e redige resumos de encerramento, com interface de voz opcional.' },
+  },
+  {
+    icon: '📋',
+    cls: 'c-survey',
+    keys: ['site survey', 'survey', 'rack', 'purchase order', 'levantamiento', 'levantamento', 'orden de compra', 'ordem de compra', 'energía', 'energia'],
+    en: { name: 'Site Survey Agent', area: 'Field / Infrastructure', tags: ['Rack Engineering', 'DC Power', 'Purchase Orders'],
+      desc: 'Guides technicians through rack, power, and fiber surveys step by step. Calculates DC power requirements, identifies material gaps, and generates a purchase order ready for procurement.' },
+    es: { name: 'Site Survey Agent', area: 'Campo / Infraestructura', tags: ['Ingeniería de racks', 'Energía DC', 'Órdenes de compra'],
+      desc: 'Guía a los técnicos paso a paso en el levantamiento de racks, energía y fibra. Calcula los requerimientos de energía DC, identifica faltantes de materiales y genera una orden de compra lista para abastecimiento.' },
+    pt: { name: 'Site Survey Agent', area: 'Campo / Infraestrutura', tags: ['Engenharia de racks', 'Energia DC', 'Ordens de compra'],
+      desc: 'Guia os técnicos passo a passo no levantamento de racks, energia e fibra. Calcula os requisitos de energia DC, identifica a falta de materiais e gera uma ordem de compra pronta para suprimentos.' },
+  },
+  {
+    icon: '🔧',
+    cls: 'c-field',
+    keys: ['field assistant', 'troubleshoot', 'offline', 'mobile', 'móvil', 'celular', 'asistente de campo', 'assistente de campo', 'falla', 'falha'],
+    en: { name: 'Field Assistant', area: 'Field / Technicians', tags: ['Troubleshooting', 'Works Offline', 'Multi-vendor'],
+      desc: 'Mobile-first tool for on-site technicians. Identifies alarms by vendor with strict isolation and guides troubleshooting one step at a time from a local document library, even offline.' },
+    es: { name: 'Field Assistant', area: 'Campo / Técnicos', tags: ['Diagnóstico de fallas', 'Funciona sin conexión', 'Multifabricante'],
+      desc: 'Herramienta móvil para técnicos en sitio. Identifica alarmas por fabricante con aislamiento estricto y guía el diagnóstico paso a paso desde una biblioteca local de documentos, incluso sin conexión.' },
+    pt: { name: 'Field Assistant', area: 'Campo / Técnicos', tags: ['Diagnóstico de falhas', 'Funciona offline', 'Multifabricante'],
+      desc: 'Ferramenta móvel para técnicos em campo. Identifica alarmes por fabricante com isolamento rigoroso e guia o diagnóstico passo a passo a partir de uma biblioteca local de documentos, mesmo sem conexão.' },
+  },
+  {
+    icon: '🌊',
+    cls: 'c-longhaul',
+    keys: ['long haul', 'submarine', 'submarino', 'fiber', 'fibra', 'cable', 'cabo', 'planning', 'planificación', 'planejamento'],
+    en: { name: 'Long Haul Planner', area: 'Network Planning', tags: ['Submarine Cable', 'Fiber Planning', 'EN / ES'],
+      desc: 'Conversational agent for planning terrestrial and submarine fiber networks. Collects requirements in structured blocks and produces network design recommendations in English or Spanish.' },
+    es: { name: 'Long Haul Planner', area: 'Planificación de red', tags: ['Cable submarino', 'Planificación de fibra', 'EN / ES'],
+      desc: 'Agente conversacional para planificar redes de fibra terrestres y submarinas. Recopila los requisitos por bloques y entrega recomendaciones de diseño de red en inglés o español.' },
+    pt: { name: 'Long Haul Planner', area: 'Planejamento de rede', tags: ['Cabo submarino', 'Planejamento de fibra', 'EN / ES'],
+      desc: 'Agente conversacional para planejar redes de fibra terrestres e submarinas. Coleta os requisitos por blocos e entrega recomendações de projeto de rede em inglês ou espanhol.' },
+  },
+  {
+    icon: '🔗',
+    cls: 'c-iq',
+    keys: ['interconnect', 'interconex', 'cross-connect', 'cross connect', 'feasibility', 'factibilidad', 'viabilidade', 'work order', 'orden de trabajo', 'ordem de trabalho'],
+    en: { name: 'Interconnect IQ', area: 'Interconnection', tags: ['Cross-connects', 'Feasibility', 'Work Orders'],
+      desc: 'Answers interconnection questions against carrier and cable inventory: feasibility checks, cross-connect options, and work order drafts with source citations.' },
+    es: { name: 'Interconnect IQ', area: 'Interconexión', tags: ['Cross-connects', 'Factibilidad', 'Órdenes de trabajo'],
+      desc: 'Responde consultas de interconexión con base en el inventario de carriers y cables: análisis de factibilidad, opciones de cross-connect y borradores de órdenes de trabajo con citas de la fuente.' },
+    pt: { name: 'Interconnect IQ', area: 'Interconexão', tags: ['Cross-connects', 'Viabilidade', 'Ordens de trabalho'],
+      desc: 'Responde a consultas de interconexão com base no inventário de carriers e cabos: análises de viabilidade, opções de cross-connect e rascunhos de ordens de trabalho com citação das fontes.' },
+  },
+  {
+    icon: '👷',
+    cls: 'c-coord',
+    keys: ['coordinat', 'coordinac', 'coordenaç', 'workforce', 'dispatch', 'despacho', 'zone', 'zona', 'schedule', 'cronograma', 'technician', 'técnico'],
+    en: { name: 'Operational Coordination', area: 'Workforce / Operations', tags: ['Workforce Planning', 'Zone Dispatch', 'Capacity Tracking'],
+      desc: 'Assigns technicians to field activities by zone, skill, and availability. Builds deployment schedules, tracks capacity, and flags conflicts before dispatch.' },
+    es: { name: 'Coordinación Operativa', area: 'Personal / Operaciones', tags: ['Planificación de personal', 'Despacho por zona', 'Control de capacidad'],
+      desc: 'Asigna técnicos a las actividades de campo según zona, habilidades y disponibilidad. Arma cronogramas de despliegue, controla la capacidad y advierte conflictos antes del despacho.' },
+    pt: { name: 'Coordenação Operacional', area: 'Equipes / Operações', tags: ['Planejamento de equipes', 'Despacho por zona', 'Controle de capacidade'],
+      desc: 'Atribui técnicos às atividades de campo por zona, competência e disponibilidade. Monta cronogramas de implantação, controla a capacidade e sinaliza conflitos antes do despacho.' },
+  },
+];
+
+const CHIP_AGENTS = [1, 0, 4, 2];
+
+// --- Guardrails (mirrors the server-side rules of the previous chatbot) ---
+// Word-boundary regexes avoid false positives such as "transport" or "contact as".
+const BLOCK_PATTERNS = [
+  /ignore (all |the )?(previous|prior|above) (instructions|prompts?)/i,
+  /\b(ignora|ignore|olvida|esqueça|esquece|disregard|forget)\b.{0,30}\b(instruc|instru|rules|reglas|regras|prompt)/i,
+  /\b(system prompt|developer mode|jailbreak|do anything now)\b/i,
+  /\byou are now\b|\bpretend (to be|you)\b|\bact as\b|\bactúa como\b|\bage como\b|\bfinge ser\b/i,
+  /\b(reveal|show|print|muestra|revela|mostre)\b.{0,30}\b(prompt|instructions|instrucciones|instruções)\b/i,
+  /<\s*\/?\s*(script|iframe|img|svg|object|embed)/i,
+  /javascript\s*:|on(error|load|click)\s*=/i,
+  /\b(select\s+\*|drop\s+table|insert\s+into|union\s+select)\b/i,
+  /\b(password|contraseña|senha|credit card|tarjeta de crédito|cartão de crédito|ssn|social security)\b/i,
+  /\b(politic\w*|polític\w*|president\w*|elecci\w*|eleiç\w*|election\w*|weather|clima|recipe|receta|receita|joke|chiste|piada|poem|poema)\b/i,
+  /\b(write|escribe|escreva)\b.{0,20}\b(code|código|script)\b/i,
+];
+
+const SENSITIVE_PATTERNS = [
+  /\b(how many|cuántos|quantos)\b.{0,20}\b(employees|people|empleados|personas|funcionários|pessoas)\b/i,
+  /\b(team size|headcount|funding|investors|revenue|inversionistas|financiamiento|ingresos|investidores|faturamento|freelancer|contractor)\b/i,
+  /\b(clients yet|any clients|tienen clientes|têm clientes)\b/i,
+];
+
+function normalize(str) {
+  return str.normalize('NFKC').replace(/[​-‍﻿]/g, '').trim();
+}
+
+// --- i18n ---
+let LANG = 'en';
+const t = (key) => (I18N[LANG] && I18N[LANG][key]) || I18N.en[key] || '';
+
+function detectLang() {
+  try {
+    const saved = localStorage.getItem('monkyfi-lang');
+    if (saved && I18N[saved]) return saved;
+  } catch (e) {}
+  const nav = (navigator.language || 'en').slice(0, 2).toLowerCase();
+  return I18N[nav] ? nav : 'en';
+}
+
+function setLang(lang) {
+  if (!I18N[lang]) return;
+  LANG = lang;
+  try { localStorage.setItem('monkyfi-lang', lang); } catch (e) {}
+  document.documentElement.lang = lang;
+  document.title = t('meta.title');
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
+  document.querySelectorAll('.lang-switch button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+  renderAgents();
+  renderInterestOptions();
+  resetChat();
+}
+
+function renderAgents() {
+  const grid = document.getElementById('agents-grid');
+  grid.innerHTML = '';
+  AGENTS.forEach(a => {
+    const d = a[LANG];
+    const card = document.createElement('article');
+    card.className = 'agent-card ' + a.cls;
+    card.innerHTML = `
+      <div class="agent-top"><div class="agent-icon"></div><div class="agent-area"></div></div>
+      <h3 class="agent-name"></h3>
+      <p class="agent-desc"></p>
+      <div class="agent-tags"></div>`;
+    card.querySelector('.agent-icon').textContent = a.icon;
+    card.querySelector('.agent-area').textContent = d.area;
+    card.querySelector('.agent-name').textContent = d.name;
+    card.querySelector('.agent-desc').textContent = d.desc;
+    const tags = card.querySelector('.agent-tags');
+    d.tags.forEach(tag => {
+      const s = document.createElement('span');
+      s.className = 'tag';
+      s.textContent = tag;
+      tags.appendChild(s);
+    });
+    grid.appendChild(card);
+  });
+}
+
+function renderInterestOptions() {
+  const sel = document.getElementById('f-interest');
+  const current = sel.selectedIndex;
+  sel.innerHTML = '';
+  const ph = new Option(t('form.interestPh'), '');
+  ph.disabled = true;
+  sel.add(ph);
+  AGENTS.forEach((a, i) => sel.add(new Option(a[LANG].name, 'agent-' + i)));
+  sel.add(new Option(t('form.general'), 'general'));
+  sel.selectedIndex = current > 0 ? current : 0;
+}
+
+// --- Contact form ---
+async function handleContactSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const err = document.getElementById('form-error');
+  const btn = form.querySelector('.form-submit');
+  err.textContent = '';
+  if (form.botcheck.checked) return; // honeypot: only bots tick the hidden box
+  if (!form.checkValidity()) { err.textContent = t('form.invalid'); form.reportValidity(); return; }
+
+  const fd = new FormData(form);
+  const interest = form.interest.options[form.interest.selectedIndex].text;
+  const payload = {
+    access_key: fd.get('access_key'),
+    subject: fd.get('subject') + ' — ' + interest,
+    from_name: fd.get('from_name'),
+    botcheck: false,
+    name: (fd.get('first_name') + ' ' + fd.get('last_name')).trim(),
+    email: fd.get('email'),
+    company: fd.get('company'),
+    interest: interest,
+    language: LANG.toUpperCase(),
+    message: fd.get('details') || '(no message)',
+  };
+
+  btn.disabled = true;
+  btn.textContent = t('form.sending');
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 15000);
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.success) throw new Error(data.message || 'HTTP ' + res.status);
+    form.reset();
+    form.style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  } catch (ex) {
+    err.textContent = t(ex.name === 'AbortError' ? 'form.timeout' : 'form.error');
+  } finally {
+    clearTimeout(timer);
+    btn.disabled = false;
+    btn.textContent = t('form.submit');
+  }
+}
+
+// --- Chatbot ---
+let chatOpen = false;
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chat-fab').classList.toggle('open', chatOpen);
+  document.getElementById('chat-window').classList.toggle('open', chatOpen);
+  if (chatOpen) {
+    if (!document.getElementById('chat-messages').children.length) initChat();
+    document.getElementById('chat-input').focus();
+  }
+}
+
+function resetChat() {
+  document.getElementById('chat-messages').innerHTML = '';
+  document.getElementById('chat-chips').innerHTML = '';
+  if (chatOpen) initChat();
+}
+
+function initChat() {
+  addBotMsg(t('chat.greeting'));
+  const c = document.getElementById('chat-chips');
+  CHIP_AGENTS.forEach(i => {
+    const a = AGENTS[i];
+    const btn = document.createElement('button');
+    btn.className = 'chip';
+    btn.textContent = a.icon + ' ' + a[LANG].name;
+    btn.onclick = () => {
+      c.innerHTML = '';
+      addUserMsg(a[LANG].name);
+      setTimeout(() => addBotMsg(agentReply(a)), 350);
+    };
+    c.appendChild(btn);
+  });
+}
+
+// Bot messages only ever come from our own fixed strings, never from user input.
+function addBotMsg(html) {
+  const el = document.createElement('div');
+  el.className = 'msg bot';
+  el.innerHTML = html;
+  appendMsg(el);
+}
+
+// User text is always rendered as plain text.
+function addUserMsg(text) {
+  const el = document.createElement('div');
+  el.className = 'msg user';
+  el.textContent = text;
+  appendMsg(el);
+}
+
+function appendMsg(el) {
+  const msgs = document.getElementById('chat-messages');
+  msgs.appendChild(el);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function agentReply(a) {
+  const d = a[LANG];
+  const strong = document.createElement('strong');
+  strong.textContent = d.name;
+  return strong.outerHTML + ': ' + d.desc.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+}
+
+function sendChat() {
+  const input = document.getElementById('chat-input');
+  const text = normalize(input.value);
+  if (!text) return;
+  input.value = '';
+  document.getElementById('chat-chips').innerHTML = '';
+  addUserMsg(text);
+  setTimeout(() => addBotMsg(respond(text)), 350);
+}
+
+function respond(text) {
+  if (text.length > 500) return t('chat.tooLong');
+  if (BLOCK_PATTERNS.some(r => r.test(text))) return t('chat.outOfScope');
+  if (SENSITIVE_PATTERNS.some(r => r.test(text))) return t('chat.sensitive');
+
+  const lower = text.toLowerCase();
+  const agent = AGENTS.find(a => a.keys.some(k => lower.includes(k)));
+  if (agent) return agentReply(agent);
+  if (/\b(price|pricing|cost|how much|precio|costo|cuánto|preço|custo|quanto)\b/i.test(text)) return t('chat.pricing');
+  if (/\b(contact|email|e-mail|correo|demo|pilot|piloto|meeting|reunión|reunião|llamada|ligação)\b/i.test(text)) return t('chat.contact');
+  return t('chat.fallback');
+}
+
+setLang(detectLang());
+</script>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
