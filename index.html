@@ -216,6 +216,13 @@ nav {
 .agent-name { font-size: 17px; font-weight: 700; color: #EDEFF2; line-height: 1.3; }
 .agent-desc { font-size: 13.5px; color: var(--slate); line-height: 1.6; flex-grow: 1; }
 .agent-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.agent-flow { list-style: none; display: flex; align-items: stretch; gap: 0; margin-top: 4px; padding: 14px 12px 12px; border-radius: 10px; background: color-mix(in srgb, var(--k) 6%, #0B1528); border: 1px solid color-mix(in srgb, var(--k) 22%, transparent); }
+.agent-flow li { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; position: relative; }
+.agent-flow li + li::before { content: ''; position: absolute; top: 13px; right: calc(50% + 18px); width: calc(100% - 36px); height: 2px; background: linear-gradient(90deg, color-mix(in srgb, var(--k) 25%, transparent), var(--k)); }
+.agent-flow li + li::after { content: ''; position: absolute; top: 9px; right: calc(50% + 16px); border: 5px solid transparent; border-left-color: var(--k); }
+.flow-n { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; font-weight: 700; color: var(--k); border: 1.5px solid var(--k); background: #0B1528; position: relative; z-index: 1; }
+.agent-flow li:last-child .flow-n { background: var(--k); color: #070B14; }
+.flow-t { font-size: 11.5px; font-weight: 600; line-height: 1.3; color: #cbd5e1; padding: 0 3px; }
 .tag {
   font-size: 11px; font-weight: 700; color: var(--cyan);
   background: var(--cyan-soft); border: 1px solid rgba(79,169,232,.18); padding: 3px 9px; border-radius: 5px;
@@ -746,6 +753,17 @@ function setLang(lang) {
   resetChat();
 }
 
+// 3-step flow diagram per agent (input -> processing -> output)
+const FLOWS = {
+  'c-sdi':      { en: ['Service orders', 'Check vs. specs', 'Ready to activate'], es: ['Órdenes de servicio', 'Validación vs. specs', 'Lista para activar'], pt: ['Ordens de serviço', 'Validação vs. specs', 'Pronta para ativar'] },
+  'c-noc':      { en: ['Live alarms', 'Correlation', 'Fix + closure'], es: ['Alarmas en vivo', 'Correlación', 'Remediación + cierre'], pt: ['Alarmes ao vivo', 'Correlação', 'Remediação + encerramento'] },
+  'c-survey':   { en: ['Site survey', 'DC power & RU', 'Purchase order'], es: ['Levantamiento', 'Energía DC y RU', 'Orden de compra'], pt: ['Levantamento', 'Energia DC e RU', 'Ordem de compra'] },
+  'c-field':    { en: ['Vendor alarm', 'Guided steps', 'Fault resolved'], es: ['Alarma del fabricante', 'Pasos guiados', 'Falla resuelta'], pt: ['Alarme do fabricante', 'Passos guiados', 'Falha resolvida'] },
+  'c-longhaul': { en: ['Requirements', 'Route analysis', 'Network design'], es: ['Requisitos', 'Análisis de ruta', 'Diseño de red'], pt: ['Requisitos', 'Análise de rota', 'Projeto de rede'] },
+  'c-iq':       { en: ['Inventory query', 'Feasibility', 'Work order'], es: ['Consulta de inventario', 'Factibilidad', 'Orden de trabajo'], pt: ['Consulta de inventário', 'Viabilidade', 'Ordem de trabalho'] },
+  'c-coord':    { en: ['Activities + crews', 'Overlap check', 'Daily plan'], es: ['Actividades + técnicos', 'Detección de traslapes', 'Plan del día'], pt: ['Atividades + técnicos', 'Detecção de conflitos', 'Plano do dia'] },
+};
+
 function renderAgents() {
   const grid = document.getElementById('agents-grid');
   grid.innerHTML = '';
@@ -769,6 +787,19 @@ function renderAgents() {
       s.textContent = tag;
       tags.appendChild(s);
     });
+    const steps = FLOWS[a.cls] && (FLOWS[a.cls][LANG] || FLOWS[a.cls].en);
+    if (steps) {
+      const ol = document.createElement('ol');
+      ol.className = 'agent-flow';
+      steps.forEach((label, i) => {
+        const li = document.createElement('li');
+        const n = document.createElement('span'); n.className = 'flow-n'; n.textContent = i + 1;
+        const tx = document.createElement('span'); tx.className = 'flow-t'; tx.textContent = label;
+        li.append(n, tx);
+        ol.appendChild(li);
+      });
+      card.appendChild(ol);
+    }
     grid.appendChild(card);
   });
 }
