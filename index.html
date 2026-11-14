@@ -165,17 +165,13 @@ nav {
 .stat-card .stat-value { font-size: 13.5px; line-height: 1.45; margin-top: 0; }
 
 @media(max-width: 760px) {
-  /* Message and CTA first; logo becomes a small accent below */
-  .hero { display: flex; flex-direction: column; gap: 4px; padding-top: 28px; }
-  .hero-badge { margin-bottom: 14px; }
-  .hero h1 { margin-bottom: 14px; }
-  .hero p { font-size: 16px; margin-bottom: 22px; }
-  .hero-visual { height: 190px; width: 100%; overflow: hidden; order: 2; }
-  .orb { width: 180px; height: 180px; }
-  .ring.r1 { width: 180px; height: 180px; }
-  .ring.r2 { width: 140px; height: 140px; }
-  .ring.r3 { width: 104px; height: 104px; }
-  .hero-logo { width: 96px; height: 96px; }
+  .hero { display: flex; flex-direction: column-reverse; gap: 8px; }
+  .hero-visual { height: 330px; width: 100%; overflow: hidden; }
+  .orb { width: 300px; height: 300px; }
+  .ring.r1 { width: min(86vw, 320px); height: min(86vw, 320px); }
+  .ring.r2 { width: min(66vw, 250px); height: min(66vw, 250px); }
+  .ring.r3 { width: min(48vw, 185px); height: min(48vw, 185px); }
+  .hero-logo { width: min(42vw, 170px); height: min(42vw, 170px); }
 }
 @media(max-width: 520px) { .hero-stats { grid-template-columns: 1fr; } }
 .stat-card.c-green { --k: #3DDC84; }
@@ -253,33 +249,6 @@ nav {
   transition: background .2s;
 }
 .agent-cta:hover { background: color-mix(in srgb, var(--k) 20%, transparent); color: var(--k); }
-
-/* EXAMPLE (illustrative) */
-.example-wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }
-@media(max-width: 760px) { .example-wrap { padding: 0 16px 60px; } }
-.example-note {
-  display: inline-block; font-size: 12px; font-weight: 600; color: #F2C98B; margin-bottom: 14px;
-  border: 1px dashed rgba(242,201,139,.5); border-radius: 6px; padding: 3px 10px;
-}
-.example-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-@media(max-width: 860px) { .example-grid { grid-template-columns: 1fr; } }
-.ex-col {
-  --k: var(--cyan);
-  background: var(--navy-2); border: 1px solid var(--line); border-top: 3px solid var(--k); border-radius: 14px; padding: 20px;
-}
-.ex-col.c-chk { --k: #F2C98B; } .ex-col.c-out { --k: #3DDC84; }
-.ex-step { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--k); margin-bottom: 4px; }
-.ex-col h3 { font-size: 16px; color: #EDEFF2; margin-bottom: 12px; }
-.ex-list { list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; line-height: 1.45; }
-.ex-list li { display: flex; gap: 8px; align-items: flex-start; }
-.ex-list .k { color: var(--muted); min-width: 92px; flex-shrink: 0; }
-.ex-list .v { color: #EDEFF2; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; overflow-wrap: anywhere; }
-.ex-ic { flex-shrink: 0; width: 18px; text-align: center; font-weight: 700; }
-.ex-ok { color: #3DDC84; } .ex-warn { color: #F2C98B; } .ex-bad { color: #FF7A8A; }
-.ex-status {
-  margin-top: 14px; padding: 10px 12px; border-radius: 9px; font-size: 13px; font-weight: 600;
-  color: #F2C98B; background: rgba(242,201,139,.1); border: 1px solid rgba(242,201,139,.35);
-}
 
 /* CONTACT */
 .contact-section { max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }
@@ -455,49 +424,6 @@ footer { border-top: 1px solid var(--line); padding: 28px 24px 96px; }
   <div class="agents-wrap"><div class="agents-grid" id="agents-grid"></div></div>
 </section>
 
-<section id="example" aria-labelledby="ex-title">
-  <div class="section-header">
-    <div class="section-label" data-i18n="ex.label"></div>
-    <h2 class="section-title" id="ex-title" data-i18n="ex.title"></h2>
-    <p class="section-sub" data-i18n="ex.sub"></p>
-  </div>
-  <div class="example-wrap">
-    <div class="example-note" data-i18n="ex.note"></div>
-    <div class="example-grid">
-      <div class="ex-col">
-        <div class="ex-step" data-i18n="ex.s1"></div>
-        <h3 data-i18n="ex.h1"></h3>
-        <ul class="ex-list">
-          <li><span class="k" data-i18n="ex.f.type"></span><span class="v">EPL 10G</span></li>
-          <li><span class="k" data-i18n="ex.f.aend"></span><span class="v">SITE-A / Rack 02</span></li>
-          <li><span class="k" data-i18n="ex.f.zend"></span><span class="v">SITE-Z / Rack 07</span></li>
-          <li><span class="k" data-i18n="ex.f.handoff"></span><span class="v">10GBASE-LR</span></li>
-          <li><span class="k" data-i18n="ex.f.vlan"></span><span class="v">—</span></li>
-          <li><span class="k" data-i18n="ex.f.date"></span><span class="v">T+10</span></li>
-        </ul>
-      </div>
-      <div class="ex-col c-chk">
-        <div class="ex-step" data-i18n="ex.s2"></div>
-        <h3 data-i18n="ex.h2"></h3>
-        <ul class="ex-list">
-          <li><span class="ex-ic ex-ok" aria-hidden="true">✓</span><span data-i18n="ex.c1"></span></li>
-          <li><span class="ex-ic ex-ok" aria-hidden="true">✓</span><span data-i18n="ex.c2"></span></li>
-          <li><span class="ex-ic ex-bad" aria-hidden="true">✕</span><span data-i18n="ex.c3"></span></li>
-          <li><span class="ex-ic ex-warn" aria-hidden="true">!</span><span data-i18n="ex.c4"></span></li>
-        </ul>
-      </div>
-      <div class="ex-col c-out">
-        <div class="ex-step" data-i18n="ex.s3"></div>
-        <h3 data-i18n="ex.h3"></h3>
-        <ul class="ex-list">
-          <li><span class="ex-ic ex-warn" aria-hidden="true">1</span><span data-i18n="ex.p1"></span></li>
-          <li><span class="ex-ic ex-warn" aria-hidden="true">2</span><span data-i18n="ex.p2"></span></li>
-        </ul>
-        <div class="ex-status" data-i18n="ex.status"></div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section class="contact-section" id="contact">
   <div class="section-header">
@@ -527,8 +453,8 @@ footer { border-top: 1px solid var(--line); padding: 28px 24px 96px; }
           <input id="f-email" name="email" type="email" required maxlength="120" autocomplete="email" class="form-input" data-i18n-ph="form.emailPh" />
         </div>
         <div class="form-group">
-          <label for="f-company"><span data-i18n="form.company"></span> <small data-i18n="form.optional"></small></label>
-          <input id="f-company" name="company" type="text" maxlength="120" autocomplete="organization" class="form-input" data-i18n-ph="form.companyPh" />
+          <label for="f-company"><span data-i18n="form.company"></span><span class="req" aria-hidden="true">*</span></label>
+          <input id="f-company" name="company" type="text" required maxlength="120" autocomplete="organization" class="form-input" data-i18n-ph="form.companyPh" />
         </div>
         <div class="form-group">
           <label for="f-interest"><span data-i18n="form.interest"></span><span class="req" aria-hidden="true">*</span></label>
@@ -585,7 +511,7 @@ const MAIL = '<a href="mailto:hello@monkyfi.com">hello@monkyfi.com</a>';
 const I18N = {
   en: {
     'meta.title': 'Monkyfi — AI Agents for Telecom Operations',
-    'nav.cta': "Request a demo",
+    'nav.cta': "Let's talk",
     'hero.badge': 'AI Agents · Telecom Operations',
     'hero.title1': 'AI agents built for',
     'hero.title2': 'telecom & infrastructure operators',
@@ -629,29 +555,6 @@ const I18N = {
     'chat.contact': 'You can reach us at ' + MAIL + ' or through the contact form on this page. We respond within one business day.',
     'chat.fallback': 'Good question. For specifics, the best path is a short conversation: write to ' + MAIL + ' or use the contact form on this page.',
     'agent.cta': "Ask about this agent",
-    'ex.label': "Example",
-    'ex.title': "How an agent works: Service Delivery Intelligence",
-    'ex.sub': "A simplified view of what the agent does with one service order before activation.",
-    'ex.note': "Illustrative example · fictional data",
-    'ex.s1': "1 · Input",
-    'ex.h1': "Service order",
-    'ex.f.type': "Service",
-    'ex.f.aend': "A-end",
-    'ex.f.zend': "Z-end",
-    'ex.f.handoff': "Handoff",
-    'ex.f.vlan': "VLAN",
-    'ex.f.date': "Due date",
-    'ex.s2': "2 · Review",
-    'ex.h2': "Parameter validation",
-    'ex.c1': "A-end and Z-end found in inventory",
-    'ex.c2': "Bandwidth matches the technical spec",
-    'ex.c3': "Handoff mismatch: order says LR, spec says SR",
-    'ex.c4': "VLAN missing on the order",
-    'ex.s3': "3 · Output",
-    'ex.h3': "Pending items and readiness",
-    'ex.p1': "Confirm handoff optic with the customer",
-    'ex.p2': "Request VLAN assignment",
-    'ex.status': "Status: not ready for activation · 2 pending items",
     'form.name': "Full name",
     'form.reqNote': "Required fields",
     'form.selected': "Selected agent",
@@ -661,7 +564,7 @@ const I18N = {
   },
   es: {
     'meta.title': 'Monkyfi — Agentes de IA para Operaciones Telecom',
-    'nav.cta': "Solicitar demo",
+    'nav.cta': "Hablemos",
     'hero.badge': 'Agentes de IA · Operaciones Telecom',
     'hero.title1': 'Agentes de IA creados para',
     'hero.title2': 'operadores de telecomunicaciones e infraestructura',
@@ -705,29 +608,6 @@ const I18N = {
     'chat.contact': 'Puedes escribirnos a ' + MAIL + ' o usar el formulario de contacto de esta página. Respondemos en un día hábil.',
     'chat.fallback': 'Buena pregunta. Para los detalles, lo mejor es una conversación breve: escríbenos a ' + MAIL + ' o usa el formulario de contacto de esta página.',
     'agent.cta': "Consultar este agente",
-    'ex.label': "Ejemplo",
-    'ex.title': "Cómo trabaja un agente: Service Delivery Intelligence",
-    'ex.sub': "Una vista simplificada de lo que hace el agente con una orden de servicio antes de la activación.",
-    'ex.note': "Ejemplo ilustrativo · datos ficticios",
-    'ex.s1': "1 · Entrada",
-    'ex.h1': "Orden de servicio",
-    'ex.f.type': "Servicio",
-    'ex.f.aend': "Extremo A",
-    'ex.f.zend': "Extremo Z",
-    'ex.f.handoff': "Entrega",
-    'ex.f.vlan': "VLAN",
-    'ex.f.date': "Fecha",
-    'ex.s2': "2 · Revisión",
-    'ex.h2': "Validación de parámetros",
-    'ex.c1': "Extremos A y Z encontrados en el inventario",
-    'ex.c2': "El ancho de banda coincide con la especificación",
-    'ex.c3': "Discrepancia de entrega: la orden dice LR, la especificación dice SR",
-    'ex.c4': "Falta la VLAN en la orden",
-    'ex.s3': "3 · Salida",
-    'ex.h3': "Pendientes y preparación",
-    'ex.p1': "Confirmar con el cliente el óptico de entrega",
-    'ex.p2': "Solicitar la asignación de VLAN",
-    'ex.status': "Estado: no lista para activación · 2 pendientes",
     'form.name': "Nombre completo",
     'form.reqNote': "Campos obligatorios",
     'form.selected': "Agente seleccionado",
@@ -737,7 +617,7 @@ const I18N = {
   },
   pt: {
     'meta.title': 'Monkyfi — Agentes de IA para Operações de Telecom',
-    'nav.cta': "Solicitar demo",
+    'nav.cta': "Vamos conversar",
     'hero.badge': 'Agentes de IA · Operações de Telecom',
     'hero.title1': 'Agentes de IA criados para',
     'hero.title2': 'operadoras de telecomunicações e infraestrutura',
@@ -781,29 +661,6 @@ const I18N = {
     'chat.contact': 'Você pode nos escrever em ' + MAIL + ' ou usar o formulário de contato desta página. Respondemos em um dia útil.',
     'chat.fallback': 'Boa pergunta. Para os detalhes, o melhor é uma conversa rápida: escreva para ' + MAIL + ' ou use o formulário de contato desta página.',
     'agent.cta': "Consultar este agente",
-    'ex.label': "Exemplo",
-    'ex.title': "Como um agente trabalha: Service Delivery Intelligence",
-    'ex.sub': "Uma visão simplificada do que o agente faz com uma ordem de serviço antes da ativação.",
-    'ex.note': "Exemplo ilustrativo · dados fictícios",
-    'ex.s1': "1 · Entrada",
-    'ex.h1': "Ordem de serviço",
-    'ex.f.type': "Serviço",
-    'ex.f.aend': "Ponta A",
-    'ex.f.zend': "Ponta Z",
-    'ex.f.handoff': "Entrega",
-    'ex.f.vlan': "VLAN",
-    'ex.f.date': "Data",
-    'ex.s2': "2 · Revisão",
-    'ex.h2': "Validação de parâmetros",
-    'ex.c1': "Pontas A e Z encontradas no inventário",
-    'ex.c2': "A banda corresponde à especificação técnica",
-    'ex.c3': "Divergência de entrega: a ordem diz LR, a especificação diz SR",
-    'ex.c4': "VLAN ausente na ordem",
-    'ex.s3': "3 · Saída",
-    'ex.h3': "Pendências e prontidão",
-    'ex.p1': "Confirmar com o cliente o óptico de entrega",
-    'ex.p2': "Solicitar a atribuição de VLAN",
-    'ex.status': "Status: não pronta para ativação · 2 pendências",
     'form.name': "Nome completo",
     'form.reqNote': "Campos obrigatórios",
     'form.selected': "Agente selecionado",
@@ -1059,7 +916,7 @@ async function handleContactSubmit(e) {
     botcheck: false,
     name: String(fd.get('full_name') || '').trim(),
     email: fd.get('email'),
-    company: String(fd.get('company') || '').trim() || '(not provided)',
+    company: String(fd.get('company') || '').trim(),
     interest: interest,
     language: LANG.toUpperCase(),
     message: fd.get('details') || '(no message)',
