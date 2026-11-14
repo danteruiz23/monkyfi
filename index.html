@@ -23,9 +23,12 @@
   --cyan-soft: rgba(79,169,232,.12);
   --navy-2: #0E1B33;
   --ink: #070B14;
-  --slate: #94a3b8;
-  --line: rgba(148,163,184,.12);
+  --slate: #a3b1c4;
+  --muted: #8b9bb0;
+  --line: rgba(148,163,184,.18);
 }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 6px; }
+.req { color: #F2C98B; margin-left: 2px; }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 body {
@@ -62,7 +65,7 @@ nav {
 .lang-switch button {
   background: transparent; border: none; color: var(--slate);
   font-family: inherit; font-size: 12px; font-weight: 600;
-  padding: 8px 10px; cursor: pointer; transition: background .2s, color .2s;
+  padding: 8px 10px; min-height: 40px; min-width: 40px; cursor: pointer; transition: background .2s, color .2s;
 }
 .lang-switch button:hover { color: #EDEFF2; }
 .lang-switch button[aria-pressed="true"] { background: var(--cyan-soft); color: var(--cyan); }
@@ -74,9 +77,15 @@ nav {
   transition: transform .2s, box-shadow .2s;
 }
 .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 0 32px rgba(79,169,232,.5); color: var(--ink); }
-@media(max-width: 560px) { .nav-cta { display: none; } }
 .brand-text small { white-space: nowrap; }
-@media(max-width: 420px) { .nav-inner { padding: 12px 16px; } .brand-text small { display: none; } .nav-end { gap: 8px; } }
+@media(max-width: 560px) {
+  .nav-inner { padding: 10px 16px; }
+  .nav-cta { padding: 9px 12px; font-size: 13px; min-height: 40px; display: inline-flex; align-items: center; }
+  .brand-text small { display: none; }
+  .nav-end { gap: 8px; }
+  .lang-switch button { padding: 8px 7px; min-width: 34px; }
+}
+@media(max-width: 400px) { .brand-text { display: none; } }
 
 /* HERO */
 .hero {
@@ -137,7 +146,12 @@ nav {
   position: relative; z-index: 1; width: 290px; height: 290px; border-radius: 50%;
   object-fit: cover; box-shadow: 0 0 40px rgba(79,169,232,.22), 0 0 0 1px rgba(79,169,232,.25);
 }
-@media (prefers-reduced-motion: reduce) { .orb, .ring, .hero-badge span { animation: none; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .orb, .ring, .hero-badge span { animation: none; }
+  *, *::before, *::after { transition-duration: .01ms !important; }
+  .agent-card:hover, .btn-primary:hover, .form-submit:hover, .nav-cta:hover { transform: none; }
+}
 
 /* Stat tiles under the hero text */
 .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 36px; }
@@ -228,6 +242,14 @@ nav {
   background: var(--cyan-soft); border: 1px solid rgba(79,169,232,.18); padding: 3px 9px; border-radius: 5px;
 }
 
+.agent-cta {
+  align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; min-height: 40px;
+  padding: 8px 14px; border-radius: 8px; font-family: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer;
+  color: var(--k); background: color-mix(in srgb, var(--k) 10%, transparent); border: 1px solid color-mix(in srgb, var(--k) 40%, transparent);
+  transition: background .2s;
+}
+.agent-cta:hover { background: color-mix(in srgb, var(--k) 20%, transparent); color: var(--k); }
+
 /* CONTACT */
 .contact-section { max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }
 .contact-section .section-header { padding-left: 0; padding-right: 0; }
@@ -246,15 +268,17 @@ nav {
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 @media(max-width: 500px) { .form-row { grid-template-columns: 1fr; gap: 0; } }
 .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-.form-group label { font-size: 12px; font-weight: 600; color: var(--slate); text-transform: uppercase; letter-spacing: .06em; }
-.form-group label small { color: #64748b; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 12px; }
+.form-group label { font-size: 12.5px; font-weight: 600; color: #cbd5e1; text-transform: uppercase; letter-spacing: .06em; }
+.form-group label small { color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 12.5px; }
 .form-input, .form-select, .form-textarea {
-  padding: 11px 14px; border-radius: 9px; width: 100%;
-  background: rgba(10,20,38,.8); border: 1px solid rgba(148,163,184,.15);
-  color: #EDEFF2; font-family: inherit; font-size: 14px; outline: none; transition: border-color .2s;
+  padding: 12px 14px; border-radius: 9px; width: 100%; min-height: 46px;
+  background: rgba(10,20,38,.8); border: 1px solid rgba(148,163,184,.32);
+  color: #EDEFF2; font-family: inherit; font-size: 16px; outline: none; transition: border-color .2s, box-shadow .2s;
 }
-.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--cyan); }
-.form-input::placeholder, .form-textarea::placeholder { color: #64748b; }
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(79,169,232,.25); }
+.form-input[aria-invalid="true"], .form-select[aria-invalid="true"] { border-color: #FF7A8A; }
+.form-input::placeholder, .form-textarea::placeholder { color: #7d8ca2; }
+.form-note { font-size: 12.5px; color: var(--muted); margin-bottom: 16px; }
 .form-select { cursor: pointer; }
 .form-select option { background: #0A1426; }
 .form-textarea { resize: vertical; min-height: 100px; }
@@ -276,9 +300,9 @@ nav {
 /* FOOTER */
 footer { border-top: 1px solid var(--line); padding: 28px 24px 96px; }
 .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-.footer-left { font-size: 13px; color: #64748b; }
+.footer-left { font-size: 13px; color: var(--muted); }
 .footer-right { display: flex; gap: 20px; flex-wrap: wrap; }
-.footer-right a { font-size: 13px; color: #64748b; }
+.footer-right a { font-size: 13px; color: var(--muted); padding: 6px 0; }
 .footer-right a:hover { color: var(--cyan); }
 
 /* CHATBOT */
@@ -324,13 +348,25 @@ footer { border-top: 1px solid var(--line); padding: 28px 24px 96px; }
   color: #EDEFF2; font-family: inherit; font-size: 13px; outline: none;
 }
 .chat-input:focus { border-color: var(--cyan); }
-.chat-input::placeholder { color: #64748b; }
+.chat-input::placeholder { color: #7d8ca2; }
 .chat-send {
-  width: 36px; height: 36px; border-radius: 8px; background: var(--cyan); border: none; cursor: pointer;
+  width: 42px; height: 42px; border-radius: 8px; background: var(--cyan); border: none; cursor: pointer;
   color: var(--ink); font-size: 15px; flex-shrink: 0;
 }
+.chat-close {
+  margin-left: auto; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line);
+  background: transparent; color: #EDEFF2; font-size: 18px; cursor: pointer;
+}
+.chat-close:hover { background: var(--cyan-soft); }
+.msg .chat-act {
+  display: inline-block; margin-top: 10px; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--cyan);
+  background: var(--cyan-soft); color: var(--cyan); font-family: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer;
+}
+.msg .chat-q { display: block; margin-top: 8px; color: #EDEFF2; }
 @media(max-width: 600px) {
-  .chat-window { width: calc(100vw - 32px); right: 16px; bottom: 86px; }
+  .chat-window { width: calc(100vw - 24px); right: 12px; bottom: 12px; height: auto; top: 76px; max-height: none; z-index: 101; }
+  .chat-input { font-size: 16px; }
+  .chat-fab.open { display: none; }
   .chat-fab { right: 16px; bottom: 20px; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
 }
@@ -388,6 +424,7 @@ footer { border-top: 1px solid var(--line); padding: 28px 24px 96px; }
   <div class="agents-wrap"><div class="agents-grid" id="agents-grid"></div></div>
 </section>
 
+
 <section class="contact-section" id="contact">
   <div class="section-header">
     <div class="section-label" data-i18n="contact.label"></div>
@@ -406,26 +443,21 @@ footer { border-top: 1px solid var(--line); padding: 28px 24px 96px; }
         <input type="hidden" name="access_key" value="645f7dca-b0f1-4469-9541-83dc7a825ec7" />
         <input type="hidden" name="subject" value="New contact request — monkyfi.com" />
         <input type="hidden" name="from_name" value="Monkyfi Website" />
-        <div class="form-row">
-          <div class="form-group">
-            <label for="f-first" data-i18n="form.first"></label>
-            <input id="f-first" name="first_name" type="text" required maxlength="80" autocomplete="given-name" class="form-input" />
-          </div>
-          <div class="form-group">
-            <label for="f-last" data-i18n="form.last"></label>
-            <input id="f-last" name="last_name" type="text" required maxlength="80" autocomplete="family-name" class="form-input" />
-          </div>
+        <p class="form-note"><span class="req" aria-hidden="true">*</span> <span data-i18n="form.reqNote"></span></p>
+        <div class="form-group">
+          <label for="f-name"><span data-i18n="form.name"></span><span class="req" aria-hidden="true">*</span></label>
+          <input id="f-name" name="full_name" type="text" required maxlength="120" autocomplete="name" class="form-input" />
         </div>
         <div class="form-group">
-          <label for="f-email" data-i18n="form.email"></label>
+          <label for="f-email"><span data-i18n="form.email"></span><span class="req" aria-hidden="true">*</span></label>
           <input id="f-email" name="email" type="email" required maxlength="120" autocomplete="email" class="form-input" data-i18n-ph="form.emailPh" />
         </div>
         <div class="form-group">
-          <label for="f-company" data-i18n="form.company"></label>
+          <label for="f-company"><span data-i18n="form.company"></span><span class="req" aria-hidden="true">*</span></label>
           <input id="f-company" name="company" type="text" required maxlength="120" autocomplete="organization" class="form-input" data-i18n-ph="form.companyPh" />
         </div>
         <div class="form-group">
-          <label for="f-interest" data-i18n="form.interest"></label>
+          <label for="f-interest"><span data-i18n="form.interest"></span><span class="req" aria-hidden="true">*</span></label>
           <select id="f-interest" name="interest" class="form-select" required></select>
         </div>
         <div class="form-group">
@@ -456,18 +488,19 @@ footer { border-top: 1px solid var(--line); padding: 28px 24px 96px; }
   </div>
 </footer>
 
-<button class="chat-fab" id="chat-fab" onclick="toggleChat()" data-i18n-aria="chat.open">
+<button class="chat-fab" id="chat-fab" onclick="toggleChat()" data-i18n-aria="chat.open" aria-expanded="false" aria-controls="chat-window">
   <span class="fab-icon">💬</span><span class="fab-close">✕</span>
 </button>
-<div class="chat-window" id="chat-window" role="dialog">
+<div class="chat-window" id="chat-window" role="dialog" aria-labelledby="chat-title-lbl">
   <div class="chat-header">
     <div class="chat-avatar">🤖</div>
-    <div class="chat-header-info"><b data-i18n="chat.title"></b><small data-i18n="chat.online"></small></div>
+    <div class="chat-header-info"><b id="chat-title-lbl" data-i18n="chat.title"></b><small data-i18n="chat.online"></small></div>
+    <button type="button" class="chat-close" onclick="toggleChat(false)" data-i18n-aria="chat.close">✕</button>
   </div>
   <div class="chat-messages" id="chat-messages" aria-live="polite"></div>
   <div class="chat-chips" id="chat-chips"></div>
   <div class="chat-input-row">
-    <input type="text" class="chat-input" id="chat-input" maxlength="500" data-i18n-ph="chat.placeholder" onkeydown="if(event.key==='Enter') sendChat()" />
+    <input type="text" class="chat-input" id="chat-input" maxlength="500" data-i18n-ph="chat.placeholder" data-i18n-aria="chat.placeholder" onkeydown="if(event.key==='Enter') sendChat()" />
     <button class="chat-send" onclick="sendChat()" data-i18n-aria="chat.send">➤</button>
   </div>
 </div>
@@ -478,7 +511,7 @@ const MAIL = '<a href="mailto:hello@monkyfi.com">hello@monkyfi.com</a>';
 const I18N = {
   en: {
     'meta.title': 'Monkyfi — AI Agents for Telecom Operations',
-    'nav.cta': 'Get in Touch',
+    'nav.cta': "Contact us",
     'hero.badge': 'AI Agents · Telecom Operations',
     'hero.title1': 'AI agents built for',
     'hero.title2': 'telecom & infrastructure operators',
@@ -521,10 +554,17 @@ const I18N = {
     'chat.pricing': 'Engagements are scoped per project. The best path is a 30-minute call where we map your challenge to the right agent. Write to ' + MAIL + ' or use the contact form.',
     'chat.contact': 'You can reach us at ' + MAIL + ' or through the contact form on this page. We respond within one business day.',
     'chat.fallback': 'Good question. For specifics, the best path is a short conversation: write to ' + MAIL + ' or use the contact form on this page.',
+    'agent.cta': "Ask about this agent",
+    'form.name': "Full name",
+    'form.reqNote': "Required fields",
+    'form.selected': "Selected agent",
+    'chat.close': "Close chat",
+    'chat.qIntro': "To point you in the right direction:",
+    'chat.ask': "Ask about this agent",
   },
   es: {
     'meta.title': 'Monkyfi — Agentes de IA para Operaciones Telecom',
-    'nav.cta': 'Contáctanos',
+    'nav.cta': "Contáctanos",
     'hero.badge': 'Agentes de IA · Operaciones Telecom',
     'hero.title1': 'Agentes de IA creados para',
     'hero.title2': 'operadores de telecomunicaciones e infraestructura',
@@ -567,10 +607,17 @@ const I18N = {
     'chat.pricing': 'Cada proyecto se cotiza según su alcance. Lo mejor es una llamada de 30 minutos para identificar el agente adecuado para tu desafío. Escríbenos a ' + MAIL + ' o usa el formulario de contacto.',
     'chat.contact': 'Puedes escribirnos a ' + MAIL + ' o usar el formulario de contacto de esta página. Respondemos en un día hábil.',
     'chat.fallback': 'Buena pregunta. Para los detalles, lo mejor es una conversación breve: escríbenos a ' + MAIL + ' o usa el formulario de contacto de esta página.',
+    'agent.cta': "Consultar este agente",
+    'form.name': "Nombre completo",
+    'form.reqNote': "Campos obligatorios",
+    'form.selected': "Agente seleccionado",
+    'chat.close': "Cerrar chat",
+    'chat.qIntro': "Para orientarte mejor:",
+    'chat.ask': "Consultar sobre este agente",
   },
   pt: {
     'meta.title': 'Monkyfi — Agentes de IA para Operações de Telecom',
-    'nav.cta': 'Fale conosco',
+    'nav.cta': "Fale conosco",
     'hero.badge': 'Agentes de IA · Operações de Telecom',
     'hero.title1': 'Agentes de IA criados para',
     'hero.title2': 'operadoras de telecomunicações e infraestrutura',
@@ -613,6 +660,13 @@ const I18N = {
     'chat.pricing': 'Cada projeto é orçado conforme o escopo. O melhor caminho é uma conversa de 30 minutos para identificar o agente certo para o seu desafio. Escreva para ' + MAIL + ' ou use o formulário de contato.',
     'chat.contact': 'Você pode nos escrever em ' + MAIL + ' ou usar o formulário de contato desta página. Respondemos em um dia útil.',
     'chat.fallback': 'Boa pergunta. Para os detalhes, o melhor é uma conversa rápida: escreva para ' + MAIL + ' ou use o formulário de contato desta página.',
+    'agent.cta': "Consultar este agente",
+    'form.name': "Nome completo",
+    'form.reqNote': "Campos obrigatórios",
+    'form.selected': "Agente selecionado",
+    'chat.close': "Fechar chat",
+    'chat.qIntro': "Para orientar melhor:",
+    'chat.ask': "Consultar sobre este agente",
   },
 };
 
@@ -767,7 +821,7 @@ const FLOWS = {
 function renderAgents() {
   const grid = document.getElementById('agents-grid');
   grid.innerHTML = '';
-  AGENTS.forEach(a => {
+  AGENTS.forEach((a, idx) => {
     const d = a[LANG];
     const card = document.createElement('article');
     card.className = 'agent-card ' + a.cls;
@@ -800,20 +854,40 @@ function renderAgents() {
       });
       card.appendChild(ol);
     }
+    const cta = document.createElement('button');
+    cta.type = 'button';
+    cta.className = 'agent-cta';
+    cta.textContent = t('agent.cta') + ' →';
+    cta.setAttribute('aria-label', t('agent.cta') + ': ' + d.name);
+    cta.addEventListener('click', () => consultAgent(idx));
+    card.appendChild(cta);
     grid.appendChild(card);
   });
 }
 
+// Jump to the form with the agent preselected (header offset handled by scroll-padding-top).
+function consultAgent(idx) {
+  const sel = document.getElementById('f-interest');
+  sel.value = 'agent-' + idx;
+  sel.removeAttribute('aria-invalid');
+  if (chatOpen && window.matchMedia('(max-width: 600px)').matches) toggleChat(false);
+  const form = document.getElementById('contact-form');
+  if (form.style.display === 'none') { form.style.display = ''; document.getElementById('form-success').style.display = 'none'; }
+  document.getElementById('contact').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  setTimeout(() => document.getElementById('f-name').focus({ preventScroll: true }), 450);
+}
+
 function renderInterestOptions() {
   const sel = document.getElementById('f-interest');
-  const current = sel.selectedIndex;
+  const current = sel.value; // keep the chosen agent across language changes
   sel.innerHTML = '';
   const ph = new Option(t('form.interestPh'), '');
   ph.disabled = true;
   sel.add(ph);
   AGENTS.forEach((a, i) => sel.add(new Option(a[LANG].name, 'agent-' + i)));
   sel.add(new Option(t('form.general'), 'general'));
-  sel.selectedIndex = current > 0 ? current : 0;
+  sel.value = current || '';
+  if (!sel.value) sel.selectedIndex = 0;
 }
 
 // --- Contact form ---
@@ -824,18 +898,25 @@ async function handleContactSubmit(e) {
   const btn = form.querySelector('.form-submit');
   err.textContent = '';
   if (form.botcheck.checked) return; // honeypot: only bots tick the hidden box
-  if (!form.checkValidity()) { err.textContent = t('form.invalid'); form.reportValidity(); return; }
+  form.querySelectorAll('[required]').forEach(el => el.setAttribute('aria-invalid', String(!el.checkValidity())));
+  if (!form.checkValidity()) {
+    err.textContent = t('form.invalid');
+    const first = form.querySelector('[aria-invalid="true"]');
+    if (first) first.focus();
+    return;
+  }
 
   const fd = new FormData(form);
   const interest = form.interest.options[form.interest.selectedIndex].text;
+  // Payload keys unchanged for Web3Forms: name, email, company, interest, language, message.
   const payload = {
     access_key: fd.get('access_key'),
     subject: fd.get('subject') + ' — ' + interest,
     from_name: fd.get('from_name'),
     botcheck: false,
-    name: (fd.get('first_name') + ' ' + fd.get('last_name')).trim(),
+    name: String(fd.get('full_name') || '').trim(),
     email: fd.get('email'),
-    company: fd.get('company'),
+    company: String(fd.get('company') || '').trim(),
     interest: interest,
     language: LANG.toUpperCase(),
     message: fd.get('details') || '(no message)',
@@ -868,16 +949,22 @@ async function handleContactSubmit(e) {
 
 // --- Chatbot ---
 let chatOpen = false;
+let chatAgent = null; // index of the agent the visitor picked; survives language changes
 
-function toggleChat() {
-  chatOpen = !chatOpen;
-  document.getElementById('chat-fab').classList.toggle('open', chatOpen);
+function toggleChat(force) {
+  chatOpen = typeof force === 'boolean' ? force : !chatOpen;
+  const fab = document.getElementById('chat-fab');
+  fab.classList.toggle('open', chatOpen);
+  fab.setAttribute('aria-expanded', String(chatOpen));
   document.getElementById('chat-window').classList.toggle('open', chatOpen);
   if (chatOpen) {
     if (!document.getElementById('chat-messages').children.length) initChat();
     document.getElementById('chat-input').focus();
+  } else {
+    fab.focus();
   }
 }
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && chatOpen) toggleChat(false); });
 
 function resetChat() {
   document.getElementById('chat-messages').innerHTML = '';
@@ -887,6 +974,11 @@ function resetChat() {
 
 function initChat() {
   addBotMsg(t('chat.greeting'));
+  if (chatAgent !== null) { // re-render the chosen agent in the new language
+    addUserMsg(AGENTS[chatAgent][LANG].name);
+    addBotMsg(agentReply(AGENTS[chatAgent]));
+    return;
+  }
   const c = document.getElementById('chat-chips');
   CHIP_AGENTS.forEach(i => {
     const a = AGENTS[i];
@@ -895,12 +987,30 @@ function initChat() {
     btn.textContent = a.icon + ' ' + a[LANG].name;
     btn.onclick = () => {
       c.innerHTML = '';
+      chatAgent = i;
       addUserMsg(a[LANG].name);
       setTimeout(() => addBotMsg(agentReply(a)), 350);
     };
     c.appendChild(btn);
   });
 }
+
+// Delegated handler for the "ask about this agent" button inside bot messages.
+document.getElementById('chat-messages').addEventListener('click', e => {
+  const b = e.target.closest('[data-consult]');
+  if (b) consultAgent(Number(b.dataset.consult));
+});
+
+// One diagnostic question per agent.
+const AGENT_Q = {
+  'c-sdi':      { en: 'How many service orders does your team process per month, and where do discrepancies usually show up?', es: '¿Cuántas órdenes de servicio procesa tu equipo al mes y dónde suelen aparecer las discrepancias?', pt: 'Quantas ordens de serviço sua equipe processa por mês e onde costumam aparecer as divergências?' },
+  'c-noc':      { en: 'How many alarms does your NOC handle per shift, and how much of it is noise?', es: '¿Cuántas alarmas maneja tu NOC por turno y cuánto de eso es ruido?', pt: 'Quantos alarmes seu NOC trata por turno e quanto disso é ruído?' },
+  'c-survey':   { en: 'How are site surveys captured today: paper, spreadsheets, or a tool?', es: '¿Cómo se registran hoy los levantamientos de sitio: papel, hojas de cálculo o alguna herramienta?', pt: 'Como os levantamentos de site são registrados hoje: papel, planilhas ou alguma ferramenta?' },
+  'c-field':    { en: 'Do your technicians work across several vendors and at sites with poor connectivity?', es: '¿Tus técnicos trabajan con varios fabricantes y en sitios con mala conectividad?', pt: 'Seus técnicos trabalham com vários fabricantes e em sites com pouca conectividade?' },
+  'c-longhaul': { en: 'Are you planning a terrestrial route, a submarine segment, or both?', es: '¿Estás planificando una ruta terrestre, un tramo submarino o ambos?', pt: 'Você está planejando uma rota terrestre, um trecho submarino ou ambos?' },
+  'c-iq':       { en: 'Where does your carrier and cable inventory live today?', es: '¿Dónde está hoy tu inventario de carriers y cables?', pt: 'Onde está hoje o seu inventário de carriers e cabos?' },
+  'c-coord':    { en: 'How many technicians and zones do you coordinate, and how do you catch schedule conflicts today?', es: '¿Cuántos técnicos y zonas coordinas y cómo detectas hoy los conflictos de agenda?', pt: 'Quantos técnicos e zonas você coordena e como detecta hoje os conflitos de agenda?' },
+};
 
 // Bot messages only ever come from our own fixed strings, never from user input.
 function addBotMsg(html) {
@@ -924,11 +1034,16 @@ function appendMsg(el) {
   msgs.scrollTop = msgs.scrollHeight;
 }
 
+// Built only from our own fixed strings (escaped anyway).
 function agentReply(a) {
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
   const d = a[LANG];
-  const strong = document.createElement('strong');
-  strong.textContent = d.name;
-  return strong.outerHTML + ': ' + d.desc.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const idx = AGENTS.indexOf(a);
+  const short = d.desc.split(/(?<=\.)\s/)[0];
+  const q = AGENT_Q[a.cls] ? (AGENT_Q[a.cls][LANG] || AGENT_Q[a.cls].en) : '';
+  return '<strong>' + esc(d.name) + '</strong>: ' + esc(short) +
+    (q ? '<span class="chat-q">' + esc(t('chat.qIntro')) + ' ' + esc(q) + '</span>' : '') +
+    '<button type="button" class="chat-act" data-consult="' + idx + '">' + esc(t('chat.ask')) + ' →</button>';
 }
 
 function sendChat() {
@@ -948,7 +1063,7 @@ function respond(text) {
 
   const lower = text.toLowerCase();
   const agent = AGENTS.find(a => a.keys.some(k => lower.includes(k)));
-  if (agent) return agentReply(agent);
+  if (agent) { chatAgent = AGENTS.indexOf(agent); return agentReply(agent); }
   if (/\b(price|pricing|cost|how much|precio|costo|cuánto|preço|custo|quanto)\b/i.test(text)) return t('chat.pricing');
   if (/\b(contact|email|e-mail|correo|demo|pilot|piloto|meeting|reunión|reunião|llamada|ligação)\b/i.test(text)) return t('chat.contact');
   return t('chat.fallback');
